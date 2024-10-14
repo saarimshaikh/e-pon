@@ -130,6 +130,15 @@ exports.Prisma.UsersScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.SavingsScalarFieldEnum = {
+  saving_id: 'saving_id',
+  user_id: 'user_id',
+  group_id: 'group_id',
+  amount: 'amount',
+  type: 'type',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -140,9 +149,18 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.SavingTypes = exports.$Enums.SavingTypes = {
+  personal: 'personal',
+  group: 'group'
+};
 
 exports.Prisma.ModelName = {
-  Users: 'Users'
+  Users: 'Users',
+  Savings: 'Savings'
 };
 
 /**
