@@ -15,30 +15,39 @@ datasource db {
 }
 
 model Users {
-  user_id    String    @id @default(uuid()) @db.Uuid
+  user_id    String   @id @default(uuid()) @db.Uuid
   name       String
-  email      String    @unique
+  email      String   @unique
   password   String
-  created_at DateTime  @default(now())
-  savings    Savings[]
+  created_at DateTime @default(now())
+
+  //Relations
+  savings Savings[]
+  groups  Groups[]  @relation("GroupCreator")
 }
 
 model Savings {
-  saving_id String @id @default(uuid()) @db.Uuid
-
-  user_id String @db.Uuid
-
-  group_id String? @db.Uuid
-
-  amount Decimal @db.Decimal(10, 2)
-
-  type SavingTypes
-
-  created_at DateTime @default(now())
-
+  saving_id  String      @id @default(uuid()) @db.Uuid
+  user_id    String      @db.Uuid
+  group_id   String?     @db.Uuid
+  amount     Decimal     @db.Decimal(10, 2)
+  type       SavingTypes
+  created_at DateTime    @default(now())
   // Relations 
 
-  user Users @relation(fields: [user_id], references: [user_id])
+  user  Users   @relation(fields: [user_id], references: [user_id])
+  group Groups? @relation(fields: [group_id], references: [group_id])
+}
+
+model Groups {
+  group_id   String   @id @default(uuid()) @db.Uuid
+  group_name String
+  created_by String   @db.Uuid
+  created_at DateTime @default(now())
+
+  // Relations
+  creator Users     @relation("GroupCreator", fields: [created_by], references: [user_id])
+  savings Savings[]
 }
 
 enum SavingTypes {

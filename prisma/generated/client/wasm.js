@@ -139,6 +139,13 @@ exports.Prisma.SavingsScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.GroupsScalarFieldEnum = {
+  group_id: 'group_id',
+  group_name: 'group_name',
+  created_by: 'created_by',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -160,7 +167,8 @@ exports.SavingTypes = exports.$Enums.SavingTypes = {
 
 exports.Prisma.ModelName = {
   Users: 'Users',
-  Savings: 'Savings'
+  Savings: 'Savings',
+  Groups: 'Groups'
 };
 
 /**
