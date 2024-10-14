@@ -10,13 +10,14 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql" // Adjus the provider based on your database
   url      = env("DATABASE_URL")
 }
 
 model Users {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  name      String?
-  email     String   @unique
+  user_id    String   @id @default(uuid()) @db.Uuid
+  name       String
+  email      String   @unique
+  password   String
+  created_at DateTime @default(now())
 }
