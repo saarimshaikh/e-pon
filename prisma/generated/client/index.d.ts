@@ -18,6 +18,28 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type Users = $Result.DefaultSelection<Prisma.$UsersPayload>
+/**
+ * Model Savings
+ * 
+ */
+export type Savings = $Result.DefaultSelection<Prisma.$SavingsPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const SavingTypes: {
+  personal: 'personal',
+  group: 'group'
+};
+
+export type SavingTypes = (typeof SavingTypes)[keyof typeof SavingTypes]
+
+}
+
+export type SavingTypes = $Enums.SavingTypes
+
+export const SavingTypes: typeof $Enums.SavingTypes
 
 /**
  * ##  Prisma Client ʲˢ
@@ -151,6 +173,16 @@ export class PrismaClient<
     * ```
     */
   get users(): Prisma.UsersDelegate<ExtArgs>;
+
+  /**
+   * `prisma.savings`: Exposes CRUD operations for the **Savings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Savings
+    * const savings = await prisma.savings.findMany()
+    * ```
+    */
+  get savings(): Prisma.SavingsDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -592,7 +624,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Users: 'Users'
+    Users: 'Users',
+    Savings: 'Savings'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -608,7 +641,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "users"
+      modelProps: "users" | "savings"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -679,6 +712,76 @@ export namespace Prisma {
           count: {
             args: Prisma.UsersCountArgs<ExtArgs>
             result: $Utils.Optional<UsersCountAggregateOutputType> | number
+          }
+        }
+      }
+      Savings: {
+        payload: Prisma.$SavingsPayload<ExtArgs>
+        fields: Prisma.SavingsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SavingsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SavingsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsPayload>
+          }
+          findFirst: {
+            args: Prisma.SavingsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SavingsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsPayload>
+          }
+          findMany: {
+            args: Prisma.SavingsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsPayload>[]
+          }
+          create: {
+            args: Prisma.SavingsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsPayload>
+          }
+          createMany: {
+            args: Prisma.SavingsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SavingsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsPayload>[]
+          }
+          delete: {
+            args: Prisma.SavingsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsPayload>
+          }
+          update: {
+            args: Prisma.SavingsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsPayload>
+          }
+          deleteMany: {
+            args: Prisma.SavingsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SavingsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.SavingsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SavingsPayload>
+          }
+          aggregate: {
+            args: Prisma.SavingsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSavings>
+          }
+          groupBy: {
+            args: Prisma.SavingsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SavingsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SavingsCountArgs<ExtArgs>
+            result: $Utils.Optional<SavingsCountAggregateOutputType> | number
           }
         }
       }
@@ -837,6 +940,36 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type UsersCountOutputType
+   */
+
+  export type UsersCountOutputType = {
+    savings: number
+  }
+
+  export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    savings?: boolean | UsersCountOutputTypeCountSavingsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsersCountOutputType
+     */
+    select?: UsersCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountSavingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavingsWhereInput
+  }
 
 
   /**
@@ -1007,6 +1140,8 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     created_at?: boolean
+    savings?: boolean | Users$savingsArgs<ExtArgs>
+    _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
   export type UsersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1025,10 +1160,17 @@ export namespace Prisma {
     created_at?: boolean
   }
 
+  export type UsersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    savings?: boolean | Users$savingsArgs<ExtArgs>
+    _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UsersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UsersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Users"
-    objects: {}
+    objects: {
+      savings: Prisma.$SavingsPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       user_id: string
       name: string
@@ -1399,6 +1541,7 @@ export namespace Prisma {
    */
   export interface Prisma__UsersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    savings<T extends Users$savingsArgs<ExtArgs> = {}>(args?: Subset<T, Users$savingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1446,6 +1589,10 @@ export namespace Prisma {
      */
     select?: UsersSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where: UsersWhereUniqueInput
@@ -1460,6 +1607,10 @@ export namespace Prisma {
      */
     select?: UsersSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where: UsersWhereUniqueInput
@@ -1473,6 +1624,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Users
      */
     select?: UsersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
     /**
      * Filter, which Users to fetch.
      */
@@ -1518,6 +1673,10 @@ export namespace Prisma {
      */
     select?: UsersSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UsersWhereInput
@@ -1562,6 +1721,10 @@ export namespace Prisma {
      */
     select?: UsersSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UsersWhereInput
@@ -1600,6 +1763,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the Users
      */
     select?: UsersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
     /**
      * The data needed to create a Users.
      */
@@ -1641,6 +1808,10 @@ export namespace Prisma {
      */
     select?: UsersSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+    /**
      * The data needed to update a Users.
      */
     data: XOR<UsersUpdateInput, UsersUncheckedUpdateInput>
@@ -1673,6 +1844,10 @@ export namespace Prisma {
      */
     select?: UsersSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+    /**
      * The filter to search for the Users to update in case it exists.
      */
     where: UsersWhereUniqueInput
@@ -1695,6 +1870,10 @@ export namespace Prisma {
      */
     select?: UsersSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+    /**
      * Filter which Users to delete.
      */
     where: UsersWhereUniqueInput
@@ -1711,6 +1890,26 @@ export namespace Prisma {
   }
 
   /**
+   * Users.savings
+   */
+  export type Users$savingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsInclude<ExtArgs> | null
+    where?: SavingsWhereInput
+    orderBy?: SavingsOrderByWithRelationInput | SavingsOrderByWithRelationInput[]
+    cursor?: SavingsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SavingsScalarFieldEnum | SavingsScalarFieldEnum[]
+  }
+
+  /**
    * Users without action
    */
   export type UsersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1718,6 +1917,989 @@ export namespace Prisma {
      * Select specific fields to fetch from the Users
      */
     select?: UsersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UsersInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Savings
+   */
+
+  export type AggregateSavings = {
+    _count: SavingsCountAggregateOutputType | null
+    _avg: SavingsAvgAggregateOutputType | null
+    _sum: SavingsSumAggregateOutputType | null
+    _min: SavingsMinAggregateOutputType | null
+    _max: SavingsMaxAggregateOutputType | null
+  }
+
+  export type SavingsAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type SavingsSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type SavingsMinAggregateOutputType = {
+    saving_id: string | null
+    user_id: string | null
+    group_id: string | null
+    amount: Decimal | null
+    type: $Enums.SavingTypes | null
+    created_at: Date | null
+  }
+
+  export type SavingsMaxAggregateOutputType = {
+    saving_id: string | null
+    user_id: string | null
+    group_id: string | null
+    amount: Decimal | null
+    type: $Enums.SavingTypes | null
+    created_at: Date | null
+  }
+
+  export type SavingsCountAggregateOutputType = {
+    saving_id: number
+    user_id: number
+    group_id: number
+    amount: number
+    type: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type SavingsAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type SavingsSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type SavingsMinAggregateInputType = {
+    saving_id?: true
+    user_id?: true
+    group_id?: true
+    amount?: true
+    type?: true
+    created_at?: true
+  }
+
+  export type SavingsMaxAggregateInputType = {
+    saving_id?: true
+    user_id?: true
+    group_id?: true
+    amount?: true
+    type?: true
+    created_at?: true
+  }
+
+  export type SavingsCountAggregateInputType = {
+    saving_id?: true
+    user_id?: true
+    group_id?: true
+    amount?: true
+    type?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type SavingsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Savings to aggregate.
+     */
+    where?: SavingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Savings to fetch.
+     */
+    orderBy?: SavingsOrderByWithRelationInput | SavingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SavingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Savings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Savings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Savings
+    **/
+    _count?: true | SavingsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SavingsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SavingsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SavingsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SavingsMaxAggregateInputType
+  }
+
+  export type GetSavingsAggregateType<T extends SavingsAggregateArgs> = {
+        [P in keyof T & keyof AggregateSavings]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSavings[P]>
+      : GetScalarType<T[P], AggregateSavings[P]>
+  }
+
+
+
+
+  export type SavingsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavingsWhereInput
+    orderBy?: SavingsOrderByWithAggregationInput | SavingsOrderByWithAggregationInput[]
+    by: SavingsScalarFieldEnum[] | SavingsScalarFieldEnum
+    having?: SavingsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SavingsCountAggregateInputType | true
+    _avg?: SavingsAvgAggregateInputType
+    _sum?: SavingsSumAggregateInputType
+    _min?: SavingsMinAggregateInputType
+    _max?: SavingsMaxAggregateInputType
+  }
+
+  export type SavingsGroupByOutputType = {
+    saving_id: string
+    user_id: string
+    group_id: string | null
+    amount: Decimal
+    type: $Enums.SavingTypes
+    created_at: Date
+    _count: SavingsCountAggregateOutputType | null
+    _avg: SavingsAvgAggregateOutputType | null
+    _sum: SavingsSumAggregateOutputType | null
+    _min: SavingsMinAggregateOutputType | null
+    _max: SavingsMaxAggregateOutputType | null
+  }
+
+  type GetSavingsGroupByPayload<T extends SavingsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SavingsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SavingsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SavingsGroupByOutputType[P]>
+            : GetScalarType<T[P], SavingsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SavingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    saving_id?: boolean
+    user_id?: boolean
+    group_id?: boolean
+    amount?: boolean
+    type?: boolean
+    created_at?: boolean
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savings"]>
+
+  export type SavingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    saving_id?: boolean
+    user_id?: boolean
+    group_id?: boolean
+    amount?: boolean
+    type?: boolean
+    created_at?: boolean
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["savings"]>
+
+  export type SavingsSelectScalar = {
+    saving_id?: boolean
+    user_id?: boolean
+    group_id?: boolean
+    amount?: boolean
+    type?: boolean
+    created_at?: boolean
+  }
+
+  export type SavingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+  }
+  export type SavingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+  }
+
+  export type $SavingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Savings"
+    objects: {
+      user: Prisma.$UsersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      saving_id: string
+      user_id: string
+      group_id: string | null
+      amount: Prisma.Decimal
+      type: $Enums.SavingTypes
+      created_at: Date
+    }, ExtArgs["result"]["savings"]>
+    composites: {}
+  }
+
+  type SavingsGetPayload<S extends boolean | null | undefined | SavingsDefaultArgs> = $Result.GetResult<Prisma.$SavingsPayload, S>
+
+  type SavingsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<SavingsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: SavingsCountAggregateInputType | true
+    }
+
+  export interface SavingsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Savings'], meta: { name: 'Savings' } }
+    /**
+     * Find zero or one Savings that matches the filter.
+     * @param {SavingsFindUniqueArgs} args - Arguments to find a Savings
+     * @example
+     * // Get one Savings
+     * const savings = await prisma.savings.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SavingsFindUniqueArgs>(args: SelectSubset<T, SavingsFindUniqueArgs<ExtArgs>>): Prisma__SavingsClient<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Savings that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {SavingsFindUniqueOrThrowArgs} args - Arguments to find a Savings
+     * @example
+     * // Get one Savings
+     * const savings = await prisma.savings.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SavingsFindUniqueOrThrowArgs>(args: SelectSubset<T, SavingsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SavingsClient<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Savings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsFindFirstArgs} args - Arguments to find a Savings
+     * @example
+     * // Get one Savings
+     * const savings = await prisma.savings.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SavingsFindFirstArgs>(args?: SelectSubset<T, SavingsFindFirstArgs<ExtArgs>>): Prisma__SavingsClient<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Savings that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsFindFirstOrThrowArgs} args - Arguments to find a Savings
+     * @example
+     * // Get one Savings
+     * const savings = await prisma.savings.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SavingsFindFirstOrThrowArgs>(args?: SelectSubset<T, SavingsFindFirstOrThrowArgs<ExtArgs>>): Prisma__SavingsClient<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Savings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Savings
+     * const savings = await prisma.savings.findMany()
+     * 
+     * // Get first 10 Savings
+     * const savings = await prisma.savings.findMany({ take: 10 })
+     * 
+     * // Only select the `saving_id`
+     * const savingsWithSaving_idOnly = await prisma.savings.findMany({ select: { saving_id: true } })
+     * 
+     */
+    findMany<T extends SavingsFindManyArgs>(args?: SelectSubset<T, SavingsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Savings.
+     * @param {SavingsCreateArgs} args - Arguments to create a Savings.
+     * @example
+     * // Create one Savings
+     * const Savings = await prisma.savings.create({
+     *   data: {
+     *     // ... data to create a Savings
+     *   }
+     * })
+     * 
+     */
+    create<T extends SavingsCreateArgs>(args: SelectSubset<T, SavingsCreateArgs<ExtArgs>>): Prisma__SavingsClient<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Savings.
+     * @param {SavingsCreateManyArgs} args - Arguments to create many Savings.
+     * @example
+     * // Create many Savings
+     * const savings = await prisma.savings.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SavingsCreateManyArgs>(args?: SelectSubset<T, SavingsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Savings and returns the data saved in the database.
+     * @param {SavingsCreateManyAndReturnArgs} args - Arguments to create many Savings.
+     * @example
+     * // Create many Savings
+     * const savings = await prisma.savings.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Savings and only return the `saving_id`
+     * const savingsWithSaving_idOnly = await prisma.savings.createManyAndReturn({ 
+     *   select: { saving_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SavingsCreateManyAndReturnArgs>(args?: SelectSubset<T, SavingsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Savings.
+     * @param {SavingsDeleteArgs} args - Arguments to delete one Savings.
+     * @example
+     * // Delete one Savings
+     * const Savings = await prisma.savings.delete({
+     *   where: {
+     *     // ... filter to delete one Savings
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SavingsDeleteArgs>(args: SelectSubset<T, SavingsDeleteArgs<ExtArgs>>): Prisma__SavingsClient<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Savings.
+     * @param {SavingsUpdateArgs} args - Arguments to update one Savings.
+     * @example
+     * // Update one Savings
+     * const savings = await prisma.savings.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SavingsUpdateArgs>(args: SelectSubset<T, SavingsUpdateArgs<ExtArgs>>): Prisma__SavingsClient<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Savings.
+     * @param {SavingsDeleteManyArgs} args - Arguments to filter Savings to delete.
+     * @example
+     * // Delete a few Savings
+     * const { count } = await prisma.savings.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SavingsDeleteManyArgs>(args?: SelectSubset<T, SavingsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Savings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Savings
+     * const savings = await prisma.savings.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SavingsUpdateManyArgs>(args: SelectSubset<T, SavingsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Savings.
+     * @param {SavingsUpsertArgs} args - Arguments to update or create a Savings.
+     * @example
+     * // Update or create a Savings
+     * const savings = await prisma.savings.upsert({
+     *   create: {
+     *     // ... data to create a Savings
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Savings we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SavingsUpsertArgs>(args: SelectSubset<T, SavingsUpsertArgs<ExtArgs>>): Prisma__SavingsClient<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Savings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsCountArgs} args - Arguments to filter Savings to count.
+     * @example
+     * // Count the number of Savings
+     * const count = await prisma.savings.count({
+     *   where: {
+     *     // ... the filter for the Savings we want to count
+     *   }
+     * })
+    **/
+    count<T extends SavingsCountArgs>(
+      args?: Subset<T, SavingsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SavingsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Savings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SavingsAggregateArgs>(args: Subset<T, SavingsAggregateArgs>): Prisma.PrismaPromise<GetSavingsAggregateType<T>>
+
+    /**
+     * Group by Savings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SavingsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SavingsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SavingsGroupByArgs['orderBy'] }
+        : { orderBy?: SavingsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SavingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSavingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Savings model
+   */
+  readonly fields: SavingsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Savings.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SavingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Savings model
+   */ 
+  interface SavingsFieldRefs {
+    readonly saving_id: FieldRef<"Savings", 'String'>
+    readonly user_id: FieldRef<"Savings", 'String'>
+    readonly group_id: FieldRef<"Savings", 'String'>
+    readonly amount: FieldRef<"Savings", 'Decimal'>
+    readonly type: FieldRef<"Savings", 'SavingTypes'>
+    readonly created_at: FieldRef<"Savings", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Savings findUnique
+   */
+  export type SavingsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsInclude<ExtArgs> | null
+    /**
+     * Filter, which Savings to fetch.
+     */
+    where: SavingsWhereUniqueInput
+  }
+
+  /**
+   * Savings findUniqueOrThrow
+   */
+  export type SavingsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsInclude<ExtArgs> | null
+    /**
+     * Filter, which Savings to fetch.
+     */
+    where: SavingsWhereUniqueInput
+  }
+
+  /**
+   * Savings findFirst
+   */
+  export type SavingsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsInclude<ExtArgs> | null
+    /**
+     * Filter, which Savings to fetch.
+     */
+    where?: SavingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Savings to fetch.
+     */
+    orderBy?: SavingsOrderByWithRelationInput | SavingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Savings.
+     */
+    cursor?: SavingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Savings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Savings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Savings.
+     */
+    distinct?: SavingsScalarFieldEnum | SavingsScalarFieldEnum[]
+  }
+
+  /**
+   * Savings findFirstOrThrow
+   */
+  export type SavingsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsInclude<ExtArgs> | null
+    /**
+     * Filter, which Savings to fetch.
+     */
+    where?: SavingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Savings to fetch.
+     */
+    orderBy?: SavingsOrderByWithRelationInput | SavingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Savings.
+     */
+    cursor?: SavingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Savings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Savings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Savings.
+     */
+    distinct?: SavingsScalarFieldEnum | SavingsScalarFieldEnum[]
+  }
+
+  /**
+   * Savings findMany
+   */
+  export type SavingsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsInclude<ExtArgs> | null
+    /**
+     * Filter, which Savings to fetch.
+     */
+    where?: SavingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Savings to fetch.
+     */
+    orderBy?: SavingsOrderByWithRelationInput | SavingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Savings.
+     */
+    cursor?: SavingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Savings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Savings.
+     */
+    skip?: number
+    distinct?: SavingsScalarFieldEnum | SavingsScalarFieldEnum[]
+  }
+
+  /**
+   * Savings create
+   */
+  export type SavingsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Savings.
+     */
+    data: XOR<SavingsCreateInput, SavingsUncheckedCreateInput>
+  }
+
+  /**
+   * Savings createMany
+   */
+  export type SavingsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Savings.
+     */
+    data: SavingsCreateManyInput | SavingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Savings createManyAndReturn
+   */
+  export type SavingsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Savings.
+     */
+    data: SavingsCreateManyInput | SavingsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Savings update
+   */
+  export type SavingsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Savings.
+     */
+    data: XOR<SavingsUpdateInput, SavingsUncheckedUpdateInput>
+    /**
+     * Choose, which Savings to update.
+     */
+    where: SavingsWhereUniqueInput
+  }
+
+  /**
+   * Savings updateMany
+   */
+  export type SavingsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Savings.
+     */
+    data: XOR<SavingsUpdateManyMutationInput, SavingsUncheckedUpdateManyInput>
+    /**
+     * Filter which Savings to update
+     */
+    where?: SavingsWhereInput
+  }
+
+  /**
+   * Savings upsert
+   */
+  export type SavingsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Savings to update in case it exists.
+     */
+    where: SavingsWhereUniqueInput
+    /**
+     * In case the Savings found by the `where` argument doesn't exist, create a new Savings with this data.
+     */
+    create: XOR<SavingsCreateInput, SavingsUncheckedCreateInput>
+    /**
+     * In case the Savings was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SavingsUpdateInput, SavingsUncheckedUpdateInput>
+  }
+
+  /**
+   * Savings delete
+   */
+  export type SavingsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsInclude<ExtArgs> | null
+    /**
+     * Filter which Savings to delete.
+     */
+    where: SavingsWhereUniqueInput
+  }
+
+  /**
+   * Savings deleteMany
+   */
+  export type SavingsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Savings to delete
+     */
+    where?: SavingsWhereInput
+  }
+
+  /**
+   * Savings without action
+   */
+  export type SavingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsInclude<ExtArgs> | null
   }
 
 
@@ -1746,6 +2928,18 @@ export namespace Prisma {
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
 
 
+  export const SavingsScalarFieldEnum: {
+    saving_id: 'saving_id',
+    user_id: 'user_id',
+    group_id: 'group_id',
+    amount: 'amount',
+    type: 'type',
+    created_at: 'created_at'
+  };
+
+  export type SavingsScalarFieldEnum = (typeof SavingsScalarFieldEnum)[keyof typeof SavingsScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -1760,6 +2954,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -1796,6 +2998,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SavingTypes'
+   */
+  export type EnumSavingTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SavingTypes'>
+    
+
+
+  /**
+   * Reference to a field of type 'SavingTypes[]'
+   */
+  export type ListEnumSavingTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SavingTypes[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -1821,6 +3051,7 @@ export namespace Prisma {
     email?: StringFilter<"Users"> | string
     password?: StringFilter<"Users"> | string
     created_at?: DateTimeFilter<"Users"> | Date | string
+    savings?: SavingsListRelationFilter
   }
 
   export type UsersOrderByWithRelationInput = {
@@ -1829,6 +3060,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     created_at?: SortOrder
+    savings?: SavingsOrderByRelationAggregateInput
   }
 
   export type UsersWhereUniqueInput = Prisma.AtLeast<{
@@ -1840,6 +3072,7 @@ export namespace Prisma {
     name?: StringFilter<"Users"> | string
     password?: StringFilter<"Users"> | string
     created_at?: DateTimeFilter<"Users"> | Date | string
+    savings?: SavingsListRelationFilter
   }, "user_id" | "email">
 
   export type UsersOrderByWithAggregationInput = {
@@ -1864,12 +3097,75 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Users"> | Date | string
   }
 
+  export type SavingsWhereInput = {
+    AND?: SavingsWhereInput | SavingsWhereInput[]
+    OR?: SavingsWhereInput[]
+    NOT?: SavingsWhereInput | SavingsWhereInput[]
+    saving_id?: UuidFilter<"Savings"> | string
+    user_id?: UuidFilter<"Savings"> | string
+    group_id?: UuidNullableFilter<"Savings"> | string | null
+    amount?: DecimalFilter<"Savings"> | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFilter<"Savings"> | $Enums.SavingTypes
+    created_at?: DateTimeFilter<"Savings"> | Date | string
+    user?: XOR<UsersRelationFilter, UsersWhereInput>
+  }
+
+  export type SavingsOrderByWithRelationInput = {
+    saving_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    type?: SortOrder
+    created_at?: SortOrder
+    user?: UsersOrderByWithRelationInput
+  }
+
+  export type SavingsWhereUniqueInput = Prisma.AtLeast<{
+    saving_id?: string
+    AND?: SavingsWhereInput | SavingsWhereInput[]
+    OR?: SavingsWhereInput[]
+    NOT?: SavingsWhereInput | SavingsWhereInput[]
+    user_id?: UuidFilter<"Savings"> | string
+    group_id?: UuidNullableFilter<"Savings"> | string | null
+    amount?: DecimalFilter<"Savings"> | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFilter<"Savings"> | $Enums.SavingTypes
+    created_at?: DateTimeFilter<"Savings"> | Date | string
+    user?: XOR<UsersRelationFilter, UsersWhereInput>
+  }, "saving_id">
+
+  export type SavingsOrderByWithAggregationInput = {
+    saving_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrderInput | SortOrder
+    amount?: SortOrder
+    type?: SortOrder
+    created_at?: SortOrder
+    _count?: SavingsCountOrderByAggregateInput
+    _avg?: SavingsAvgOrderByAggregateInput
+    _max?: SavingsMaxOrderByAggregateInput
+    _min?: SavingsMinOrderByAggregateInput
+    _sum?: SavingsSumOrderByAggregateInput
+  }
+
+  export type SavingsScalarWhereWithAggregatesInput = {
+    AND?: SavingsScalarWhereWithAggregatesInput | SavingsScalarWhereWithAggregatesInput[]
+    OR?: SavingsScalarWhereWithAggregatesInput[]
+    NOT?: SavingsScalarWhereWithAggregatesInput | SavingsScalarWhereWithAggregatesInput[]
+    saving_id?: UuidWithAggregatesFilter<"Savings"> | string
+    user_id?: UuidWithAggregatesFilter<"Savings"> | string
+    group_id?: UuidNullableWithAggregatesFilter<"Savings"> | string | null
+    amount?: DecimalWithAggregatesFilter<"Savings"> | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesWithAggregatesFilter<"Savings"> | $Enums.SavingTypes
+    created_at?: DateTimeWithAggregatesFilter<"Savings"> | Date | string
+  }
+
   export type UsersCreateInput = {
     user_id?: string
     name: string
     email: string
     password: string
     created_at?: Date | string
+    savings?: SavingsCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateInput = {
@@ -1878,6 +3174,7 @@ export namespace Prisma {
     email: string
     password: string
     created_at?: Date | string
+    savings?: SavingsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersUpdateInput = {
@@ -1886,6 +3183,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateInput = {
@@ -1894,6 +3192,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UsersCreateManyInput = {
@@ -1917,6 +3216,68 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavingsCreateInput = {
+    saving_id?: string
+    group_id?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+    user: UsersCreateNestedOneWithoutSavingsInput
+  }
+
+  export type SavingsUncheckedCreateInput = {
+    saving_id?: string
+    user_id: string
+    group_id?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+  }
+
+  export type SavingsUpdateInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UsersUpdateOneRequiredWithoutSavingsNestedInput
+  }
+
+  export type SavingsUncheckedUpdateInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavingsCreateManyInput = {
+    saving_id?: string
+    user_id: string
+    group_id?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+  }
+
+  export type SavingsUpdateManyMutationInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavingsUncheckedUpdateManyInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -1956,6 +3317,16 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type SavingsListRelationFilter = {
+    every?: SavingsWhereInput
+    some?: SavingsWhereInput
+    none?: SavingsWhereInput
+  }
+
+  export type SavingsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UsersCountOrderByAggregateInput = {
@@ -2029,12 +3400,200 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type UuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumSavingTypesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SavingTypes | EnumSavingTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.SavingTypes[] | ListEnumSavingTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SavingTypes[] | ListEnumSavingTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumSavingTypesFilter<$PrismaModel> | $Enums.SavingTypes
+  }
+
+  export type UsersRelationFilter = {
+    is?: UsersWhereInput
+    isNot?: UsersWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type SavingsCountOrderByAggregateInput = {
+    saving_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrder
+    amount?: SortOrder
+    type?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type SavingsAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type SavingsMaxOrderByAggregateInput = {
+    saving_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrder
+    amount?: SortOrder
+    type?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type SavingsMinOrderByAggregateInput = {
+    saving_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrder
+    amount?: SortOrder
+    type?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type SavingsSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type EnumSavingTypesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SavingTypes | EnumSavingTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.SavingTypes[] | ListEnumSavingTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SavingTypes[] | ListEnumSavingTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumSavingTypesWithAggregatesFilter<$PrismaModel> | $Enums.SavingTypes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSavingTypesFilter<$PrismaModel>
+    _max?: NestedEnumSavingTypesFilter<$PrismaModel>
+  }
+
+  export type SavingsCreateNestedManyWithoutUserInput = {
+    create?: XOR<SavingsCreateWithoutUserInput, SavingsUncheckedCreateWithoutUserInput> | SavingsCreateWithoutUserInput[] | SavingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavingsCreateOrConnectWithoutUserInput | SavingsCreateOrConnectWithoutUserInput[]
+    createMany?: SavingsCreateManyUserInputEnvelope
+    connect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+  }
+
+  export type SavingsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SavingsCreateWithoutUserInput, SavingsUncheckedCreateWithoutUserInput> | SavingsCreateWithoutUserInput[] | SavingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavingsCreateOrConnectWithoutUserInput | SavingsCreateOrConnectWithoutUserInput[]
+    createMany?: SavingsCreateManyUserInputEnvelope
+    connect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type SavingsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SavingsCreateWithoutUserInput, SavingsUncheckedCreateWithoutUserInput> | SavingsCreateWithoutUserInput[] | SavingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavingsCreateOrConnectWithoutUserInput | SavingsCreateOrConnectWithoutUserInput[]
+    upsert?: SavingsUpsertWithWhereUniqueWithoutUserInput | SavingsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SavingsCreateManyUserInputEnvelope
+    set?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    disconnect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    delete?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    connect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    update?: SavingsUpdateWithWhereUniqueWithoutUserInput | SavingsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SavingsUpdateManyWithWhereWithoutUserInput | SavingsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SavingsScalarWhereInput | SavingsScalarWhereInput[]
+  }
+
+  export type SavingsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SavingsCreateWithoutUserInput, SavingsUncheckedCreateWithoutUserInput> | SavingsCreateWithoutUserInput[] | SavingsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SavingsCreateOrConnectWithoutUserInput | SavingsCreateOrConnectWithoutUserInput[]
+    upsert?: SavingsUpsertWithWhereUniqueWithoutUserInput | SavingsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SavingsCreateManyUserInputEnvelope
+    set?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    disconnect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    delete?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    connect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    update?: SavingsUpdateWithWhereUniqueWithoutUserInput | SavingsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SavingsUpdateManyWithWhereWithoutUserInput | SavingsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SavingsScalarWhereInput | SavingsScalarWhereInput[]
+  }
+
+  export type UsersCreateNestedOneWithoutSavingsInput = {
+    create?: XOR<UsersCreateWithoutSavingsInput, UsersUncheckedCreateWithoutSavingsInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutSavingsInput
+    connect?: UsersWhereUniqueInput
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type EnumSavingTypesFieldUpdateOperationsInput = {
+    set?: $Enums.SavingTypes
+  }
+
+  export type UsersUpdateOneRequiredWithoutSavingsNestedInput = {
+    create?: XOR<UsersCreateWithoutSavingsInput, UsersUncheckedCreateWithoutSavingsInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutSavingsInput
+    upsert?: UsersUpsertWithoutSavingsInput
+    connect?: UsersWhereUniqueInput
+    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutSavingsInput, UsersUpdateWithoutSavingsInput>, UsersUncheckedUpdateWithoutSavingsInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -2129,15 +3688,251 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedUuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedEnumSavingTypesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SavingTypes | EnumSavingTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.SavingTypes[] | ListEnumSavingTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SavingTypes[] | ListEnumSavingTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumSavingTypesFilter<$PrismaModel> | $Enums.SavingTypes
+  }
+
+  export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSavingTypesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SavingTypes | EnumSavingTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.SavingTypes[] | ListEnumSavingTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SavingTypes[] | ListEnumSavingTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumSavingTypesWithAggregatesFilter<$PrismaModel> | $Enums.SavingTypes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSavingTypesFilter<$PrismaModel>
+    _max?: NestedEnumSavingTypesFilter<$PrismaModel>
+  }
+
+  export type SavingsCreateWithoutUserInput = {
+    saving_id?: string
+    group_id?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+  }
+
+  export type SavingsUncheckedCreateWithoutUserInput = {
+    saving_id?: string
+    group_id?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+  }
+
+  export type SavingsCreateOrConnectWithoutUserInput = {
+    where: SavingsWhereUniqueInput
+    create: XOR<SavingsCreateWithoutUserInput, SavingsUncheckedCreateWithoutUserInput>
+  }
+
+  export type SavingsCreateManyUserInputEnvelope = {
+    data: SavingsCreateManyUserInput | SavingsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SavingsUpsertWithWhereUniqueWithoutUserInput = {
+    where: SavingsWhereUniqueInput
+    update: XOR<SavingsUpdateWithoutUserInput, SavingsUncheckedUpdateWithoutUserInput>
+    create: XOR<SavingsCreateWithoutUserInput, SavingsUncheckedCreateWithoutUserInput>
+  }
+
+  export type SavingsUpdateWithWhereUniqueWithoutUserInput = {
+    where: SavingsWhereUniqueInput
+    data: XOR<SavingsUpdateWithoutUserInput, SavingsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SavingsUpdateManyWithWhereWithoutUserInput = {
+    where: SavingsScalarWhereInput
+    data: XOR<SavingsUpdateManyMutationInput, SavingsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SavingsScalarWhereInput = {
+    AND?: SavingsScalarWhereInput | SavingsScalarWhereInput[]
+    OR?: SavingsScalarWhereInput[]
+    NOT?: SavingsScalarWhereInput | SavingsScalarWhereInput[]
+    saving_id?: UuidFilter<"Savings"> | string
+    user_id?: UuidFilter<"Savings"> | string
+    group_id?: UuidNullableFilter<"Savings"> | string | null
+    amount?: DecimalFilter<"Savings"> | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFilter<"Savings"> | $Enums.SavingTypes
+    created_at?: DateTimeFilter<"Savings"> | Date | string
+  }
+
+  export type UsersCreateWithoutSavingsInput = {
+    user_id?: string
+    name: string
+    email: string
+    password: string
+    created_at?: Date | string
+  }
+
+  export type UsersUncheckedCreateWithoutSavingsInput = {
+    user_id?: string
+    name: string
+    email: string
+    password: string
+    created_at?: Date | string
+  }
+
+  export type UsersCreateOrConnectWithoutSavingsInput = {
+    where: UsersWhereUniqueInput
+    create: XOR<UsersCreateWithoutSavingsInput, UsersUncheckedCreateWithoutSavingsInput>
+  }
+
+  export type UsersUpsertWithoutSavingsInput = {
+    update: XOR<UsersUpdateWithoutSavingsInput, UsersUncheckedUpdateWithoutSavingsInput>
+    create: XOR<UsersCreateWithoutSavingsInput, UsersUncheckedCreateWithoutSavingsInput>
+    where?: UsersWhereInput
+  }
+
+  export type UsersUpdateToOneWithWhereWithoutSavingsInput = {
+    where?: UsersWhereInput
+    data: XOR<UsersUpdateWithoutSavingsInput, UsersUncheckedUpdateWithoutSavingsInput>
+  }
+
+  export type UsersUpdateWithoutSavingsInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UsersUncheckedUpdateWithoutSavingsInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavingsCreateManyUserInput = {
+    saving_id?: string
+    group_id?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+  }
+
+  export type SavingsUpdateWithoutUserInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavingsUncheckedUpdateWithoutUserInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavingsUncheckedUpdateManyWithoutUserInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
    * Aliases for legacy arg types
    */
     /**
+     * @deprecated Use UsersCountOutputTypeDefaultArgs instead
+     */
+    export type UsersCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UsersCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use UsersDefaultArgs instead
      */
     export type UsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UsersDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SavingsDefaultArgs instead
+     */
+    export type SavingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SavingsDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
