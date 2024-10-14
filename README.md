@@ -23,7 +23,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## About
 E-PON is a web application designed to help users save and track their money efficiently. The app provides tools for financial management, allowing users to monitor their savings goals, daily expenditures, and overall financial health.
 
-E-PON aims to make money management simpler, helping users take control of their finances and make informed decisions about saving and spending.
+E-PON aims to make money management simpler, helping users take control of their finances and make informed decisions about saving and spending..
 
 ## Getting Started
 
