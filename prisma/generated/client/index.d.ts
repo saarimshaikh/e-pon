@@ -33,6 +33,11 @@ export type Groups = $Result.DefaultSelection<Prisma.$GroupsPayload>
  * 
  */
 export type GroupMembers = $Result.DefaultSelection<Prisma.$GroupMembersPayload>
+/**
+ * Model Transactions
+ * 
+ */
+export type Transactions = $Result.DefaultSelection<Prisma.$TransactionsPayload>
 
 /**
  * Enums
@@ -53,6 +58,14 @@ export const GroupRoles: {
 
 export type GroupRoles = (typeof GroupRoles)[keyof typeof GroupRoles]
 
+
+export const TransactionTypes: {
+  deposit: 'deposit',
+  withdrawal: 'withdrawal'
+};
+
+export type TransactionTypes = (typeof TransactionTypes)[keyof typeof TransactionTypes]
+
 }
 
 export type SavingTypes = $Enums.SavingTypes
@@ -62,6 +75,10 @@ export const SavingTypes: typeof $Enums.SavingTypes
 export type GroupRoles = $Enums.GroupRoles
 
 export const GroupRoles: typeof $Enums.GroupRoles
+
+export type TransactionTypes = $Enums.TransactionTypes
+
+export const TransactionTypes: typeof $Enums.TransactionTypes
 
 /**
  * ##  Prisma Client ʲˢ
@@ -225,6 +242,16 @@ export class PrismaClient<
     * ```
     */
   get groupMembers(): Prisma.GroupMembersDelegate<ExtArgs>;
+
+  /**
+   * `prisma.transactions`: Exposes CRUD operations for the **Transactions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Transactions
+    * const transactions = await prisma.transactions.findMany()
+    * ```
+    */
+  get transactions(): Prisma.TransactionsDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -669,7 +696,8 @@ export namespace Prisma {
     Users: 'Users',
     Savings: 'Savings',
     Groups: 'Groups',
-    GroupMembers: 'GroupMembers'
+    GroupMembers: 'GroupMembers',
+    Transactions: 'Transactions'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -685,7 +713,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "users" | "savings" | "groups" | "groupMembers"
+      modelProps: "users" | "savings" | "groups" | "groupMembers" | "transactions"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -969,6 +997,76 @@ export namespace Prisma {
           }
         }
       }
+      Transactions: {
+        payload: Prisma.$TransactionsPayload<ExtArgs>
+        fields: Prisma.TransactionsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TransactionsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TransactionsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>
+          }
+          findFirst: {
+            args: Prisma.TransactionsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TransactionsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>
+          }
+          findMany: {
+            args: Prisma.TransactionsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>[]
+          }
+          create: {
+            args: Prisma.TransactionsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>
+          }
+          createMany: {
+            args: Prisma.TransactionsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TransactionsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>[]
+          }
+          delete: {
+            args: Prisma.TransactionsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>
+          }
+          update: {
+            args: Prisma.TransactionsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>
+          }
+          deleteMany: {
+            args: Prisma.TransactionsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TransactionsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TransactionsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>
+          }
+          aggregate: {
+            args: Prisma.TransactionsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTransactions>
+          }
+          groupBy: {
+            args: Prisma.TransactionsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TransactionsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TransactionsCountArgs<ExtArgs>
+            result: $Utils.Optional<TransactionsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1133,12 +1231,14 @@ export namespace Prisma {
     savings: number
     groups: number
     groupMembers: number
+    transaction: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     savings?: boolean | UsersCountOutputTypeCountSavingsArgs
     groups?: boolean | UsersCountOutputTypeCountGroupsArgs
     groupMembers?: boolean | UsersCountOutputTypeCountGroupMembersArgs
+    transaction?: boolean | UsersCountOutputTypeCountTransactionArgs
   }
 
   // Custom InputTypes
@@ -1173,6 +1273,44 @@ export namespace Prisma {
     where?: GroupMembersWhereInput
   }
 
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionsWhereInput
+  }
+
+
+  /**
+   * Count Type SavingsCountOutputType
+   */
+
+  export type SavingsCountOutputType = {
+    transactions: number
+  }
+
+  export type SavingsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transactions?: boolean | SavingsCountOutputTypeCountTransactionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SavingsCountOutputType without action
+   */
+  export type SavingsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavingsCountOutputType
+     */
+    select?: SavingsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SavingsCountOutputType without action
+   */
+  export type SavingsCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionsWhereInput
+  }
+
 
   /**
    * Count Type GroupsCountOutputType
@@ -1181,11 +1319,13 @@ export namespace Prisma {
   export type GroupsCountOutputType = {
     savings: number
     members: number
+    transactions: number
   }
 
   export type GroupsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     savings?: boolean | GroupsCountOutputTypeCountSavingsArgs
     members?: boolean | GroupsCountOutputTypeCountMembersArgs
+    transactions?: boolean | GroupsCountOutputTypeCountTransactionsArgs
   }
 
   // Custom InputTypes
@@ -1211,6 +1351,13 @@ export namespace Prisma {
    */
   export type GroupsCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GroupMembersWhereInput
+  }
+
+  /**
+   * GroupsCountOutputType without action
+   */
+  export type GroupsCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionsWhereInput
   }
 
 
@@ -1385,6 +1532,7 @@ export namespace Prisma {
     savings?: boolean | Users$savingsArgs<ExtArgs>
     groups?: boolean | Users$groupsArgs<ExtArgs>
     groupMembers?: boolean | Users$groupMembersArgs<ExtArgs>
+    transaction?: boolean | Users$transactionArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -1408,6 +1556,7 @@ export namespace Prisma {
     savings?: boolean | Users$savingsArgs<ExtArgs>
     groups?: boolean | Users$groupsArgs<ExtArgs>
     groupMembers?: boolean | Users$groupMembersArgs<ExtArgs>
+    transaction?: boolean | Users$transactionArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1418,6 +1567,7 @@ export namespace Prisma {
       savings: Prisma.$SavingsPayload<ExtArgs>[]
       groups: Prisma.$GroupsPayload<ExtArgs>[]
       groupMembers: Prisma.$GroupMembersPayload<ExtArgs>[]
+      transaction: Prisma.$TransactionsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       user_id: string
@@ -1792,6 +1942,7 @@ export namespace Prisma {
     savings<T extends Users$savingsArgs<ExtArgs> = {}>(args?: Subset<T, Users$savingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "findMany"> | Null>
     groups<T extends Users$groupsArgs<ExtArgs> = {}>(args?: Subset<T, Users$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "findMany"> | Null>
     groupMembers<T extends Users$groupMembersArgs<ExtArgs> = {}>(args?: Subset<T, Users$groupMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "findMany"> | Null>
+    transaction<T extends Users$transactionArgs<ExtArgs> = {}>(args?: Subset<T, Users$transactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2200,6 +2351,26 @@ export namespace Prisma {
   }
 
   /**
+   * Users.transaction
+   */
+  export type Users$transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    where?: TransactionsWhereInput
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    cursor?: TransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionsScalarFieldEnum | TransactionsScalarFieldEnum[]
+  }
+
+  /**
    * Users without action
    */
   export type UsersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2422,6 +2593,8 @@ export namespace Prisma {
     created_at?: boolean
     user?: boolean | UsersDefaultArgs<ExtArgs>
     group?: boolean | Savings$groupArgs<ExtArgs>
+    transactions?: boolean | Savings$transactionsArgs<ExtArgs>
+    _count?: boolean | SavingsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["savings"]>
 
   export type SavingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2447,6 +2620,8 @@ export namespace Prisma {
   export type SavingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsersDefaultArgs<ExtArgs>
     group?: boolean | Savings$groupArgs<ExtArgs>
+    transactions?: boolean | Savings$transactionsArgs<ExtArgs>
+    _count?: boolean | SavingsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SavingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsersDefaultArgs<ExtArgs>
@@ -2458,6 +2633,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UsersPayload<ExtArgs>
       group: Prisma.$GroupsPayload<ExtArgs> | null
+      transactions: Prisma.$TransactionsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       saving_id: string
@@ -2832,6 +3008,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     group<T extends Savings$groupArgs<ExtArgs> = {}>(args?: Subset<T, Savings$groupArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    transactions<T extends Savings$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Savings$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3200,6 +3377,26 @@ export namespace Prisma {
   }
 
   /**
+   * Savings.transactions
+   */
+  export type Savings$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    where?: TransactionsWhereInput
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    cursor?: TransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionsScalarFieldEnum | TransactionsScalarFieldEnum[]
+  }
+
+  /**
    * Savings without action
    */
   export type SavingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3373,6 +3570,7 @@ export namespace Prisma {
     creator?: boolean | UsersDefaultArgs<ExtArgs>
     savings?: boolean | Groups$savingsArgs<ExtArgs>
     members?: boolean | Groups$membersArgs<ExtArgs>
+    transactions?: boolean | Groups$transactionsArgs<ExtArgs>
     _count?: boolean | GroupsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["groups"]>
 
@@ -3395,6 +3593,7 @@ export namespace Prisma {
     creator?: boolean | UsersDefaultArgs<ExtArgs>
     savings?: boolean | Groups$savingsArgs<ExtArgs>
     members?: boolean | Groups$membersArgs<ExtArgs>
+    transactions?: boolean | Groups$transactionsArgs<ExtArgs>
     _count?: boolean | GroupsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GroupsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3407,6 +3606,7 @@ export namespace Prisma {
       creator: Prisma.$UsersPayload<ExtArgs>
       savings: Prisma.$SavingsPayload<ExtArgs>[]
       members: Prisma.$GroupMembersPayload<ExtArgs>[]
+      transactions: Prisma.$TransactionsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       group_id: string
@@ -3780,6 +3980,7 @@ export namespace Prisma {
     creator<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     savings<T extends Groups$savingsArgs<ExtArgs> = {}>(args?: Subset<T, Groups$savingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "findMany"> | Null>
     members<T extends Groups$membersArgs<ExtArgs> = {}>(args?: Subset<T, Groups$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "findMany"> | Null>
+    transactions<T extends Groups$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Groups$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4168,6 +4369,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GroupMembersScalarFieldEnum | GroupMembersScalarFieldEnum[]
+  }
+
+  /**
+   * Groups.transactions
+   */
+  export type Groups$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    where?: TransactionsWhereInput
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    cursor?: TransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionsScalarFieldEnum | TransactionsScalarFieldEnum[]
   }
 
   /**
@@ -5125,6 +5346,1024 @@ export namespace Prisma {
 
 
   /**
+   * Model Transactions
+   */
+
+  export type AggregateTransactions = {
+    _count: TransactionsCountAggregateOutputType | null
+    _avg: TransactionsAvgAggregateOutputType | null
+    _sum: TransactionsSumAggregateOutputType | null
+    _min: TransactionsMinAggregateOutputType | null
+    _max: TransactionsMaxAggregateOutputType | null
+  }
+
+  export type TransactionsAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type TransactionsSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type TransactionsMinAggregateOutputType = {
+    transaction_id: string | null
+    user_id: string | null
+    group_id: string | null
+    saving_id: string | null
+    type: $Enums.TransactionTypes | null
+    amount: Decimal | null
+    created_at: Date | null
+  }
+
+  export type TransactionsMaxAggregateOutputType = {
+    transaction_id: string | null
+    user_id: string | null
+    group_id: string | null
+    saving_id: string | null
+    type: $Enums.TransactionTypes | null
+    amount: Decimal | null
+    created_at: Date | null
+  }
+
+  export type TransactionsCountAggregateOutputType = {
+    transaction_id: number
+    user_id: number
+    group_id: number
+    saving_id: number
+    type: number
+    amount: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type TransactionsAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type TransactionsSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type TransactionsMinAggregateInputType = {
+    transaction_id?: true
+    user_id?: true
+    group_id?: true
+    saving_id?: true
+    type?: true
+    amount?: true
+    created_at?: true
+  }
+
+  export type TransactionsMaxAggregateInputType = {
+    transaction_id?: true
+    user_id?: true
+    group_id?: true
+    saving_id?: true
+    type?: true
+    amount?: true
+    created_at?: true
+  }
+
+  export type TransactionsCountAggregateInputType = {
+    transaction_id?: true
+    user_id?: true
+    group_id?: true
+    saving_id?: true
+    type?: true
+    amount?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type TransactionsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Transactions to aggregate.
+     */
+    where?: TransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Transactions
+    **/
+    _count?: true | TransactionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TransactionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TransactionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TransactionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TransactionsMaxAggregateInputType
+  }
+
+  export type GetTransactionsAggregateType<T extends TransactionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateTransactions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTransactions[P]>
+      : GetScalarType<T[P], AggregateTransactions[P]>
+  }
+
+
+
+
+  export type TransactionsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionsWhereInput
+    orderBy?: TransactionsOrderByWithAggregationInput | TransactionsOrderByWithAggregationInput[]
+    by: TransactionsScalarFieldEnum[] | TransactionsScalarFieldEnum
+    having?: TransactionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TransactionsCountAggregateInputType | true
+    _avg?: TransactionsAvgAggregateInputType
+    _sum?: TransactionsSumAggregateInputType
+    _min?: TransactionsMinAggregateInputType
+    _max?: TransactionsMaxAggregateInputType
+  }
+
+  export type TransactionsGroupByOutputType = {
+    transaction_id: string
+    user_id: string
+    group_id: string | null
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal
+    created_at: Date
+    _count: TransactionsCountAggregateOutputType | null
+    _avg: TransactionsAvgAggregateOutputType | null
+    _sum: TransactionsSumAggregateOutputType | null
+    _min: TransactionsMinAggregateOutputType | null
+    _max: TransactionsMaxAggregateOutputType | null
+  }
+
+  type GetTransactionsGroupByPayload<T extends TransactionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TransactionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TransactionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TransactionsGroupByOutputType[P]>
+            : GetScalarType<T[P], TransactionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TransactionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    transaction_id?: boolean
+    user_id?: boolean
+    group_id?: boolean
+    saving_id?: boolean
+    type?: boolean
+    amount?: boolean
+    created_at?: boolean
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    group?: boolean | Transactions$groupArgs<ExtArgs>
+    saving?: boolean | SavingsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["transactions"]>
+
+  export type TransactionsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    transaction_id?: boolean
+    user_id?: boolean
+    group_id?: boolean
+    saving_id?: boolean
+    type?: boolean
+    amount?: boolean
+    created_at?: boolean
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    group?: boolean | Transactions$groupArgs<ExtArgs>
+    saving?: boolean | SavingsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["transactions"]>
+
+  export type TransactionsSelectScalar = {
+    transaction_id?: boolean
+    user_id?: boolean
+    group_id?: boolean
+    saving_id?: boolean
+    type?: boolean
+    amount?: boolean
+    created_at?: boolean
+  }
+
+  export type TransactionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    group?: boolean | Transactions$groupArgs<ExtArgs>
+    saving?: boolean | SavingsDefaultArgs<ExtArgs>
+  }
+  export type TransactionsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    group?: boolean | Transactions$groupArgs<ExtArgs>
+    saving?: boolean | SavingsDefaultArgs<ExtArgs>
+  }
+
+  export type $TransactionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Transactions"
+    objects: {
+      user: Prisma.$UsersPayload<ExtArgs>
+      group: Prisma.$GroupsPayload<ExtArgs> | null
+      saving: Prisma.$SavingsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      transaction_id: string
+      user_id: string
+      group_id: string | null
+      saving_id: string
+      type: $Enums.TransactionTypes
+      amount: Prisma.Decimal
+      created_at: Date
+    }, ExtArgs["result"]["transactions"]>
+    composites: {}
+  }
+
+  type TransactionsGetPayload<S extends boolean | null | undefined | TransactionsDefaultArgs> = $Result.GetResult<Prisma.$TransactionsPayload, S>
+
+  type TransactionsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TransactionsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TransactionsCountAggregateInputType | true
+    }
+
+  export interface TransactionsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Transactions'], meta: { name: 'Transactions' } }
+    /**
+     * Find zero or one Transactions that matches the filter.
+     * @param {TransactionsFindUniqueArgs} args - Arguments to find a Transactions
+     * @example
+     * // Get one Transactions
+     * const transactions = await prisma.transactions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TransactionsFindUniqueArgs>(args: SelectSubset<T, TransactionsFindUniqueArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Transactions that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TransactionsFindUniqueOrThrowArgs} args - Arguments to find a Transactions
+     * @example
+     * // Get one Transactions
+     * const transactions = await prisma.transactions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TransactionsFindUniqueOrThrowArgs>(args: SelectSubset<T, TransactionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Transactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsFindFirstArgs} args - Arguments to find a Transactions
+     * @example
+     * // Get one Transactions
+     * const transactions = await prisma.transactions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TransactionsFindFirstArgs>(args?: SelectSubset<T, TransactionsFindFirstArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Transactions that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsFindFirstOrThrowArgs} args - Arguments to find a Transactions
+     * @example
+     * // Get one Transactions
+     * const transactions = await prisma.transactions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TransactionsFindFirstOrThrowArgs>(args?: SelectSubset<T, TransactionsFindFirstOrThrowArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Transactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Transactions
+     * const transactions = await prisma.transactions.findMany()
+     * 
+     * // Get first 10 Transactions
+     * const transactions = await prisma.transactions.findMany({ take: 10 })
+     * 
+     * // Only select the `transaction_id`
+     * const transactionsWithTransaction_idOnly = await prisma.transactions.findMany({ select: { transaction_id: true } })
+     * 
+     */
+    findMany<T extends TransactionsFindManyArgs>(args?: SelectSubset<T, TransactionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Transactions.
+     * @param {TransactionsCreateArgs} args - Arguments to create a Transactions.
+     * @example
+     * // Create one Transactions
+     * const Transactions = await prisma.transactions.create({
+     *   data: {
+     *     // ... data to create a Transactions
+     *   }
+     * })
+     * 
+     */
+    create<T extends TransactionsCreateArgs>(args: SelectSubset<T, TransactionsCreateArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Transactions.
+     * @param {TransactionsCreateManyArgs} args - Arguments to create many Transactions.
+     * @example
+     * // Create many Transactions
+     * const transactions = await prisma.transactions.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TransactionsCreateManyArgs>(args?: SelectSubset<T, TransactionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Transactions and returns the data saved in the database.
+     * @param {TransactionsCreateManyAndReturnArgs} args - Arguments to create many Transactions.
+     * @example
+     * // Create many Transactions
+     * const transactions = await prisma.transactions.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Transactions and only return the `transaction_id`
+     * const transactionsWithTransaction_idOnly = await prisma.transactions.createManyAndReturn({ 
+     *   select: { transaction_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TransactionsCreateManyAndReturnArgs>(args?: SelectSubset<T, TransactionsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Transactions.
+     * @param {TransactionsDeleteArgs} args - Arguments to delete one Transactions.
+     * @example
+     * // Delete one Transactions
+     * const Transactions = await prisma.transactions.delete({
+     *   where: {
+     *     // ... filter to delete one Transactions
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TransactionsDeleteArgs>(args: SelectSubset<T, TransactionsDeleteArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Transactions.
+     * @param {TransactionsUpdateArgs} args - Arguments to update one Transactions.
+     * @example
+     * // Update one Transactions
+     * const transactions = await prisma.transactions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TransactionsUpdateArgs>(args: SelectSubset<T, TransactionsUpdateArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Transactions.
+     * @param {TransactionsDeleteManyArgs} args - Arguments to filter Transactions to delete.
+     * @example
+     * // Delete a few Transactions
+     * const { count } = await prisma.transactions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TransactionsDeleteManyArgs>(args?: SelectSubset<T, TransactionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Transactions
+     * const transactions = await prisma.transactions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TransactionsUpdateManyArgs>(args: SelectSubset<T, TransactionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Transactions.
+     * @param {TransactionsUpsertArgs} args - Arguments to update or create a Transactions.
+     * @example
+     * // Update or create a Transactions
+     * const transactions = await prisma.transactions.upsert({
+     *   create: {
+     *     // ... data to create a Transactions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Transactions we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TransactionsUpsertArgs>(args: SelectSubset<T, TransactionsUpsertArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsCountArgs} args - Arguments to filter Transactions to count.
+     * @example
+     * // Count the number of Transactions
+     * const count = await prisma.transactions.count({
+     *   where: {
+     *     // ... the filter for the Transactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends TransactionsCountArgs>(
+      args?: Subset<T, TransactionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TransactionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TransactionsAggregateArgs>(args: Subset<T, TransactionsAggregateArgs>): Prisma.PrismaPromise<GetTransactionsAggregateType<T>>
+
+    /**
+     * Group by Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TransactionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TransactionsGroupByArgs['orderBy'] }
+        : { orderBy?: TransactionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TransactionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTransactionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Transactions model
+   */
+  readonly fields: TransactionsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Transactions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TransactionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    group<T extends Transactions$groupArgs<ExtArgs> = {}>(args?: Subset<T, Transactions$groupArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    saving<T extends SavingsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SavingsDefaultArgs<ExtArgs>>): Prisma__SavingsClient<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Transactions model
+   */ 
+  interface TransactionsFieldRefs {
+    readonly transaction_id: FieldRef<"Transactions", 'String'>
+    readonly user_id: FieldRef<"Transactions", 'String'>
+    readonly group_id: FieldRef<"Transactions", 'String'>
+    readonly saving_id: FieldRef<"Transactions", 'String'>
+    readonly type: FieldRef<"Transactions", 'TransactionTypes'>
+    readonly amount: FieldRef<"Transactions", 'Decimal'>
+    readonly created_at: FieldRef<"Transactions", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Transactions findUnique
+   */
+  export type TransactionsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which Transactions to fetch.
+     */
+    where: TransactionsWhereUniqueInput
+  }
+
+  /**
+   * Transactions findUniqueOrThrow
+   */
+  export type TransactionsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which Transactions to fetch.
+     */
+    where: TransactionsWhereUniqueInput
+  }
+
+  /**
+   * Transactions findFirst
+   */
+  export type TransactionsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which Transactions to fetch.
+     */
+    where?: TransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Transactions.
+     */
+    cursor?: TransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Transactions.
+     */
+    distinct?: TransactionsScalarFieldEnum | TransactionsScalarFieldEnum[]
+  }
+
+  /**
+   * Transactions findFirstOrThrow
+   */
+  export type TransactionsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which Transactions to fetch.
+     */
+    where?: TransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Transactions.
+     */
+    cursor?: TransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Transactions.
+     */
+    distinct?: TransactionsScalarFieldEnum | TransactionsScalarFieldEnum[]
+  }
+
+  /**
+   * Transactions findMany
+   */
+  export type TransactionsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which Transactions to fetch.
+     */
+    where?: TransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Transactions.
+     */
+    cursor?: TransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    distinct?: TransactionsScalarFieldEnum | TransactionsScalarFieldEnum[]
+  }
+
+  /**
+   * Transactions create
+   */
+  export type TransactionsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Transactions.
+     */
+    data: XOR<TransactionsCreateInput, TransactionsUncheckedCreateInput>
+  }
+
+  /**
+   * Transactions createMany
+   */
+  export type TransactionsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Transactions.
+     */
+    data: TransactionsCreateManyInput | TransactionsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Transactions createManyAndReturn
+   */
+  export type TransactionsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Transactions.
+     */
+    data: TransactionsCreateManyInput | TransactionsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Transactions update
+   */
+  export type TransactionsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Transactions.
+     */
+    data: XOR<TransactionsUpdateInput, TransactionsUncheckedUpdateInput>
+    /**
+     * Choose, which Transactions to update.
+     */
+    where: TransactionsWhereUniqueInput
+  }
+
+  /**
+   * Transactions updateMany
+   */
+  export type TransactionsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Transactions.
+     */
+    data: XOR<TransactionsUpdateManyMutationInput, TransactionsUncheckedUpdateManyInput>
+    /**
+     * Filter which Transactions to update
+     */
+    where?: TransactionsWhereInput
+  }
+
+  /**
+   * Transactions upsert
+   */
+  export type TransactionsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Transactions to update in case it exists.
+     */
+    where: TransactionsWhereUniqueInput
+    /**
+     * In case the Transactions found by the `where` argument doesn't exist, create a new Transactions with this data.
+     */
+    create: XOR<TransactionsCreateInput, TransactionsUncheckedCreateInput>
+    /**
+     * In case the Transactions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TransactionsUpdateInput, TransactionsUncheckedUpdateInput>
+  }
+
+  /**
+   * Transactions delete
+   */
+  export type TransactionsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * Filter which Transactions to delete.
+     */
+    where: TransactionsWhereUniqueInput
+  }
+
+  /**
+   * Transactions deleteMany
+   */
+  export type TransactionsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Transactions to delete
+     */
+    where?: TransactionsWhereInput
+  }
+
+  /**
+   * Transactions.group
+   */
+  export type Transactions$groupArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    where?: GroupsWhereInput
+  }
+
+  /**
+   * Transactions without action
+   */
+  export type TransactionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5180,6 +6419,19 @@ export namespace Prisma {
   };
 
   export type GroupMembersScalarFieldEnum = (typeof GroupMembersScalarFieldEnum)[keyof typeof GroupMembersScalarFieldEnum]
+
+
+  export const TransactionsScalarFieldEnum: {
+    transaction_id: 'transaction_id',
+    user_id: 'user_id',
+    group_id: 'group_id',
+    saving_id: 'saving_id',
+    type: 'type',
+    amount: 'amount',
+    created_at: 'created_at'
+  };
+
+  export type TransactionsScalarFieldEnum = (typeof TransactionsScalarFieldEnum)[keyof typeof TransactionsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5282,6 +6534,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'TransactionTypes'
+   */
+  export type EnumTransactionTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionTypes'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionTypes[]'
+   */
+  export type ListEnumTransactionTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionTypes[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -5310,6 +6576,7 @@ export namespace Prisma {
     savings?: SavingsListRelationFilter
     groups?: GroupsListRelationFilter
     groupMembers?: GroupMembersListRelationFilter
+    transaction?: TransactionsListRelationFilter
   }
 
   export type UsersOrderByWithRelationInput = {
@@ -5321,6 +6588,7 @@ export namespace Prisma {
     savings?: SavingsOrderByRelationAggregateInput
     groups?: GroupsOrderByRelationAggregateInput
     groupMembers?: GroupMembersOrderByRelationAggregateInput
+    transaction?: TransactionsOrderByRelationAggregateInput
   }
 
   export type UsersWhereUniqueInput = Prisma.AtLeast<{
@@ -5335,6 +6603,7 @@ export namespace Prisma {
     savings?: SavingsListRelationFilter
     groups?: GroupsListRelationFilter
     groupMembers?: GroupMembersListRelationFilter
+    transaction?: TransactionsListRelationFilter
   }, "user_id" | "email">
 
   export type UsersOrderByWithAggregationInput = {
@@ -5371,6 +6640,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Savings"> | Date | string
     user?: XOR<UsersRelationFilter, UsersWhereInput>
     group?: XOR<GroupsNullableRelationFilter, GroupsWhereInput> | null
+    transactions?: TransactionsListRelationFilter
   }
 
   export type SavingsOrderByWithRelationInput = {
@@ -5382,6 +6652,7 @@ export namespace Prisma {
     created_at?: SortOrder
     user?: UsersOrderByWithRelationInput
     group?: GroupsOrderByWithRelationInput
+    transactions?: TransactionsOrderByRelationAggregateInput
   }
 
   export type SavingsWhereUniqueInput = Prisma.AtLeast<{
@@ -5396,6 +6667,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Savings"> | Date | string
     user?: XOR<UsersRelationFilter, UsersWhereInput>
     group?: XOR<GroupsNullableRelationFilter, GroupsWhereInput> | null
+    transactions?: TransactionsListRelationFilter
   }, "saving_id">
 
   export type SavingsOrderByWithAggregationInput = {
@@ -5435,6 +6707,7 @@ export namespace Prisma {
     creator?: XOR<UsersRelationFilter, UsersWhereInput>
     savings?: SavingsListRelationFilter
     members?: GroupMembersListRelationFilter
+    transactions?: TransactionsListRelationFilter
   }
 
   export type GroupsOrderByWithRelationInput = {
@@ -5445,6 +6718,7 @@ export namespace Prisma {
     creator?: UsersOrderByWithRelationInput
     savings?: SavingsOrderByRelationAggregateInput
     members?: GroupMembersOrderByRelationAggregateInput
+    transactions?: TransactionsOrderByRelationAggregateInput
   }
 
   export type GroupsWhereUniqueInput = Prisma.AtLeast<{
@@ -5458,6 +6732,7 @@ export namespace Prisma {
     creator?: XOR<UsersRelationFilter, UsersWhereInput>
     savings?: SavingsListRelationFilter
     members?: GroupMembersListRelationFilter
+    transactions?: TransactionsListRelationFilter
   }, "group_id">
 
   export type GroupsOrderByWithAggregationInput = {
@@ -5538,6 +6813,79 @@ export namespace Prisma {
     joined_at?: DateTimeWithAggregatesFilter<"GroupMembers"> | Date | string
   }
 
+  export type TransactionsWhereInput = {
+    AND?: TransactionsWhereInput | TransactionsWhereInput[]
+    OR?: TransactionsWhereInput[]
+    NOT?: TransactionsWhereInput | TransactionsWhereInput[]
+    transaction_id?: UuidFilter<"Transactions"> | string
+    user_id?: UuidFilter<"Transactions"> | string
+    group_id?: UuidNullableFilter<"Transactions"> | string | null
+    saving_id?: UuidFilter<"Transactions"> | string
+    type?: EnumTransactionTypesFilter<"Transactions"> | $Enums.TransactionTypes
+    amount?: DecimalFilter<"Transactions"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"Transactions"> | Date | string
+    user?: XOR<UsersRelationFilter, UsersWhereInput>
+    group?: XOR<GroupsNullableRelationFilter, GroupsWhereInput> | null
+    saving?: XOR<SavingsRelationFilter, SavingsWhereInput>
+  }
+
+  export type TransactionsOrderByWithRelationInput = {
+    transaction_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrderInput | SortOrder
+    saving_id?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+    user?: UsersOrderByWithRelationInput
+    group?: GroupsOrderByWithRelationInput
+    saving?: SavingsOrderByWithRelationInput
+  }
+
+  export type TransactionsWhereUniqueInput = Prisma.AtLeast<{
+    transaction_id?: string
+    AND?: TransactionsWhereInput | TransactionsWhereInput[]
+    OR?: TransactionsWhereInput[]
+    NOT?: TransactionsWhereInput | TransactionsWhereInput[]
+    user_id?: UuidFilter<"Transactions"> | string
+    group_id?: UuidNullableFilter<"Transactions"> | string | null
+    saving_id?: UuidFilter<"Transactions"> | string
+    type?: EnumTransactionTypesFilter<"Transactions"> | $Enums.TransactionTypes
+    amount?: DecimalFilter<"Transactions"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"Transactions"> | Date | string
+    user?: XOR<UsersRelationFilter, UsersWhereInput>
+    group?: XOR<GroupsNullableRelationFilter, GroupsWhereInput> | null
+    saving?: XOR<SavingsRelationFilter, SavingsWhereInput>
+  }, "transaction_id">
+
+  export type TransactionsOrderByWithAggregationInput = {
+    transaction_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrderInput | SortOrder
+    saving_id?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+    _count?: TransactionsCountOrderByAggregateInput
+    _avg?: TransactionsAvgOrderByAggregateInput
+    _max?: TransactionsMaxOrderByAggregateInput
+    _min?: TransactionsMinOrderByAggregateInput
+    _sum?: TransactionsSumOrderByAggregateInput
+  }
+
+  export type TransactionsScalarWhereWithAggregatesInput = {
+    AND?: TransactionsScalarWhereWithAggregatesInput | TransactionsScalarWhereWithAggregatesInput[]
+    OR?: TransactionsScalarWhereWithAggregatesInput[]
+    NOT?: TransactionsScalarWhereWithAggregatesInput | TransactionsScalarWhereWithAggregatesInput[]
+    transaction_id?: UuidWithAggregatesFilter<"Transactions"> | string
+    user_id?: UuidWithAggregatesFilter<"Transactions"> | string
+    group_id?: UuidNullableWithAggregatesFilter<"Transactions"> | string | null
+    saving_id?: UuidWithAggregatesFilter<"Transactions"> | string
+    type?: EnumTransactionTypesWithAggregatesFilter<"Transactions"> | $Enums.TransactionTypes
+    amount?: DecimalWithAggregatesFilter<"Transactions"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeWithAggregatesFilter<"Transactions"> | Date | string
+  }
+
   export type UsersCreateInput = {
     user_id?: string
     name: string
@@ -5547,6 +6895,7 @@ export namespace Prisma {
     savings?: SavingsCreateNestedManyWithoutUserInput
     groups?: GroupsCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMembersCreateNestedManyWithoutUserInput
+    transaction?: TransactionsCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateInput = {
@@ -5558,6 +6907,7 @@ export namespace Prisma {
     savings?: SavingsUncheckedCreateNestedManyWithoutUserInput
     groups?: GroupsUncheckedCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMembersUncheckedCreateNestedManyWithoutUserInput
+    transaction?: TransactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersUpdateInput = {
@@ -5569,6 +6919,7 @@ export namespace Prisma {
     savings?: SavingsUpdateManyWithoutUserNestedInput
     groups?: GroupsUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMembersUpdateManyWithoutUserNestedInput
+    transaction?: TransactionsUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateInput = {
@@ -5580,6 +6931,7 @@ export namespace Prisma {
     savings?: SavingsUncheckedUpdateManyWithoutUserNestedInput
     groups?: GroupsUncheckedUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMembersUncheckedUpdateManyWithoutUserNestedInput
+    transaction?: TransactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UsersCreateManyInput = {
@@ -5613,6 +6965,7 @@ export namespace Prisma {
     created_at?: Date | string
     user: UsersCreateNestedOneWithoutSavingsInput
     group?: GroupsCreateNestedOneWithoutSavingsInput
+    transactions?: TransactionsCreateNestedManyWithoutSavingInput
   }
 
   export type SavingsUncheckedCreateInput = {
@@ -5622,6 +6975,7 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     type: $Enums.SavingTypes
     created_at?: Date | string
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutSavingInput
   }
 
   export type SavingsUpdateInput = {
@@ -5631,6 +6985,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UsersUpdateOneRequiredWithoutSavingsNestedInput
     group?: GroupsUpdateOneWithoutSavingsNestedInput
+    transactions?: TransactionsUpdateManyWithoutSavingNestedInput
   }
 
   export type SavingsUncheckedUpdateInput = {
@@ -5640,6 +6995,7 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionsUncheckedUpdateManyWithoutSavingNestedInput
   }
 
   export type SavingsCreateManyInput = {
@@ -5674,6 +7030,7 @@ export namespace Prisma {
     creator: UsersCreateNestedOneWithoutGroupsInput
     savings?: SavingsCreateNestedManyWithoutGroupInput
     members?: GroupMembersCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsCreateNestedManyWithoutGroupInput
   }
 
   export type GroupsUncheckedCreateInput = {
@@ -5683,6 +7040,7 @@ export namespace Prisma {
     created_at?: Date | string
     savings?: SavingsUncheckedCreateNestedManyWithoutGroupInput
     members?: GroupMembersUncheckedCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupsUpdateInput = {
@@ -5692,6 +7050,7 @@ export namespace Prisma {
     creator?: UsersUpdateOneRequiredWithoutGroupsNestedInput
     savings?: SavingsUpdateManyWithoutGroupNestedInput
     members?: GroupMembersUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupsUncheckedUpdateInput = {
@@ -5701,6 +7060,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     savings?: SavingsUncheckedUpdateManyWithoutGroupNestedInput
     members?: GroupMembersUncheckedUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupsCreateManyInput = {
@@ -5777,6 +7137,73 @@ export namespace Prisma {
     joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TransactionsCreateInput = {
+    transaction_id?: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    user: UsersCreateNestedOneWithoutTransactionInput
+    group?: GroupsCreateNestedOneWithoutTransactionsInput
+    saving: SavingsCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionsUncheckedCreateInput = {
+    transaction_id?: string
+    user_id: string
+    group_id?: string | null
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type TransactionsUpdateInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UsersUpdateOneRequiredWithoutTransactionNestedInput
+    group?: GroupsUpdateOneWithoutTransactionsNestedInput
+    saving?: SavingsUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionsUncheckedUpdateInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    saving_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsCreateManyInput = {
+    transaction_id?: string
+    user_id: string
+    group_id?: string | null
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type TransactionsUpdateManyMutationInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsUncheckedUpdateManyInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    saving_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -5833,6 +7260,12 @@ export namespace Prisma {
     none?: GroupMembersWhereInput
   }
 
+  export type TransactionsListRelationFilter = {
+    every?: TransactionsWhereInput
+    some?: TransactionsWhereInput
+    none?: TransactionsWhereInput
+  }
+
   export type SavingsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -5842,6 +7275,10 @@ export namespace Prisma {
   }
 
   export type GroupMembersOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TransactionsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -6104,6 +7541,66 @@ export namespace Prisma {
     _max?: NestedEnumGroupRolesFilter<$PrismaModel>
   }
 
+  export type EnumTransactionTypesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionTypes | EnumTransactionTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypesFilter<$PrismaModel> | $Enums.TransactionTypes
+  }
+
+  export type SavingsRelationFilter = {
+    is?: SavingsWhereInput
+    isNot?: SavingsWhereInput
+  }
+
+  export type TransactionsCountOrderByAggregateInput = {
+    transaction_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrder
+    saving_id?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type TransactionsAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type TransactionsMaxOrderByAggregateInput = {
+    transaction_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrder
+    saving_id?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type TransactionsMinOrderByAggregateInput = {
+    transaction_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrder
+    saving_id?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type TransactionsSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type EnumTransactionTypesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionTypes | EnumTransactionTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypesWithAggregatesFilter<$PrismaModel> | $Enums.TransactionTypes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionTypesFilter<$PrismaModel>
+    _max?: NestedEnumTransactionTypesFilter<$PrismaModel>
+  }
+
   export type SavingsCreateNestedManyWithoutUserInput = {
     create?: XOR<SavingsCreateWithoutUserInput, SavingsUncheckedCreateWithoutUserInput> | SavingsCreateWithoutUserInput[] | SavingsUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SavingsCreateOrConnectWithoutUserInput | SavingsCreateOrConnectWithoutUserInput[]
@@ -6125,6 +7622,13 @@ export namespace Prisma {
     connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
   }
 
+  export type TransactionsCreateNestedManyWithoutUserInput = {
+    create?: XOR<TransactionsCreateWithoutUserInput, TransactionsUncheckedCreateWithoutUserInput> | TransactionsCreateWithoutUserInput[] | TransactionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutUserInput | TransactionsCreateOrConnectWithoutUserInput[]
+    createMany?: TransactionsCreateManyUserInputEnvelope
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+  }
+
   export type SavingsUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SavingsCreateWithoutUserInput, SavingsUncheckedCreateWithoutUserInput> | SavingsCreateWithoutUserInput[] | SavingsUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SavingsCreateOrConnectWithoutUserInput | SavingsCreateOrConnectWithoutUserInput[]
@@ -6144,6 +7648,13 @@ export namespace Prisma {
     connectOrCreate?: GroupMembersCreateOrConnectWithoutUserInput | GroupMembersCreateOrConnectWithoutUserInput[]
     createMany?: GroupMembersCreateManyUserInputEnvelope
     connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+  }
+
+  export type TransactionsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TransactionsCreateWithoutUserInput, TransactionsUncheckedCreateWithoutUserInput> | TransactionsCreateWithoutUserInput[] | TransactionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutUserInput | TransactionsCreateOrConnectWithoutUserInput[]
+    createMany?: TransactionsCreateManyUserInputEnvelope
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -6196,6 +7707,20 @@ export namespace Prisma {
     deleteMany?: GroupMembersScalarWhereInput | GroupMembersScalarWhereInput[]
   }
 
+  export type TransactionsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TransactionsCreateWithoutUserInput, TransactionsUncheckedCreateWithoutUserInput> | TransactionsCreateWithoutUserInput[] | TransactionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutUserInput | TransactionsCreateOrConnectWithoutUserInput[]
+    upsert?: TransactionsUpsertWithWhereUniqueWithoutUserInput | TransactionsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TransactionsCreateManyUserInputEnvelope
+    set?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    disconnect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    delete?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    update?: TransactionsUpdateWithWhereUniqueWithoutUserInput | TransactionsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TransactionsUpdateManyWithWhereWithoutUserInput | TransactionsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+  }
+
   export type SavingsUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SavingsCreateWithoutUserInput, SavingsUncheckedCreateWithoutUserInput> | SavingsCreateWithoutUserInput[] | SavingsUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SavingsCreateOrConnectWithoutUserInput | SavingsCreateOrConnectWithoutUserInput[]
@@ -6238,6 +7763,20 @@ export namespace Prisma {
     deleteMany?: GroupMembersScalarWhereInput | GroupMembersScalarWhereInput[]
   }
 
+  export type TransactionsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TransactionsCreateWithoutUserInput, TransactionsUncheckedCreateWithoutUserInput> | TransactionsCreateWithoutUserInput[] | TransactionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutUserInput | TransactionsCreateOrConnectWithoutUserInput[]
+    upsert?: TransactionsUpsertWithWhereUniqueWithoutUserInput | TransactionsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TransactionsCreateManyUserInputEnvelope
+    set?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    disconnect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    delete?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    update?: TransactionsUpdateWithWhereUniqueWithoutUserInput | TransactionsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TransactionsUpdateManyWithWhereWithoutUserInput | TransactionsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+  }
+
   export type UsersCreateNestedOneWithoutSavingsInput = {
     create?: XOR<UsersCreateWithoutSavingsInput, UsersUncheckedCreateWithoutSavingsInput>
     connectOrCreate?: UsersCreateOrConnectWithoutSavingsInput
@@ -6248,6 +7787,20 @@ export namespace Prisma {
     create?: XOR<GroupsCreateWithoutSavingsInput, GroupsUncheckedCreateWithoutSavingsInput>
     connectOrCreate?: GroupsCreateOrConnectWithoutSavingsInput
     connect?: GroupsWhereUniqueInput
+  }
+
+  export type TransactionsCreateNestedManyWithoutSavingInput = {
+    create?: XOR<TransactionsCreateWithoutSavingInput, TransactionsUncheckedCreateWithoutSavingInput> | TransactionsCreateWithoutSavingInput[] | TransactionsUncheckedCreateWithoutSavingInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutSavingInput | TransactionsCreateOrConnectWithoutSavingInput[]
+    createMany?: TransactionsCreateManySavingInputEnvelope
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+  }
+
+  export type TransactionsUncheckedCreateNestedManyWithoutSavingInput = {
+    create?: XOR<TransactionsCreateWithoutSavingInput, TransactionsUncheckedCreateWithoutSavingInput> | TransactionsCreateWithoutSavingInput[] | TransactionsUncheckedCreateWithoutSavingInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutSavingInput | TransactionsCreateOrConnectWithoutSavingInput[]
+    createMany?: TransactionsCreateManySavingInputEnvelope
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -6280,8 +7833,36 @@ export namespace Prisma {
     update?: XOR<XOR<GroupsUpdateToOneWithWhereWithoutSavingsInput, GroupsUpdateWithoutSavingsInput>, GroupsUncheckedUpdateWithoutSavingsInput>
   }
 
+  export type TransactionsUpdateManyWithoutSavingNestedInput = {
+    create?: XOR<TransactionsCreateWithoutSavingInput, TransactionsUncheckedCreateWithoutSavingInput> | TransactionsCreateWithoutSavingInput[] | TransactionsUncheckedCreateWithoutSavingInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutSavingInput | TransactionsCreateOrConnectWithoutSavingInput[]
+    upsert?: TransactionsUpsertWithWhereUniqueWithoutSavingInput | TransactionsUpsertWithWhereUniqueWithoutSavingInput[]
+    createMany?: TransactionsCreateManySavingInputEnvelope
+    set?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    disconnect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    delete?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    update?: TransactionsUpdateWithWhereUniqueWithoutSavingInput | TransactionsUpdateWithWhereUniqueWithoutSavingInput[]
+    updateMany?: TransactionsUpdateManyWithWhereWithoutSavingInput | TransactionsUpdateManyWithWhereWithoutSavingInput[]
+    deleteMany?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type TransactionsUncheckedUpdateManyWithoutSavingNestedInput = {
+    create?: XOR<TransactionsCreateWithoutSavingInput, TransactionsUncheckedCreateWithoutSavingInput> | TransactionsCreateWithoutSavingInput[] | TransactionsUncheckedCreateWithoutSavingInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutSavingInput | TransactionsCreateOrConnectWithoutSavingInput[]
+    upsert?: TransactionsUpsertWithWhereUniqueWithoutSavingInput | TransactionsUpsertWithWhereUniqueWithoutSavingInput[]
+    createMany?: TransactionsCreateManySavingInputEnvelope
+    set?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    disconnect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    delete?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    update?: TransactionsUpdateWithWhereUniqueWithoutSavingInput | TransactionsUpdateWithWhereUniqueWithoutSavingInput[]
+    updateMany?: TransactionsUpdateManyWithWhereWithoutSavingInput | TransactionsUpdateManyWithWhereWithoutSavingInput[]
+    deleteMany?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
   }
 
   export type UsersCreateNestedOneWithoutGroupsInput = {
@@ -6304,6 +7885,13 @@ export namespace Prisma {
     connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
   }
 
+  export type TransactionsCreateNestedManyWithoutGroupInput = {
+    create?: XOR<TransactionsCreateWithoutGroupInput, TransactionsUncheckedCreateWithoutGroupInput> | TransactionsCreateWithoutGroupInput[] | TransactionsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutGroupInput | TransactionsCreateOrConnectWithoutGroupInput[]
+    createMany?: TransactionsCreateManyGroupInputEnvelope
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+  }
+
   export type SavingsUncheckedCreateNestedManyWithoutGroupInput = {
     create?: XOR<SavingsCreateWithoutGroupInput, SavingsUncheckedCreateWithoutGroupInput> | SavingsCreateWithoutGroupInput[] | SavingsUncheckedCreateWithoutGroupInput[]
     connectOrCreate?: SavingsCreateOrConnectWithoutGroupInput | SavingsCreateOrConnectWithoutGroupInput[]
@@ -6316,6 +7904,13 @@ export namespace Prisma {
     connectOrCreate?: GroupMembersCreateOrConnectWithoutGroupInput | GroupMembersCreateOrConnectWithoutGroupInput[]
     createMany?: GroupMembersCreateManyGroupInputEnvelope
     connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+  }
+
+  export type TransactionsUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<TransactionsCreateWithoutGroupInput, TransactionsUncheckedCreateWithoutGroupInput> | TransactionsCreateWithoutGroupInput[] | TransactionsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutGroupInput | TransactionsCreateOrConnectWithoutGroupInput[]
+    createMany?: TransactionsCreateManyGroupInputEnvelope
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
   }
 
   export type UsersUpdateOneRequiredWithoutGroupsNestedInput = {
@@ -6354,6 +7949,20 @@ export namespace Prisma {
     deleteMany?: GroupMembersScalarWhereInput | GroupMembersScalarWhereInput[]
   }
 
+  export type TransactionsUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<TransactionsCreateWithoutGroupInput, TransactionsUncheckedCreateWithoutGroupInput> | TransactionsCreateWithoutGroupInput[] | TransactionsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutGroupInput | TransactionsCreateOrConnectWithoutGroupInput[]
+    upsert?: TransactionsUpsertWithWhereUniqueWithoutGroupInput | TransactionsUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: TransactionsCreateManyGroupInputEnvelope
+    set?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    disconnect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    delete?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    update?: TransactionsUpdateWithWhereUniqueWithoutGroupInput | TransactionsUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: TransactionsUpdateManyWithWhereWithoutGroupInput | TransactionsUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+  }
+
   export type SavingsUncheckedUpdateManyWithoutGroupNestedInput = {
     create?: XOR<SavingsCreateWithoutGroupInput, SavingsUncheckedCreateWithoutGroupInput> | SavingsCreateWithoutGroupInput[] | SavingsUncheckedCreateWithoutGroupInput[]
     connectOrCreate?: SavingsCreateOrConnectWithoutGroupInput | SavingsCreateOrConnectWithoutGroupInput[]
@@ -6380,6 +7989,20 @@ export namespace Prisma {
     update?: GroupMembersUpdateWithWhereUniqueWithoutGroupInput | GroupMembersUpdateWithWhereUniqueWithoutGroupInput[]
     updateMany?: GroupMembersUpdateManyWithWhereWithoutGroupInput | GroupMembersUpdateManyWithWhereWithoutGroupInput[]
     deleteMany?: GroupMembersScalarWhereInput | GroupMembersScalarWhereInput[]
+  }
+
+  export type TransactionsUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<TransactionsCreateWithoutGroupInput, TransactionsUncheckedCreateWithoutGroupInput> | TransactionsCreateWithoutGroupInput[] | TransactionsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutGroupInput | TransactionsCreateOrConnectWithoutGroupInput[]
+    upsert?: TransactionsUpsertWithWhereUniqueWithoutGroupInput | TransactionsUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: TransactionsCreateManyGroupInputEnvelope
+    set?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    disconnect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    delete?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    update?: TransactionsUpdateWithWhereUniqueWithoutGroupInput | TransactionsUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: TransactionsUpdateManyWithWhereWithoutGroupInput | TransactionsUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
   }
 
   export type GroupsCreateNestedOneWithoutMembersInput = {
@@ -6412,6 +8035,54 @@ export namespace Prisma {
     upsert?: UsersUpsertWithoutGroupMembersInput
     connect?: UsersWhereUniqueInput
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutGroupMembersInput, UsersUpdateWithoutGroupMembersInput>, UsersUncheckedUpdateWithoutGroupMembersInput>
+  }
+
+  export type UsersCreateNestedOneWithoutTransactionInput = {
+    create?: XOR<UsersCreateWithoutTransactionInput, UsersUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutTransactionInput
+    connect?: UsersWhereUniqueInput
+  }
+
+  export type GroupsCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<GroupsCreateWithoutTransactionsInput, GroupsUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: GroupsCreateOrConnectWithoutTransactionsInput
+    connect?: GroupsWhereUniqueInput
+  }
+
+  export type SavingsCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<SavingsCreateWithoutTransactionsInput, SavingsUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: SavingsCreateOrConnectWithoutTransactionsInput
+    connect?: SavingsWhereUniqueInput
+  }
+
+  export type EnumTransactionTypesFieldUpdateOperationsInput = {
+    set?: $Enums.TransactionTypes
+  }
+
+  export type UsersUpdateOneRequiredWithoutTransactionNestedInput = {
+    create?: XOR<UsersCreateWithoutTransactionInput, UsersUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutTransactionInput
+    upsert?: UsersUpsertWithoutTransactionInput
+    connect?: UsersWhereUniqueInput
+    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutTransactionInput, UsersUpdateWithoutTransactionInput>, UsersUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type GroupsUpdateOneWithoutTransactionsNestedInput = {
+    create?: XOR<GroupsCreateWithoutTransactionsInput, GroupsUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: GroupsCreateOrConnectWithoutTransactionsInput
+    upsert?: GroupsUpsertWithoutTransactionsInput
+    disconnect?: GroupsWhereInput | boolean
+    delete?: GroupsWhereInput | boolean
+    connect?: GroupsWhereUniqueInput
+    update?: XOR<XOR<GroupsUpdateToOneWithWhereWithoutTransactionsInput, GroupsUpdateWithoutTransactionsInput>, GroupsUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type SavingsUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<SavingsCreateWithoutTransactionsInput, SavingsUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: SavingsCreateOrConnectWithoutTransactionsInput
+    upsert?: SavingsUpsertWithoutTransactionsInput
+    connect?: SavingsWhereUniqueInput
+    update?: XOR<XOR<SavingsUpdateToOneWithWhereWithoutTransactionsInput, SavingsUpdateWithoutTransactionsInput>, SavingsUncheckedUpdateWithoutTransactionsInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -6617,12 +8288,30 @@ export namespace Prisma {
     _max?: NestedEnumGroupRolesFilter<$PrismaModel>
   }
 
+  export type NestedEnumTransactionTypesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionTypes | EnumTransactionTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypesFilter<$PrismaModel> | $Enums.TransactionTypes
+  }
+
+  export type NestedEnumTransactionTypesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionTypes | EnumTransactionTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypesWithAggregatesFilter<$PrismaModel> | $Enums.TransactionTypes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionTypesFilter<$PrismaModel>
+    _max?: NestedEnumTransactionTypesFilter<$PrismaModel>
+  }
+
   export type SavingsCreateWithoutUserInput = {
     saving_id?: string
     amount: Decimal | DecimalJsLike | number | string
     type: $Enums.SavingTypes
     created_at?: Date | string
     group?: GroupsCreateNestedOneWithoutSavingsInput
+    transactions?: TransactionsCreateNestedManyWithoutSavingInput
   }
 
   export type SavingsUncheckedCreateWithoutUserInput = {
@@ -6631,6 +8320,7 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     type: $Enums.SavingTypes
     created_at?: Date | string
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutSavingInput
   }
 
   export type SavingsCreateOrConnectWithoutUserInput = {
@@ -6649,6 +8339,7 @@ export namespace Prisma {
     created_at?: Date | string
     savings?: SavingsCreateNestedManyWithoutGroupInput
     members?: GroupMembersCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsCreateNestedManyWithoutGroupInput
   }
 
   export type GroupsUncheckedCreateWithoutCreatorInput = {
@@ -6657,6 +8348,7 @@ export namespace Prisma {
     created_at?: Date | string
     savings?: SavingsUncheckedCreateNestedManyWithoutGroupInput
     members?: GroupMembersUncheckedCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupsCreateOrConnectWithoutCreatorInput = {
@@ -6690,6 +8382,34 @@ export namespace Prisma {
 
   export type GroupMembersCreateManyUserInputEnvelope = {
     data: GroupMembersCreateManyUserInput | GroupMembersCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransactionsCreateWithoutUserInput = {
+    transaction_id?: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    group?: GroupsCreateNestedOneWithoutTransactionsInput
+    saving: SavingsCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionsUncheckedCreateWithoutUserInput = {
+    transaction_id?: string
+    group_id?: string | null
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type TransactionsCreateOrConnectWithoutUserInput = {
+    where: TransactionsWhereUniqueInput
+    create: XOR<TransactionsCreateWithoutUserInput, TransactionsUncheckedCreateWithoutUserInput>
+  }
+
+  export type TransactionsCreateManyUserInputEnvelope = {
+    data: TransactionsCreateManyUserInput | TransactionsCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -6774,6 +8494,35 @@ export namespace Prisma {
     joined_at?: DateTimeFilter<"GroupMembers"> | Date | string
   }
 
+  export type TransactionsUpsertWithWhereUniqueWithoutUserInput = {
+    where: TransactionsWhereUniqueInput
+    update: XOR<TransactionsUpdateWithoutUserInput, TransactionsUncheckedUpdateWithoutUserInput>
+    create: XOR<TransactionsCreateWithoutUserInput, TransactionsUncheckedCreateWithoutUserInput>
+  }
+
+  export type TransactionsUpdateWithWhereUniqueWithoutUserInput = {
+    where: TransactionsWhereUniqueInput
+    data: XOR<TransactionsUpdateWithoutUserInput, TransactionsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TransactionsUpdateManyWithWhereWithoutUserInput = {
+    where: TransactionsScalarWhereInput
+    data: XOR<TransactionsUpdateManyMutationInput, TransactionsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TransactionsScalarWhereInput = {
+    AND?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+    OR?: TransactionsScalarWhereInput[]
+    NOT?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+    transaction_id?: UuidFilter<"Transactions"> | string
+    user_id?: UuidFilter<"Transactions"> | string
+    group_id?: UuidNullableFilter<"Transactions"> | string | null
+    saving_id?: UuidFilter<"Transactions"> | string
+    type?: EnumTransactionTypesFilter<"Transactions"> | $Enums.TransactionTypes
+    amount?: DecimalFilter<"Transactions"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"Transactions"> | Date | string
+  }
+
   export type UsersCreateWithoutSavingsInput = {
     user_id?: string
     name: string
@@ -6782,6 +8531,7 @@ export namespace Prisma {
     created_at?: Date | string
     groups?: GroupsCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMembersCreateNestedManyWithoutUserInput
+    transaction?: TransactionsCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateWithoutSavingsInput = {
@@ -6792,6 +8542,7 @@ export namespace Prisma {
     created_at?: Date | string
     groups?: GroupsUncheckedCreateNestedManyWithoutCreatorInput
     groupMembers?: GroupMembersUncheckedCreateNestedManyWithoutUserInput
+    transaction?: TransactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersCreateOrConnectWithoutSavingsInput = {
@@ -6805,6 +8556,7 @@ export namespace Prisma {
     created_at?: Date | string
     creator: UsersCreateNestedOneWithoutGroupsInput
     members?: GroupMembersCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsCreateNestedManyWithoutGroupInput
   }
 
   export type GroupsUncheckedCreateWithoutSavingsInput = {
@@ -6813,11 +8565,40 @@ export namespace Prisma {
     created_by: string
     created_at?: Date | string
     members?: GroupMembersUncheckedCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupsCreateOrConnectWithoutSavingsInput = {
     where: GroupsWhereUniqueInput
     create: XOR<GroupsCreateWithoutSavingsInput, GroupsUncheckedCreateWithoutSavingsInput>
+  }
+
+  export type TransactionsCreateWithoutSavingInput = {
+    transaction_id?: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    user: UsersCreateNestedOneWithoutTransactionInput
+    group?: GroupsCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionsUncheckedCreateWithoutSavingInput = {
+    transaction_id?: string
+    user_id: string
+    group_id?: string | null
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type TransactionsCreateOrConnectWithoutSavingInput = {
+    where: TransactionsWhereUniqueInput
+    create: XOR<TransactionsCreateWithoutSavingInput, TransactionsUncheckedCreateWithoutSavingInput>
+  }
+
+  export type TransactionsCreateManySavingInputEnvelope = {
+    data: TransactionsCreateManySavingInput | TransactionsCreateManySavingInput[]
+    skipDuplicates?: boolean
   }
 
   export type UsersUpsertWithoutSavingsInput = {
@@ -6839,6 +8620,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     groups?: GroupsUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMembersUpdateManyWithoutUserNestedInput
+    transaction?: TransactionsUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutSavingsInput = {
@@ -6849,6 +8631,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     groups?: GroupsUncheckedUpdateManyWithoutCreatorNestedInput
     groupMembers?: GroupMembersUncheckedUpdateManyWithoutUserNestedInput
+    transaction?: TransactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type GroupsUpsertWithoutSavingsInput = {
@@ -6868,6 +8651,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     creator?: UsersUpdateOneRequiredWithoutGroupsNestedInput
     members?: GroupMembersUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupsUncheckedUpdateWithoutSavingsInput = {
@@ -6876,6 +8660,23 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: GroupMembersUncheckedUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type TransactionsUpsertWithWhereUniqueWithoutSavingInput = {
+    where: TransactionsWhereUniqueInput
+    update: XOR<TransactionsUpdateWithoutSavingInput, TransactionsUncheckedUpdateWithoutSavingInput>
+    create: XOR<TransactionsCreateWithoutSavingInput, TransactionsUncheckedCreateWithoutSavingInput>
+  }
+
+  export type TransactionsUpdateWithWhereUniqueWithoutSavingInput = {
+    where: TransactionsWhereUniqueInput
+    data: XOR<TransactionsUpdateWithoutSavingInput, TransactionsUncheckedUpdateWithoutSavingInput>
+  }
+
+  export type TransactionsUpdateManyWithWhereWithoutSavingInput = {
+    where: TransactionsScalarWhereInput
+    data: XOR<TransactionsUpdateManyMutationInput, TransactionsUncheckedUpdateManyWithoutSavingInput>
   }
 
   export type UsersCreateWithoutGroupsInput = {
@@ -6886,6 +8687,7 @@ export namespace Prisma {
     created_at?: Date | string
     savings?: SavingsCreateNestedManyWithoutUserInput
     groupMembers?: GroupMembersCreateNestedManyWithoutUserInput
+    transaction?: TransactionsCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateWithoutGroupsInput = {
@@ -6896,6 +8698,7 @@ export namespace Prisma {
     created_at?: Date | string
     savings?: SavingsUncheckedCreateNestedManyWithoutUserInput
     groupMembers?: GroupMembersUncheckedCreateNestedManyWithoutUserInput
+    transaction?: TransactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersCreateOrConnectWithoutGroupsInput = {
@@ -6909,6 +8712,7 @@ export namespace Prisma {
     type: $Enums.SavingTypes
     created_at?: Date | string
     user: UsersCreateNestedOneWithoutSavingsInput
+    transactions?: TransactionsCreateNestedManyWithoutSavingInput
   }
 
   export type SavingsUncheckedCreateWithoutGroupInput = {
@@ -6917,6 +8721,7 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     type: $Enums.SavingTypes
     created_at?: Date | string
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutSavingInput
   }
 
   export type SavingsCreateOrConnectWithoutGroupInput = {
@@ -6953,6 +8758,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TransactionsCreateWithoutGroupInput = {
+    transaction_id?: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    user: UsersCreateNestedOneWithoutTransactionInput
+    saving: SavingsCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionsUncheckedCreateWithoutGroupInput = {
+    transaction_id?: string
+    user_id: string
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type TransactionsCreateOrConnectWithoutGroupInput = {
+    where: TransactionsWhereUniqueInput
+    create: XOR<TransactionsCreateWithoutGroupInput, TransactionsUncheckedCreateWithoutGroupInput>
+  }
+
+  export type TransactionsCreateManyGroupInputEnvelope = {
+    data: TransactionsCreateManyGroupInput | TransactionsCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UsersUpsertWithoutGroupsInput = {
     update: XOR<UsersUpdateWithoutGroupsInput, UsersUncheckedUpdateWithoutGroupsInput>
     create: XOR<UsersCreateWithoutGroupsInput, UsersUncheckedCreateWithoutGroupsInput>
@@ -6972,6 +8805,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     savings?: SavingsUpdateManyWithoutUserNestedInput
     groupMembers?: GroupMembersUpdateManyWithoutUserNestedInput
+    transaction?: TransactionsUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutGroupsInput = {
@@ -6982,6 +8816,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     savings?: SavingsUncheckedUpdateManyWithoutUserNestedInput
     groupMembers?: GroupMembersUncheckedUpdateManyWithoutUserNestedInput
+    transaction?: TransactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SavingsUpsertWithWhereUniqueWithoutGroupInput = {
@@ -7016,12 +8851,29 @@ export namespace Prisma {
     data: XOR<GroupMembersUpdateManyMutationInput, GroupMembersUncheckedUpdateManyWithoutGroupInput>
   }
 
+  export type TransactionsUpsertWithWhereUniqueWithoutGroupInput = {
+    where: TransactionsWhereUniqueInput
+    update: XOR<TransactionsUpdateWithoutGroupInput, TransactionsUncheckedUpdateWithoutGroupInput>
+    create: XOR<TransactionsCreateWithoutGroupInput, TransactionsUncheckedCreateWithoutGroupInput>
+  }
+
+  export type TransactionsUpdateWithWhereUniqueWithoutGroupInput = {
+    where: TransactionsWhereUniqueInput
+    data: XOR<TransactionsUpdateWithoutGroupInput, TransactionsUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type TransactionsUpdateManyWithWhereWithoutGroupInput = {
+    where: TransactionsScalarWhereInput
+    data: XOR<TransactionsUpdateManyMutationInput, TransactionsUncheckedUpdateManyWithoutGroupInput>
+  }
+
   export type GroupsCreateWithoutMembersInput = {
     group_id?: string
     group_name: string
     created_at?: Date | string
     creator: UsersCreateNestedOneWithoutGroupsInput
     savings?: SavingsCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsCreateNestedManyWithoutGroupInput
   }
 
   export type GroupsUncheckedCreateWithoutMembersInput = {
@@ -7030,6 +8882,7 @@ export namespace Prisma {
     created_by: string
     created_at?: Date | string
     savings?: SavingsUncheckedCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutGroupInput
   }
 
   export type GroupsCreateOrConnectWithoutMembersInput = {
@@ -7045,6 +8898,7 @@ export namespace Prisma {
     created_at?: Date | string
     savings?: SavingsCreateNestedManyWithoutUserInput
     groups?: GroupsCreateNestedManyWithoutCreatorInput
+    transaction?: TransactionsCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateWithoutGroupMembersInput = {
@@ -7055,6 +8909,7 @@ export namespace Prisma {
     created_at?: Date | string
     savings?: SavingsUncheckedCreateNestedManyWithoutUserInput
     groups?: GroupsUncheckedCreateNestedManyWithoutCreatorInput
+    transaction?: TransactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersCreateOrConnectWithoutGroupMembersInput = {
@@ -7079,6 +8934,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     creator?: UsersUpdateOneRequiredWithoutGroupsNestedInput
     savings?: SavingsUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupsUncheckedUpdateWithoutMembersInput = {
@@ -7087,6 +8943,7 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     savings?: SavingsUncheckedUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type UsersUpsertWithoutGroupMembersInput = {
@@ -7108,6 +8965,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     savings?: SavingsUpdateManyWithoutUserNestedInput
     groups?: GroupsUpdateManyWithoutCreatorNestedInput
+    transaction?: TransactionsUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutGroupMembersInput = {
@@ -7118,6 +8976,171 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     savings?: SavingsUncheckedUpdateManyWithoutUserNestedInput
     groups?: GroupsUncheckedUpdateManyWithoutCreatorNestedInput
+    transaction?: TransactionsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UsersCreateWithoutTransactionInput = {
+    user_id?: string
+    name: string
+    email: string
+    password: string
+    created_at?: Date | string
+    savings?: SavingsCreateNestedManyWithoutUserInput
+    groups?: GroupsCreateNestedManyWithoutCreatorInput
+    groupMembers?: GroupMembersCreateNestedManyWithoutUserInput
+  }
+
+  export type UsersUncheckedCreateWithoutTransactionInput = {
+    user_id?: string
+    name: string
+    email: string
+    password: string
+    created_at?: Date | string
+    savings?: SavingsUncheckedCreateNestedManyWithoutUserInput
+    groups?: GroupsUncheckedCreateNestedManyWithoutCreatorInput
+    groupMembers?: GroupMembersUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UsersCreateOrConnectWithoutTransactionInput = {
+    where: UsersWhereUniqueInput
+    create: XOR<UsersCreateWithoutTransactionInput, UsersUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type GroupsCreateWithoutTransactionsInput = {
+    group_id?: string
+    group_name: string
+    created_at?: Date | string
+    creator: UsersCreateNestedOneWithoutGroupsInput
+    savings?: SavingsCreateNestedManyWithoutGroupInput
+    members?: GroupMembersCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsUncheckedCreateWithoutTransactionsInput = {
+    group_id?: string
+    group_name: string
+    created_by: string
+    created_at?: Date | string
+    savings?: SavingsUncheckedCreateNestedManyWithoutGroupInput
+    members?: GroupMembersUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsCreateOrConnectWithoutTransactionsInput = {
+    where: GroupsWhereUniqueInput
+    create: XOR<GroupsCreateWithoutTransactionsInput, GroupsUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type SavingsCreateWithoutTransactionsInput = {
+    saving_id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+    user: UsersCreateNestedOneWithoutSavingsInput
+    group?: GroupsCreateNestedOneWithoutSavingsInput
+  }
+
+  export type SavingsUncheckedCreateWithoutTransactionsInput = {
+    saving_id?: string
+    user_id: string
+    group_id?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+  }
+
+  export type SavingsCreateOrConnectWithoutTransactionsInput = {
+    where: SavingsWhereUniqueInput
+    create: XOR<SavingsCreateWithoutTransactionsInput, SavingsUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type UsersUpsertWithoutTransactionInput = {
+    update: XOR<UsersUpdateWithoutTransactionInput, UsersUncheckedUpdateWithoutTransactionInput>
+    create: XOR<UsersCreateWithoutTransactionInput, UsersUncheckedCreateWithoutTransactionInput>
+    where?: UsersWhereInput
+  }
+
+  export type UsersUpdateToOneWithWhereWithoutTransactionInput = {
+    where?: UsersWhereInput
+    data: XOR<UsersUpdateWithoutTransactionInput, UsersUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type UsersUpdateWithoutTransactionInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUpdateManyWithoutUserNestedInput
+    groups?: GroupsUpdateManyWithoutCreatorNestedInput
+    groupMembers?: GroupMembersUpdateManyWithoutUserNestedInput
+  }
+
+  export type UsersUncheckedUpdateWithoutTransactionInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUncheckedUpdateManyWithoutUserNestedInput
+    groups?: GroupsUncheckedUpdateManyWithoutCreatorNestedInput
+    groupMembers?: GroupMembersUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type GroupsUpsertWithoutTransactionsInput = {
+    update: XOR<GroupsUpdateWithoutTransactionsInput, GroupsUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<GroupsCreateWithoutTransactionsInput, GroupsUncheckedCreateWithoutTransactionsInput>
+    where?: GroupsWhereInput
+  }
+
+  export type GroupsUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: GroupsWhereInput
+    data: XOR<GroupsUpdateWithoutTransactionsInput, GroupsUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type GroupsUpdateWithoutTransactionsInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: UsersUpdateOneRequiredWithoutGroupsNestedInput
+    savings?: SavingsUpdateManyWithoutGroupNestedInput
+    members?: GroupMembersUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupsUncheckedUpdateWithoutTransactionsInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUncheckedUpdateManyWithoutGroupNestedInput
+    members?: GroupMembersUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type SavingsUpsertWithoutTransactionsInput = {
+    update: XOR<SavingsUpdateWithoutTransactionsInput, SavingsUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<SavingsCreateWithoutTransactionsInput, SavingsUncheckedCreateWithoutTransactionsInput>
+    where?: SavingsWhereInput
+  }
+
+  export type SavingsUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: SavingsWhereInput
+    data: XOR<SavingsUpdateWithoutTransactionsInput, SavingsUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type SavingsUpdateWithoutTransactionsInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UsersUpdateOneRequiredWithoutSavingsNestedInput
+    group?: GroupsUpdateOneWithoutSavingsNestedInput
+  }
+
+  export type SavingsUncheckedUpdateWithoutTransactionsInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SavingsCreateManyUserInput = {
@@ -7141,12 +9164,22 @@ export namespace Prisma {
     joined_at?: Date | string
   }
 
+  export type TransactionsCreateManyUserInput = {
+    transaction_id?: string
+    group_id?: string | null
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
   export type SavingsUpdateWithoutUserInput = {
     saving_id?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     group?: GroupsUpdateOneWithoutSavingsNestedInput
+    transactions?: TransactionsUpdateManyWithoutSavingNestedInput
   }
 
   export type SavingsUncheckedUpdateWithoutUserInput = {
@@ -7155,6 +9188,7 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionsUncheckedUpdateManyWithoutSavingNestedInput
   }
 
   export type SavingsUncheckedUpdateManyWithoutUserInput = {
@@ -7171,6 +9205,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     savings?: SavingsUpdateManyWithoutGroupNestedInput
     members?: GroupMembersUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupsUncheckedUpdateWithoutCreatorInput = {
@@ -7179,6 +9214,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     savings?: SavingsUncheckedUpdateManyWithoutGroupNestedInput
     members?: GroupMembersUncheckedUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUncheckedUpdateManyWithoutGroupNestedInput
   }
 
   export type GroupsUncheckedUpdateManyWithoutCreatorInput = {
@@ -7208,6 +9244,69 @@ export namespace Prisma {
     joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TransactionsUpdateWithoutUserInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: GroupsUpdateOneWithoutTransactionsNestedInput
+    saving?: SavingsUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionsUncheckedUpdateWithoutUserInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    saving_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsUncheckedUpdateManyWithoutUserInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    saving_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsCreateManySavingInput = {
+    transaction_id?: string
+    user_id: string
+    group_id?: string | null
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type TransactionsUpdateWithoutSavingInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UsersUpdateOneRequiredWithoutTransactionNestedInput
+    group?: GroupsUpdateOneWithoutTransactionsNestedInput
+  }
+
+  export type TransactionsUncheckedUpdateWithoutSavingInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsUncheckedUpdateManyWithoutSavingInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SavingsCreateManyGroupInput = {
     saving_id?: string
     user_id: string
@@ -7223,12 +9322,22 @@ export namespace Prisma {
     joined_at?: Date | string
   }
 
+  export type TransactionsCreateManyGroupInput = {
+    transaction_id?: string
+    user_id: string
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
   export type SavingsUpdateWithoutGroupInput = {
     saving_id?: StringFieldUpdateOperationsInput | string
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UsersUpdateOneRequiredWithoutSavingsNestedInput
+    transactions?: TransactionsUpdateManyWithoutSavingNestedInput
   }
 
   export type SavingsUncheckedUpdateWithoutGroupInput = {
@@ -7237,6 +9346,7 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionsUncheckedUpdateManyWithoutSavingNestedInput
   }
 
   export type SavingsUncheckedUpdateManyWithoutGroupInput = {
@@ -7268,6 +9378,33 @@ export namespace Prisma {
     joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TransactionsUpdateWithoutGroupInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UsersUpdateOneRequiredWithoutTransactionNestedInput
+    saving?: SavingsUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionsUncheckedUpdateWithoutGroupInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    saving_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsUncheckedUpdateManyWithoutGroupInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    saving_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -7277,6 +9414,10 @@ export namespace Prisma {
      * @deprecated Use UsersCountOutputTypeDefaultArgs instead
      */
     export type UsersCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UsersCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use SavingsCountOutputTypeDefaultArgs instead
+     */
+    export type SavingsCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SavingsCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use GroupsCountOutputTypeDefaultArgs instead
      */
@@ -7297,6 +9438,10 @@ export namespace Prisma {
      * @deprecated Use GroupMembersDefaultArgs instead
      */
     export type GroupMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GroupMembersDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TransactionsDefaultArgs instead
+     */
+    export type TransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TransactionsDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

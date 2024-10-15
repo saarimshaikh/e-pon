@@ -154,6 +154,16 @@ exports.Prisma.GroupMembersScalarFieldEnum = {
   joined_at: 'joined_at'
 };
 
+exports.Prisma.TransactionsScalarFieldEnum = {
+  transaction_id: 'transaction_id',
+  user_id: 'user_id',
+  group_id: 'group_id',
+  saving_id: 'saving_id',
+  type: 'type',
+  amount: 'amount',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -178,11 +188,17 @@ exports.GroupRoles = exports.$Enums.GroupRoles = {
   member: 'member'
 };
 
+exports.TransactionTypes = exports.$Enums.TransactionTypes = {
+  deposit: 'deposit',
+  withdrawal: 'withdrawal'
+};
+
 exports.Prisma.ModelName = {
   Users: 'Users',
   Savings: 'Savings',
   Groups: 'Groups',
-  GroupMembers: 'GroupMembers'
+  GroupMembers: 'GroupMembers',
+  Transactions: 'Transactions'
 };
 
 /**
