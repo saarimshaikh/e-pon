@@ -22,8 +22,9 @@ model Users {
   created_at DateTime @default(now())
 
   //Relations
-  savings Savings[]
-  groups  Groups[]  @relation("GroupCreator")
+  savings      Savings[]
+  groups       Groups[]       @relation("GroupCreator")
+  groupMembers GroupMembers[]
 }
 
 model Savings {
@@ -46,11 +47,29 @@ model Groups {
   created_at DateTime @default(now())
 
   // Relations
-  creator Users     @relation("GroupCreator", fields: [created_by], references: [user_id])
+  creator Users          @relation("GroupCreator", fields: [created_by], references: [user_id])
   savings Savings[]
+  members GroupMembers[]
+}
+
+model GroupMembers {
+  member_id String     @id @default(uuid()) @db.Uuid
+  group_id  String     @db.Uuid
+  user_id   String     @db.Uuid
+  role      GroupRoles
+  joined_at DateTime   @default(now())
+
+  //Relations
+  group Groups @relation(fields: [group_id], references: [group_id])
+  user  Users  @relation(fields: [user_id], references: [user_id])
 }
 
 enum SavingTypes {
   personal
   group
+}
+
+enum GroupRoles {
+  admin
+  member
 }
