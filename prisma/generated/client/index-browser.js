@@ -139,6 +139,31 @@ exports.Prisma.SavingsScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.GroupsScalarFieldEnum = {
+  group_id: 'group_id',
+  group_name: 'group_name',
+  created_by: 'created_by',
+  created_at: 'created_at'
+};
+
+exports.Prisma.GroupMembersScalarFieldEnum = {
+  member_id: 'member_id',
+  group_id: 'group_id',
+  user_id: 'user_id',
+  role: 'role',
+  joined_at: 'joined_at'
+};
+
+exports.Prisma.TransactionsScalarFieldEnum = {
+  transaction_id: 'transaction_id',
+  user_id: 'user_id',
+  group_id: 'group_id',
+  saving_id: 'saving_id',
+  type: 'type',
+  amount: 'amount',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -158,9 +183,22 @@ exports.SavingTypes = exports.$Enums.SavingTypes = {
   group: 'group'
 };
 
+exports.GroupRoles = exports.$Enums.GroupRoles = {
+  admin: 'admin',
+  member: 'member'
+};
+
+exports.TransactionTypes = exports.$Enums.TransactionTypes = {
+  deposit: 'deposit',
+  withdrawal: 'withdrawal'
+};
+
 exports.Prisma.ModelName = {
   Users: 'Users',
-  Savings: 'Savings'
+  Savings: 'Savings',
+  Groups: 'Groups',
+  GroupMembers: 'GroupMembers',
+  Transactions: 'Transactions'
 };
 
 /**

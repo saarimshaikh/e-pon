@@ -23,6 +23,21 @@ export type Users = $Result.DefaultSelection<Prisma.$UsersPayload>
  * 
  */
 export type Savings = $Result.DefaultSelection<Prisma.$SavingsPayload>
+/**
+ * Model Groups
+ * 
+ */
+export type Groups = $Result.DefaultSelection<Prisma.$GroupsPayload>
+/**
+ * Model GroupMembers
+ * 
+ */
+export type GroupMembers = $Result.DefaultSelection<Prisma.$GroupMembersPayload>
+/**
+ * Model Transactions
+ * 
+ */
+export type Transactions = $Result.DefaultSelection<Prisma.$TransactionsPayload>
 
 /**
  * Enums
@@ -35,11 +50,35 @@ export namespace $Enums {
 
 export type SavingTypes = (typeof SavingTypes)[keyof typeof SavingTypes]
 
+
+export const GroupRoles: {
+  admin: 'admin',
+  member: 'member'
+};
+
+export type GroupRoles = (typeof GroupRoles)[keyof typeof GroupRoles]
+
+
+export const TransactionTypes: {
+  deposit: 'deposit',
+  withdrawal: 'withdrawal'
+};
+
+export type TransactionTypes = (typeof TransactionTypes)[keyof typeof TransactionTypes]
+
 }
 
 export type SavingTypes = $Enums.SavingTypes
 
 export const SavingTypes: typeof $Enums.SavingTypes
+
+export type GroupRoles = $Enums.GroupRoles
+
+export const GroupRoles: typeof $Enums.GroupRoles
+
+export type TransactionTypes = $Enums.TransactionTypes
+
+export const TransactionTypes: typeof $Enums.TransactionTypes
 
 /**
  * ##  Prisma Client ʲˢ
@@ -183,6 +222,36 @@ export class PrismaClient<
     * ```
     */
   get savings(): Prisma.SavingsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.groups`: Exposes CRUD operations for the **Groups** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Groups
+    * const groups = await prisma.groups.findMany()
+    * ```
+    */
+  get groups(): Prisma.GroupsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.groupMembers`: Exposes CRUD operations for the **GroupMembers** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GroupMembers
+    * const groupMembers = await prisma.groupMembers.findMany()
+    * ```
+    */
+  get groupMembers(): Prisma.GroupMembersDelegate<ExtArgs>;
+
+  /**
+   * `prisma.transactions`: Exposes CRUD operations for the **Transactions** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Transactions
+    * const transactions = await prisma.transactions.findMany()
+    * ```
+    */
+  get transactions(): Prisma.TransactionsDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -625,7 +694,10 @@ export namespace Prisma {
 
   export const ModelName: {
     Users: 'Users',
-    Savings: 'Savings'
+    Savings: 'Savings',
+    Groups: 'Groups',
+    GroupMembers: 'GroupMembers',
+    Transactions: 'Transactions'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -641,7 +713,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "users" | "savings"
+      modelProps: "users" | "savings" | "groups" | "groupMembers" | "transactions"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -782,6 +854,216 @@ export namespace Prisma {
           count: {
             args: Prisma.SavingsCountArgs<ExtArgs>
             result: $Utils.Optional<SavingsCountAggregateOutputType> | number
+          }
+        }
+      }
+      Groups: {
+        payload: Prisma.$GroupsPayload<ExtArgs>
+        fields: Prisma.GroupsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GroupsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GroupsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupsPayload>
+          }
+          findFirst: {
+            args: Prisma.GroupsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GroupsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupsPayload>
+          }
+          findMany: {
+            args: Prisma.GroupsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupsPayload>[]
+          }
+          create: {
+            args: Prisma.GroupsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupsPayload>
+          }
+          createMany: {
+            args: Prisma.GroupsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GroupsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupsPayload>[]
+          }
+          delete: {
+            args: Prisma.GroupsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupsPayload>
+          }
+          update: {
+            args: Prisma.GroupsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupsPayload>
+          }
+          deleteMany: {
+            args: Prisma.GroupsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GroupsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.GroupsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupsPayload>
+          }
+          aggregate: {
+            args: Prisma.GroupsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGroups>
+          }
+          groupBy: {
+            args: Prisma.GroupsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GroupsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GroupsCountArgs<ExtArgs>
+            result: $Utils.Optional<GroupsCountAggregateOutputType> | number
+          }
+        }
+      }
+      GroupMembers: {
+        payload: Prisma.$GroupMembersPayload<ExtArgs>
+        fields: Prisma.GroupMembersFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GroupMembersFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupMembersPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GroupMembersFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupMembersPayload>
+          }
+          findFirst: {
+            args: Prisma.GroupMembersFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupMembersPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GroupMembersFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupMembersPayload>
+          }
+          findMany: {
+            args: Prisma.GroupMembersFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupMembersPayload>[]
+          }
+          create: {
+            args: Prisma.GroupMembersCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupMembersPayload>
+          }
+          createMany: {
+            args: Prisma.GroupMembersCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GroupMembersCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupMembersPayload>[]
+          }
+          delete: {
+            args: Prisma.GroupMembersDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupMembersPayload>
+          }
+          update: {
+            args: Prisma.GroupMembersUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupMembersPayload>
+          }
+          deleteMany: {
+            args: Prisma.GroupMembersDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GroupMembersUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.GroupMembersUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GroupMembersPayload>
+          }
+          aggregate: {
+            args: Prisma.GroupMembersAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGroupMembers>
+          }
+          groupBy: {
+            args: Prisma.GroupMembersGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GroupMembersGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GroupMembersCountArgs<ExtArgs>
+            result: $Utils.Optional<GroupMembersCountAggregateOutputType> | number
+          }
+        }
+      }
+      Transactions: {
+        payload: Prisma.$TransactionsPayload<ExtArgs>
+        fields: Prisma.TransactionsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TransactionsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TransactionsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>
+          }
+          findFirst: {
+            args: Prisma.TransactionsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TransactionsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>
+          }
+          findMany: {
+            args: Prisma.TransactionsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>[]
+          }
+          create: {
+            args: Prisma.TransactionsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>
+          }
+          createMany: {
+            args: Prisma.TransactionsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TransactionsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>[]
+          }
+          delete: {
+            args: Prisma.TransactionsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>
+          }
+          update: {
+            args: Prisma.TransactionsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>
+          }
+          deleteMany: {
+            args: Prisma.TransactionsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TransactionsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.TransactionsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransactionsPayload>
+          }
+          aggregate: {
+            args: Prisma.TransactionsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTransactions>
+          }
+          groupBy: {
+            args: Prisma.TransactionsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TransactionsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TransactionsCountArgs<ExtArgs>
+            result: $Utils.Optional<TransactionsCountAggregateOutputType> | number
           }
         }
       }
@@ -947,10 +1229,16 @@ export namespace Prisma {
 
   export type UsersCountOutputType = {
     savings: number
+    groups: number
+    groupMembers: number
+    transaction: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     savings?: boolean | UsersCountOutputTypeCountSavingsArgs
+    groups?: boolean | UsersCountOutputTypeCountGroupsArgs
+    groupMembers?: boolean | UsersCountOutputTypeCountGroupMembersArgs
+    transaction?: boolean | UsersCountOutputTypeCountTransactionArgs
   }
 
   // Custom InputTypes
@@ -969,6 +1257,107 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountSavingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SavingsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountGroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupsWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountGroupMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupMembersWhereInput
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountTransactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionsWhereInput
+  }
+
+
+  /**
+   * Count Type SavingsCountOutputType
+   */
+
+  export type SavingsCountOutputType = {
+    transactions: number
+  }
+
+  export type SavingsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transactions?: boolean | SavingsCountOutputTypeCountTransactionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SavingsCountOutputType without action
+   */
+  export type SavingsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SavingsCountOutputType
+     */
+    select?: SavingsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SavingsCountOutputType without action
+   */
+  export type SavingsCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionsWhereInput
+  }
+
+
+  /**
+   * Count Type GroupsCountOutputType
+   */
+
+  export type GroupsCountOutputType = {
+    savings: number
+    members: number
+    transactions: number
+  }
+
+  export type GroupsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    savings?: boolean | GroupsCountOutputTypeCountSavingsArgs
+    members?: boolean | GroupsCountOutputTypeCountMembersArgs
+    transactions?: boolean | GroupsCountOutputTypeCountTransactionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GroupsCountOutputType without action
+   */
+  export type GroupsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupsCountOutputType
+     */
+    select?: GroupsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GroupsCountOutputType without action
+   */
+  export type GroupsCountOutputTypeCountSavingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SavingsWhereInput
+  }
+
+  /**
+   * GroupsCountOutputType without action
+   */
+  export type GroupsCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupMembersWhereInput
+  }
+
+  /**
+   * GroupsCountOutputType without action
+   */
+  export type GroupsCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionsWhereInput
   }
 
 
@@ -1141,6 +1530,9 @@ export namespace Prisma {
     password?: boolean
     created_at?: boolean
     savings?: boolean | Users$savingsArgs<ExtArgs>
+    groups?: boolean | Users$groupsArgs<ExtArgs>
+    groupMembers?: boolean | Users$groupMembersArgs<ExtArgs>
+    transaction?: boolean | Users$transactionArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -1162,6 +1554,9 @@ export namespace Prisma {
 
   export type UsersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     savings?: boolean | Users$savingsArgs<ExtArgs>
+    groups?: boolean | Users$groupsArgs<ExtArgs>
+    groupMembers?: boolean | Users$groupMembersArgs<ExtArgs>
+    transaction?: boolean | Users$transactionArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1170,6 +1565,9 @@ export namespace Prisma {
     name: "Users"
     objects: {
       savings: Prisma.$SavingsPayload<ExtArgs>[]
+      groups: Prisma.$GroupsPayload<ExtArgs>[]
+      groupMembers: Prisma.$GroupMembersPayload<ExtArgs>[]
+      transaction: Prisma.$TransactionsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       user_id: string
@@ -1542,6 +1940,9 @@ export namespace Prisma {
   export interface Prisma__UsersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     savings<T extends Users$savingsArgs<ExtArgs> = {}>(args?: Subset<T, Users$savingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "findMany"> | Null>
+    groups<T extends Users$groupsArgs<ExtArgs> = {}>(args?: Subset<T, Users$groupsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "findMany"> | Null>
+    groupMembers<T extends Users$groupMembersArgs<ExtArgs> = {}>(args?: Subset<T, Users$groupMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "findMany"> | Null>
+    transaction<T extends Users$transactionArgs<ExtArgs> = {}>(args?: Subset<T, Users$transactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1910,6 +2311,66 @@ export namespace Prisma {
   }
 
   /**
+   * Users.groups
+   */
+  export type Users$groupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    where?: GroupsWhereInput
+    orderBy?: GroupsOrderByWithRelationInput | GroupsOrderByWithRelationInput[]
+    cursor?: GroupsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupsScalarFieldEnum | GroupsScalarFieldEnum[]
+  }
+
+  /**
+   * Users.groupMembers
+   */
+  export type Users$groupMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersInclude<ExtArgs> | null
+    where?: GroupMembersWhereInput
+    orderBy?: GroupMembersOrderByWithRelationInput | GroupMembersOrderByWithRelationInput[]
+    cursor?: GroupMembersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupMembersScalarFieldEnum | GroupMembersScalarFieldEnum[]
+  }
+
+  /**
+   * Users.transaction
+   */
+  export type Users$transactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    where?: TransactionsWhereInput
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    cursor?: TransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionsScalarFieldEnum | TransactionsScalarFieldEnum[]
+  }
+
+  /**
    * Users without action
    */
   export type UsersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2131,6 +2592,9 @@ export namespace Prisma {
     type?: boolean
     created_at?: boolean
     user?: boolean | UsersDefaultArgs<ExtArgs>
+    group?: boolean | Savings$groupArgs<ExtArgs>
+    transactions?: boolean | Savings$transactionsArgs<ExtArgs>
+    _count?: boolean | SavingsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["savings"]>
 
   export type SavingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2141,6 +2605,7 @@ export namespace Prisma {
     type?: boolean
     created_at?: boolean
     user?: boolean | UsersDefaultArgs<ExtArgs>
+    group?: boolean | Savings$groupArgs<ExtArgs>
   }, ExtArgs["result"]["savings"]>
 
   export type SavingsSelectScalar = {
@@ -2154,15 +2619,21 @@ export namespace Prisma {
 
   export type SavingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsersDefaultArgs<ExtArgs>
+    group?: boolean | Savings$groupArgs<ExtArgs>
+    transactions?: boolean | Savings$transactionsArgs<ExtArgs>
+    _count?: boolean | SavingsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SavingsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UsersDefaultArgs<ExtArgs>
+    group?: boolean | Savings$groupArgs<ExtArgs>
   }
 
   export type $SavingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Savings"
     objects: {
       user: Prisma.$UsersPayload<ExtArgs>
+      group: Prisma.$GroupsPayload<ExtArgs> | null
+      transactions: Prisma.$TransactionsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       saving_id: string
@@ -2536,6 +3007,8 @@ export namespace Prisma {
   export interface Prisma__SavingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    group<T extends Savings$groupArgs<ExtArgs> = {}>(args?: Subset<T, Savings$groupArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    transactions<T extends Savings$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Savings$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2889,6 +3362,41 @@ export namespace Prisma {
   }
 
   /**
+   * Savings.group
+   */
+  export type Savings$groupArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    where?: GroupsWhereInput
+  }
+
+  /**
+   * Savings.transactions
+   */
+  export type Savings$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    where?: TransactionsWhereInput
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    cursor?: TransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionsScalarFieldEnum | TransactionsScalarFieldEnum[]
+  }
+
+  /**
    * Savings without action
    */
   export type SavingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2900,6 +3408,2958 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: SavingsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Groups
+   */
+
+  export type AggregateGroups = {
+    _count: GroupsCountAggregateOutputType | null
+    _min: GroupsMinAggregateOutputType | null
+    _max: GroupsMaxAggregateOutputType | null
+  }
+
+  export type GroupsMinAggregateOutputType = {
+    group_id: string | null
+    group_name: string | null
+    created_by: string | null
+    created_at: Date | null
+  }
+
+  export type GroupsMaxAggregateOutputType = {
+    group_id: string | null
+    group_name: string | null
+    created_by: string | null
+    created_at: Date | null
+  }
+
+  export type GroupsCountAggregateOutputType = {
+    group_id: number
+    group_name: number
+    created_by: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type GroupsMinAggregateInputType = {
+    group_id?: true
+    group_name?: true
+    created_by?: true
+    created_at?: true
+  }
+
+  export type GroupsMaxAggregateInputType = {
+    group_id?: true
+    group_name?: true
+    created_by?: true
+    created_at?: true
+  }
+
+  export type GroupsCountAggregateInputType = {
+    group_id?: true
+    group_name?: true
+    created_by?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type GroupsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Groups to aggregate.
+     */
+    where?: GroupsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groups to fetch.
+     */
+    orderBy?: GroupsOrderByWithRelationInput | GroupsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GroupsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Groups
+    **/
+    _count?: true | GroupsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GroupsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GroupsMaxAggregateInputType
+  }
+
+  export type GetGroupsAggregateType<T extends GroupsAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroups]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroups[P]>
+      : GetScalarType<T[P], AggregateGroups[P]>
+  }
+
+
+
+
+  export type GroupsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupsWhereInput
+    orderBy?: GroupsOrderByWithAggregationInput | GroupsOrderByWithAggregationInput[]
+    by: GroupsScalarFieldEnum[] | GroupsScalarFieldEnum
+    having?: GroupsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GroupsCountAggregateInputType | true
+    _min?: GroupsMinAggregateInputType
+    _max?: GroupsMaxAggregateInputType
+  }
+
+  export type GroupsGroupByOutputType = {
+    group_id: string
+    group_name: string
+    created_by: string
+    created_at: Date
+    _count: GroupsCountAggregateOutputType | null
+    _min: GroupsMinAggregateOutputType | null
+    _max: GroupsMaxAggregateOutputType | null
+  }
+
+  type GetGroupsGroupByPayload<T extends GroupsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GroupsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GroupsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GroupsGroupByOutputType[P]>
+            : GetScalarType<T[P], GroupsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GroupsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    group_id?: boolean
+    group_name?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    creator?: boolean | UsersDefaultArgs<ExtArgs>
+    savings?: boolean | Groups$savingsArgs<ExtArgs>
+    members?: boolean | Groups$membersArgs<ExtArgs>
+    transactions?: boolean | Groups$transactionsArgs<ExtArgs>
+    _count?: boolean | GroupsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["groups"]>
+
+  export type GroupsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    group_id?: boolean
+    group_name?: boolean
+    created_by?: boolean
+    created_at?: boolean
+    creator?: boolean | UsersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["groups"]>
+
+  export type GroupsSelectScalar = {
+    group_id?: boolean
+    group_name?: boolean
+    created_by?: boolean
+    created_at?: boolean
+  }
+
+  export type GroupsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | UsersDefaultArgs<ExtArgs>
+    savings?: boolean | Groups$savingsArgs<ExtArgs>
+    members?: boolean | Groups$membersArgs<ExtArgs>
+    transactions?: boolean | Groups$transactionsArgs<ExtArgs>
+    _count?: boolean | GroupsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type GroupsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    creator?: boolean | UsersDefaultArgs<ExtArgs>
+  }
+
+  export type $GroupsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Groups"
+    objects: {
+      creator: Prisma.$UsersPayload<ExtArgs>
+      savings: Prisma.$SavingsPayload<ExtArgs>[]
+      members: Prisma.$GroupMembersPayload<ExtArgs>[]
+      transactions: Prisma.$TransactionsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      group_id: string
+      group_name: string
+      created_by: string
+      created_at: Date
+    }, ExtArgs["result"]["groups"]>
+    composites: {}
+  }
+
+  type GroupsGetPayload<S extends boolean | null | undefined | GroupsDefaultArgs> = $Result.GetResult<Prisma.$GroupsPayload, S>
+
+  type GroupsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<GroupsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: GroupsCountAggregateInputType | true
+    }
+
+  export interface GroupsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Groups'], meta: { name: 'Groups' } }
+    /**
+     * Find zero or one Groups that matches the filter.
+     * @param {GroupsFindUniqueArgs} args - Arguments to find a Groups
+     * @example
+     * // Get one Groups
+     * const groups = await prisma.groups.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GroupsFindUniqueArgs>(args: SelectSubset<T, GroupsFindUniqueArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Groups that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {GroupsFindUniqueOrThrowArgs} args - Arguments to find a Groups
+     * @example
+     * // Get one Groups
+     * const groups = await prisma.groups.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GroupsFindUniqueOrThrowArgs>(args: SelectSubset<T, GroupsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Groups that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsFindFirstArgs} args - Arguments to find a Groups
+     * @example
+     * // Get one Groups
+     * const groups = await prisma.groups.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GroupsFindFirstArgs>(args?: SelectSubset<T, GroupsFindFirstArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Groups that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsFindFirstOrThrowArgs} args - Arguments to find a Groups
+     * @example
+     * // Get one Groups
+     * const groups = await prisma.groups.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GroupsFindFirstOrThrowArgs>(args?: SelectSubset<T, GroupsFindFirstOrThrowArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Groups that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Groups
+     * const groups = await prisma.groups.findMany()
+     * 
+     * // Get first 10 Groups
+     * const groups = await prisma.groups.findMany({ take: 10 })
+     * 
+     * // Only select the `group_id`
+     * const groupsWithGroup_idOnly = await prisma.groups.findMany({ select: { group_id: true } })
+     * 
+     */
+    findMany<T extends GroupsFindManyArgs>(args?: SelectSubset<T, GroupsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Groups.
+     * @param {GroupsCreateArgs} args - Arguments to create a Groups.
+     * @example
+     * // Create one Groups
+     * const Groups = await prisma.groups.create({
+     *   data: {
+     *     // ... data to create a Groups
+     *   }
+     * })
+     * 
+     */
+    create<T extends GroupsCreateArgs>(args: SelectSubset<T, GroupsCreateArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Groups.
+     * @param {GroupsCreateManyArgs} args - Arguments to create many Groups.
+     * @example
+     * // Create many Groups
+     * const groups = await prisma.groups.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GroupsCreateManyArgs>(args?: SelectSubset<T, GroupsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Groups and returns the data saved in the database.
+     * @param {GroupsCreateManyAndReturnArgs} args - Arguments to create many Groups.
+     * @example
+     * // Create many Groups
+     * const groups = await prisma.groups.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Groups and only return the `group_id`
+     * const groupsWithGroup_idOnly = await prisma.groups.createManyAndReturn({ 
+     *   select: { group_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GroupsCreateManyAndReturnArgs>(args?: SelectSubset<T, GroupsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Groups.
+     * @param {GroupsDeleteArgs} args - Arguments to delete one Groups.
+     * @example
+     * // Delete one Groups
+     * const Groups = await prisma.groups.delete({
+     *   where: {
+     *     // ... filter to delete one Groups
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GroupsDeleteArgs>(args: SelectSubset<T, GroupsDeleteArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Groups.
+     * @param {GroupsUpdateArgs} args - Arguments to update one Groups.
+     * @example
+     * // Update one Groups
+     * const groups = await prisma.groups.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GroupsUpdateArgs>(args: SelectSubset<T, GroupsUpdateArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Groups.
+     * @param {GroupsDeleteManyArgs} args - Arguments to filter Groups to delete.
+     * @example
+     * // Delete a few Groups
+     * const { count } = await prisma.groups.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GroupsDeleteManyArgs>(args?: SelectSubset<T, GroupsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Groups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Groups
+     * const groups = await prisma.groups.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GroupsUpdateManyArgs>(args: SelectSubset<T, GroupsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Groups.
+     * @param {GroupsUpsertArgs} args - Arguments to update or create a Groups.
+     * @example
+     * // Update or create a Groups
+     * const groups = await prisma.groups.upsert({
+     *   create: {
+     *     // ... data to create a Groups
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Groups we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GroupsUpsertArgs>(args: SelectSubset<T, GroupsUpsertArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Groups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsCountArgs} args - Arguments to filter Groups to count.
+     * @example
+     * // Count the number of Groups
+     * const count = await prisma.groups.count({
+     *   where: {
+     *     // ... the filter for the Groups we want to count
+     *   }
+     * })
+    **/
+    count<T extends GroupsCountArgs>(
+      args?: Subset<T, GroupsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GroupsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Groups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GroupsAggregateArgs>(args: Subset<T, GroupsAggregateArgs>): Prisma.PrismaPromise<GetGroupsAggregateType<T>>
+
+    /**
+     * Group by Groups.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GroupsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GroupsGroupByArgs['orderBy'] }
+        : { orderBy?: GroupsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GroupsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroupsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Groups model
+   */
+  readonly fields: GroupsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Groups.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GroupsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    creator<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    savings<T extends Groups$savingsArgs<ExtArgs> = {}>(args?: Subset<T, Groups$savingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "findMany"> | Null>
+    members<T extends Groups$membersArgs<ExtArgs> = {}>(args?: Subset<T, Groups$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "findMany"> | Null>
+    transactions<T extends Groups$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, Groups$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Groups model
+   */ 
+  interface GroupsFieldRefs {
+    readonly group_id: FieldRef<"Groups", 'String'>
+    readonly group_name: FieldRef<"Groups", 'String'>
+    readonly created_by: FieldRef<"Groups", 'String'>
+    readonly created_at: FieldRef<"Groups", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Groups findUnique
+   */
+  export type GroupsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    /**
+     * Filter, which Groups to fetch.
+     */
+    where: GroupsWhereUniqueInput
+  }
+
+  /**
+   * Groups findUniqueOrThrow
+   */
+  export type GroupsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    /**
+     * Filter, which Groups to fetch.
+     */
+    where: GroupsWhereUniqueInput
+  }
+
+  /**
+   * Groups findFirst
+   */
+  export type GroupsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    /**
+     * Filter, which Groups to fetch.
+     */
+    where?: GroupsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groups to fetch.
+     */
+    orderBy?: GroupsOrderByWithRelationInput | GroupsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Groups.
+     */
+    cursor?: GroupsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Groups.
+     */
+    distinct?: GroupsScalarFieldEnum | GroupsScalarFieldEnum[]
+  }
+
+  /**
+   * Groups findFirstOrThrow
+   */
+  export type GroupsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    /**
+     * Filter, which Groups to fetch.
+     */
+    where?: GroupsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groups to fetch.
+     */
+    orderBy?: GroupsOrderByWithRelationInput | GroupsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Groups.
+     */
+    cursor?: GroupsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groups.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Groups.
+     */
+    distinct?: GroupsScalarFieldEnum | GroupsScalarFieldEnum[]
+  }
+
+  /**
+   * Groups findMany
+   */
+  export type GroupsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    /**
+     * Filter, which Groups to fetch.
+     */
+    where?: GroupsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Groups to fetch.
+     */
+    orderBy?: GroupsOrderByWithRelationInput | GroupsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Groups.
+     */
+    cursor?: GroupsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Groups from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Groups.
+     */
+    skip?: number
+    distinct?: GroupsScalarFieldEnum | GroupsScalarFieldEnum[]
+  }
+
+  /**
+   * Groups create
+   */
+  export type GroupsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Groups.
+     */
+    data: XOR<GroupsCreateInput, GroupsUncheckedCreateInput>
+  }
+
+  /**
+   * Groups createMany
+   */
+  export type GroupsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Groups.
+     */
+    data: GroupsCreateManyInput | GroupsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Groups createManyAndReturn
+   */
+  export type GroupsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Groups.
+     */
+    data: GroupsCreateManyInput | GroupsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Groups update
+   */
+  export type GroupsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Groups.
+     */
+    data: XOR<GroupsUpdateInput, GroupsUncheckedUpdateInput>
+    /**
+     * Choose, which Groups to update.
+     */
+    where: GroupsWhereUniqueInput
+  }
+
+  /**
+   * Groups updateMany
+   */
+  export type GroupsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Groups.
+     */
+    data: XOR<GroupsUpdateManyMutationInput, GroupsUncheckedUpdateManyInput>
+    /**
+     * Filter which Groups to update
+     */
+    where?: GroupsWhereInput
+  }
+
+  /**
+   * Groups upsert
+   */
+  export type GroupsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Groups to update in case it exists.
+     */
+    where: GroupsWhereUniqueInput
+    /**
+     * In case the Groups found by the `where` argument doesn't exist, create a new Groups with this data.
+     */
+    create: XOR<GroupsCreateInput, GroupsUncheckedCreateInput>
+    /**
+     * In case the Groups was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GroupsUpdateInput, GroupsUncheckedUpdateInput>
+  }
+
+  /**
+   * Groups delete
+   */
+  export type GroupsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    /**
+     * Filter which Groups to delete.
+     */
+    where: GroupsWhereUniqueInput
+  }
+
+  /**
+   * Groups deleteMany
+   */
+  export type GroupsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Groups to delete
+     */
+    where?: GroupsWhereInput
+  }
+
+  /**
+   * Groups.savings
+   */
+  export type Groups$savingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Savings
+     */
+    select?: SavingsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SavingsInclude<ExtArgs> | null
+    where?: SavingsWhereInput
+    orderBy?: SavingsOrderByWithRelationInput | SavingsOrderByWithRelationInput[]
+    cursor?: SavingsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SavingsScalarFieldEnum | SavingsScalarFieldEnum[]
+  }
+
+  /**
+   * Groups.members
+   */
+  export type Groups$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersInclude<ExtArgs> | null
+    where?: GroupMembersWhereInput
+    orderBy?: GroupMembersOrderByWithRelationInput | GroupMembersOrderByWithRelationInput[]
+    cursor?: GroupMembersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GroupMembersScalarFieldEnum | GroupMembersScalarFieldEnum[]
+  }
+
+  /**
+   * Groups.transactions
+   */
+  export type Groups$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    where?: TransactionsWhereInput
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    cursor?: TransactionsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransactionsScalarFieldEnum | TransactionsScalarFieldEnum[]
+  }
+
+  /**
+   * Groups without action
+   */
+  export type GroupsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GroupMembers
+   */
+
+  export type AggregateGroupMembers = {
+    _count: GroupMembersCountAggregateOutputType | null
+    _min: GroupMembersMinAggregateOutputType | null
+    _max: GroupMembersMaxAggregateOutputType | null
+  }
+
+  export type GroupMembersMinAggregateOutputType = {
+    member_id: string | null
+    group_id: string | null
+    user_id: string | null
+    role: $Enums.GroupRoles | null
+    joined_at: Date | null
+  }
+
+  export type GroupMembersMaxAggregateOutputType = {
+    member_id: string | null
+    group_id: string | null
+    user_id: string | null
+    role: $Enums.GroupRoles | null
+    joined_at: Date | null
+  }
+
+  export type GroupMembersCountAggregateOutputType = {
+    member_id: number
+    group_id: number
+    user_id: number
+    role: number
+    joined_at: number
+    _all: number
+  }
+
+
+  export type GroupMembersMinAggregateInputType = {
+    member_id?: true
+    group_id?: true
+    user_id?: true
+    role?: true
+    joined_at?: true
+  }
+
+  export type GroupMembersMaxAggregateInputType = {
+    member_id?: true
+    group_id?: true
+    user_id?: true
+    role?: true
+    joined_at?: true
+  }
+
+  export type GroupMembersCountAggregateInputType = {
+    member_id?: true
+    group_id?: true
+    user_id?: true
+    role?: true
+    joined_at?: true
+    _all?: true
+  }
+
+  export type GroupMembersAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GroupMembers to aggregate.
+     */
+    where?: GroupMembersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupMembers to fetch.
+     */
+    orderBy?: GroupMembersOrderByWithRelationInput | GroupMembersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GroupMembersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GroupMembers
+    **/
+    _count?: true | GroupMembersCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GroupMembersMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GroupMembersMaxAggregateInputType
+  }
+
+  export type GetGroupMembersAggregateType<T extends GroupMembersAggregateArgs> = {
+        [P in keyof T & keyof AggregateGroupMembers]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGroupMembers[P]>
+      : GetScalarType<T[P], AggregateGroupMembers[P]>
+  }
+
+
+
+
+  export type GroupMembersGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GroupMembersWhereInput
+    orderBy?: GroupMembersOrderByWithAggregationInput | GroupMembersOrderByWithAggregationInput[]
+    by: GroupMembersScalarFieldEnum[] | GroupMembersScalarFieldEnum
+    having?: GroupMembersScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GroupMembersCountAggregateInputType | true
+    _min?: GroupMembersMinAggregateInputType
+    _max?: GroupMembersMaxAggregateInputType
+  }
+
+  export type GroupMembersGroupByOutputType = {
+    member_id: string
+    group_id: string
+    user_id: string
+    role: $Enums.GroupRoles
+    joined_at: Date
+    _count: GroupMembersCountAggregateOutputType | null
+    _min: GroupMembersMinAggregateOutputType | null
+    _max: GroupMembersMaxAggregateOutputType | null
+  }
+
+  type GetGroupMembersGroupByPayload<T extends GroupMembersGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GroupMembersGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GroupMembersGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GroupMembersGroupByOutputType[P]>
+            : GetScalarType<T[P], GroupMembersGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GroupMembersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    member_id?: boolean
+    group_id?: boolean
+    user_id?: boolean
+    role?: boolean
+    joined_at?: boolean
+    group?: boolean | GroupsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["groupMembers"]>
+
+  export type GroupMembersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    member_id?: boolean
+    group_id?: boolean
+    user_id?: boolean
+    role?: boolean
+    joined_at?: boolean
+    group?: boolean | GroupsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["groupMembers"]>
+
+  export type GroupMembersSelectScalar = {
+    member_id?: boolean
+    group_id?: boolean
+    user_id?: boolean
+    role?: boolean
+    joined_at?: boolean
+  }
+
+  export type GroupMembersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | GroupsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+  }
+  export type GroupMembersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    group?: boolean | GroupsDefaultArgs<ExtArgs>
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+  }
+
+  export type $GroupMembersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GroupMembers"
+    objects: {
+      group: Prisma.$GroupsPayload<ExtArgs>
+      user: Prisma.$UsersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      member_id: string
+      group_id: string
+      user_id: string
+      role: $Enums.GroupRoles
+      joined_at: Date
+    }, ExtArgs["result"]["groupMembers"]>
+    composites: {}
+  }
+
+  type GroupMembersGetPayload<S extends boolean | null | undefined | GroupMembersDefaultArgs> = $Result.GetResult<Prisma.$GroupMembersPayload, S>
+
+  type GroupMembersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<GroupMembersFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: GroupMembersCountAggregateInputType | true
+    }
+
+  export interface GroupMembersDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GroupMembers'], meta: { name: 'GroupMembers' } }
+    /**
+     * Find zero or one GroupMembers that matches the filter.
+     * @param {GroupMembersFindUniqueArgs} args - Arguments to find a GroupMembers
+     * @example
+     * // Get one GroupMembers
+     * const groupMembers = await prisma.groupMembers.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GroupMembersFindUniqueArgs>(args: SelectSubset<T, GroupMembersFindUniqueArgs<ExtArgs>>): Prisma__GroupMembersClient<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one GroupMembers that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {GroupMembersFindUniqueOrThrowArgs} args - Arguments to find a GroupMembers
+     * @example
+     * // Get one GroupMembers
+     * const groupMembers = await prisma.groupMembers.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GroupMembersFindUniqueOrThrowArgs>(args: SelectSubset<T, GroupMembersFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GroupMembersClient<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first GroupMembers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupMembersFindFirstArgs} args - Arguments to find a GroupMembers
+     * @example
+     * // Get one GroupMembers
+     * const groupMembers = await prisma.groupMembers.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GroupMembersFindFirstArgs>(args?: SelectSubset<T, GroupMembersFindFirstArgs<ExtArgs>>): Prisma__GroupMembersClient<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first GroupMembers that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupMembersFindFirstOrThrowArgs} args - Arguments to find a GroupMembers
+     * @example
+     * // Get one GroupMembers
+     * const groupMembers = await prisma.groupMembers.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GroupMembersFindFirstOrThrowArgs>(args?: SelectSubset<T, GroupMembersFindFirstOrThrowArgs<ExtArgs>>): Prisma__GroupMembersClient<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more GroupMembers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupMembersFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GroupMembers
+     * const groupMembers = await prisma.groupMembers.findMany()
+     * 
+     * // Get first 10 GroupMembers
+     * const groupMembers = await prisma.groupMembers.findMany({ take: 10 })
+     * 
+     * // Only select the `member_id`
+     * const groupMembersWithMember_idOnly = await prisma.groupMembers.findMany({ select: { member_id: true } })
+     * 
+     */
+    findMany<T extends GroupMembersFindManyArgs>(args?: SelectSubset<T, GroupMembersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a GroupMembers.
+     * @param {GroupMembersCreateArgs} args - Arguments to create a GroupMembers.
+     * @example
+     * // Create one GroupMembers
+     * const GroupMembers = await prisma.groupMembers.create({
+     *   data: {
+     *     // ... data to create a GroupMembers
+     *   }
+     * })
+     * 
+     */
+    create<T extends GroupMembersCreateArgs>(args: SelectSubset<T, GroupMembersCreateArgs<ExtArgs>>): Prisma__GroupMembersClient<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many GroupMembers.
+     * @param {GroupMembersCreateManyArgs} args - Arguments to create many GroupMembers.
+     * @example
+     * // Create many GroupMembers
+     * const groupMembers = await prisma.groupMembers.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GroupMembersCreateManyArgs>(args?: SelectSubset<T, GroupMembersCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GroupMembers and returns the data saved in the database.
+     * @param {GroupMembersCreateManyAndReturnArgs} args - Arguments to create many GroupMembers.
+     * @example
+     * // Create many GroupMembers
+     * const groupMembers = await prisma.groupMembers.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GroupMembers and only return the `member_id`
+     * const groupMembersWithMember_idOnly = await prisma.groupMembers.createManyAndReturn({ 
+     *   select: { member_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GroupMembersCreateManyAndReturnArgs>(args?: SelectSubset<T, GroupMembersCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a GroupMembers.
+     * @param {GroupMembersDeleteArgs} args - Arguments to delete one GroupMembers.
+     * @example
+     * // Delete one GroupMembers
+     * const GroupMembers = await prisma.groupMembers.delete({
+     *   where: {
+     *     // ... filter to delete one GroupMembers
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GroupMembersDeleteArgs>(args: SelectSubset<T, GroupMembersDeleteArgs<ExtArgs>>): Prisma__GroupMembersClient<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one GroupMembers.
+     * @param {GroupMembersUpdateArgs} args - Arguments to update one GroupMembers.
+     * @example
+     * // Update one GroupMembers
+     * const groupMembers = await prisma.groupMembers.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GroupMembersUpdateArgs>(args: SelectSubset<T, GroupMembersUpdateArgs<ExtArgs>>): Prisma__GroupMembersClient<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more GroupMembers.
+     * @param {GroupMembersDeleteManyArgs} args - Arguments to filter GroupMembers to delete.
+     * @example
+     * // Delete a few GroupMembers
+     * const { count } = await prisma.groupMembers.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GroupMembersDeleteManyArgs>(args?: SelectSubset<T, GroupMembersDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GroupMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupMembersUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GroupMembers
+     * const groupMembers = await prisma.groupMembers.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GroupMembersUpdateManyArgs>(args: SelectSubset<T, GroupMembersUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one GroupMembers.
+     * @param {GroupMembersUpsertArgs} args - Arguments to update or create a GroupMembers.
+     * @example
+     * // Update or create a GroupMembers
+     * const groupMembers = await prisma.groupMembers.upsert({
+     *   create: {
+     *     // ... data to create a GroupMembers
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GroupMembers we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GroupMembersUpsertArgs>(args: SelectSubset<T, GroupMembersUpsertArgs<ExtArgs>>): Prisma__GroupMembersClient<$Result.GetResult<Prisma.$GroupMembersPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of GroupMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupMembersCountArgs} args - Arguments to filter GroupMembers to count.
+     * @example
+     * // Count the number of GroupMembers
+     * const count = await prisma.groupMembers.count({
+     *   where: {
+     *     // ... the filter for the GroupMembers we want to count
+     *   }
+     * })
+    **/
+    count<T extends GroupMembersCountArgs>(
+      args?: Subset<T, GroupMembersCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GroupMembersCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GroupMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupMembersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GroupMembersAggregateArgs>(args: Subset<T, GroupMembersAggregateArgs>): Prisma.PrismaPromise<GetGroupMembersAggregateType<T>>
+
+    /**
+     * Group by GroupMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GroupMembersGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GroupMembersGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GroupMembersGroupByArgs['orderBy'] }
+        : { orderBy?: GroupMembersGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GroupMembersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGroupMembersGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GroupMembers model
+   */
+  readonly fields: GroupMembersFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GroupMembers.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GroupMembersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    group<T extends GroupsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GroupsDefaultArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GroupMembers model
+   */ 
+  interface GroupMembersFieldRefs {
+    readonly member_id: FieldRef<"GroupMembers", 'String'>
+    readonly group_id: FieldRef<"GroupMembers", 'String'>
+    readonly user_id: FieldRef<"GroupMembers", 'String'>
+    readonly role: FieldRef<"GroupMembers", 'GroupRoles'>
+    readonly joined_at: FieldRef<"GroupMembers", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GroupMembers findUnique
+   */
+  export type GroupMembersFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupMembers to fetch.
+     */
+    where: GroupMembersWhereUniqueInput
+  }
+
+  /**
+   * GroupMembers findUniqueOrThrow
+   */
+  export type GroupMembersFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupMembers to fetch.
+     */
+    where: GroupMembersWhereUniqueInput
+  }
+
+  /**
+   * GroupMembers findFirst
+   */
+  export type GroupMembersFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupMembers to fetch.
+     */
+    where?: GroupMembersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupMembers to fetch.
+     */
+    orderBy?: GroupMembersOrderByWithRelationInput | GroupMembersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroupMembers.
+     */
+    cursor?: GroupMembersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupMembers.
+     */
+    distinct?: GroupMembersScalarFieldEnum | GroupMembersScalarFieldEnum[]
+  }
+
+  /**
+   * GroupMembers findFirstOrThrow
+   */
+  export type GroupMembersFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupMembers to fetch.
+     */
+    where?: GroupMembersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupMembers to fetch.
+     */
+    orderBy?: GroupMembersOrderByWithRelationInput | GroupMembersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GroupMembers.
+     */
+    cursor?: GroupMembersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GroupMembers.
+     */
+    distinct?: GroupMembersScalarFieldEnum | GroupMembersScalarFieldEnum[]
+  }
+
+  /**
+   * GroupMembers findMany
+   */
+  export type GroupMembersFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersInclude<ExtArgs> | null
+    /**
+     * Filter, which GroupMembers to fetch.
+     */
+    where?: GroupMembersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GroupMembers to fetch.
+     */
+    orderBy?: GroupMembersOrderByWithRelationInput | GroupMembersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GroupMembers.
+     */
+    cursor?: GroupMembersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GroupMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GroupMembers.
+     */
+    skip?: number
+    distinct?: GroupMembersScalarFieldEnum | GroupMembersScalarFieldEnum[]
+  }
+
+  /**
+   * GroupMembers create
+   */
+  export type GroupMembersCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GroupMembers.
+     */
+    data: XOR<GroupMembersCreateInput, GroupMembersUncheckedCreateInput>
+  }
+
+  /**
+   * GroupMembers createMany
+   */
+  export type GroupMembersCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GroupMembers.
+     */
+    data: GroupMembersCreateManyInput | GroupMembersCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GroupMembers createManyAndReturn
+   */
+  export type GroupMembersCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many GroupMembers.
+     */
+    data: GroupMembersCreateManyInput | GroupMembersCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GroupMembers update
+   */
+  export type GroupMembersUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GroupMembers.
+     */
+    data: XOR<GroupMembersUpdateInput, GroupMembersUncheckedUpdateInput>
+    /**
+     * Choose, which GroupMembers to update.
+     */
+    where: GroupMembersWhereUniqueInput
+  }
+
+  /**
+   * GroupMembers updateMany
+   */
+  export type GroupMembersUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GroupMembers.
+     */
+    data: XOR<GroupMembersUpdateManyMutationInput, GroupMembersUncheckedUpdateManyInput>
+    /**
+     * Filter which GroupMembers to update
+     */
+    where?: GroupMembersWhereInput
+  }
+
+  /**
+   * GroupMembers upsert
+   */
+  export type GroupMembersUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GroupMembers to update in case it exists.
+     */
+    where: GroupMembersWhereUniqueInput
+    /**
+     * In case the GroupMembers found by the `where` argument doesn't exist, create a new GroupMembers with this data.
+     */
+    create: XOR<GroupMembersCreateInput, GroupMembersUncheckedCreateInput>
+    /**
+     * In case the GroupMembers was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GroupMembersUpdateInput, GroupMembersUncheckedUpdateInput>
+  }
+
+  /**
+   * GroupMembers delete
+   */
+  export type GroupMembersDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersInclude<ExtArgs> | null
+    /**
+     * Filter which GroupMembers to delete.
+     */
+    where: GroupMembersWhereUniqueInput
+  }
+
+  /**
+   * GroupMembers deleteMany
+   */
+  export type GroupMembersDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GroupMembers to delete
+     */
+    where?: GroupMembersWhereInput
+  }
+
+  /**
+   * GroupMembers without action
+   */
+  export type GroupMembersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GroupMembers
+     */
+    select?: GroupMembersSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupMembersInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Transactions
+   */
+
+  export type AggregateTransactions = {
+    _count: TransactionsCountAggregateOutputType | null
+    _avg: TransactionsAvgAggregateOutputType | null
+    _sum: TransactionsSumAggregateOutputType | null
+    _min: TransactionsMinAggregateOutputType | null
+    _max: TransactionsMaxAggregateOutputType | null
+  }
+
+  export type TransactionsAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type TransactionsSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type TransactionsMinAggregateOutputType = {
+    transaction_id: string | null
+    user_id: string | null
+    group_id: string | null
+    saving_id: string | null
+    type: $Enums.TransactionTypes | null
+    amount: Decimal | null
+    created_at: Date | null
+  }
+
+  export type TransactionsMaxAggregateOutputType = {
+    transaction_id: string | null
+    user_id: string | null
+    group_id: string | null
+    saving_id: string | null
+    type: $Enums.TransactionTypes | null
+    amount: Decimal | null
+    created_at: Date | null
+  }
+
+  export type TransactionsCountAggregateOutputType = {
+    transaction_id: number
+    user_id: number
+    group_id: number
+    saving_id: number
+    type: number
+    amount: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type TransactionsAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type TransactionsSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type TransactionsMinAggregateInputType = {
+    transaction_id?: true
+    user_id?: true
+    group_id?: true
+    saving_id?: true
+    type?: true
+    amount?: true
+    created_at?: true
+  }
+
+  export type TransactionsMaxAggregateInputType = {
+    transaction_id?: true
+    user_id?: true
+    group_id?: true
+    saving_id?: true
+    type?: true
+    amount?: true
+    created_at?: true
+  }
+
+  export type TransactionsCountAggregateInputType = {
+    transaction_id?: true
+    user_id?: true
+    group_id?: true
+    saving_id?: true
+    type?: true
+    amount?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type TransactionsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Transactions to aggregate.
+     */
+    where?: TransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Transactions
+    **/
+    _count?: true | TransactionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TransactionsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TransactionsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TransactionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TransactionsMaxAggregateInputType
+  }
+
+  export type GetTransactionsAggregateType<T extends TransactionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateTransactions]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTransactions[P]>
+      : GetScalarType<T[P], AggregateTransactions[P]>
+  }
+
+
+
+
+  export type TransactionsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransactionsWhereInput
+    orderBy?: TransactionsOrderByWithAggregationInput | TransactionsOrderByWithAggregationInput[]
+    by: TransactionsScalarFieldEnum[] | TransactionsScalarFieldEnum
+    having?: TransactionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TransactionsCountAggregateInputType | true
+    _avg?: TransactionsAvgAggregateInputType
+    _sum?: TransactionsSumAggregateInputType
+    _min?: TransactionsMinAggregateInputType
+    _max?: TransactionsMaxAggregateInputType
+  }
+
+  export type TransactionsGroupByOutputType = {
+    transaction_id: string
+    user_id: string
+    group_id: string | null
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal
+    created_at: Date
+    _count: TransactionsCountAggregateOutputType | null
+    _avg: TransactionsAvgAggregateOutputType | null
+    _sum: TransactionsSumAggregateOutputType | null
+    _min: TransactionsMinAggregateOutputType | null
+    _max: TransactionsMaxAggregateOutputType | null
+  }
+
+  type GetTransactionsGroupByPayload<T extends TransactionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TransactionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TransactionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TransactionsGroupByOutputType[P]>
+            : GetScalarType<T[P], TransactionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TransactionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    transaction_id?: boolean
+    user_id?: boolean
+    group_id?: boolean
+    saving_id?: boolean
+    type?: boolean
+    amount?: boolean
+    created_at?: boolean
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    group?: boolean | Transactions$groupArgs<ExtArgs>
+    saving?: boolean | SavingsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["transactions"]>
+
+  export type TransactionsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    transaction_id?: boolean
+    user_id?: boolean
+    group_id?: boolean
+    saving_id?: boolean
+    type?: boolean
+    amount?: boolean
+    created_at?: boolean
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    group?: boolean | Transactions$groupArgs<ExtArgs>
+    saving?: boolean | SavingsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["transactions"]>
+
+  export type TransactionsSelectScalar = {
+    transaction_id?: boolean
+    user_id?: boolean
+    group_id?: boolean
+    saving_id?: boolean
+    type?: boolean
+    amount?: boolean
+    created_at?: boolean
+  }
+
+  export type TransactionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    group?: boolean | Transactions$groupArgs<ExtArgs>
+    saving?: boolean | SavingsDefaultArgs<ExtArgs>
+  }
+  export type TransactionsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UsersDefaultArgs<ExtArgs>
+    group?: boolean | Transactions$groupArgs<ExtArgs>
+    saving?: boolean | SavingsDefaultArgs<ExtArgs>
+  }
+
+  export type $TransactionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Transactions"
+    objects: {
+      user: Prisma.$UsersPayload<ExtArgs>
+      group: Prisma.$GroupsPayload<ExtArgs> | null
+      saving: Prisma.$SavingsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      transaction_id: string
+      user_id: string
+      group_id: string | null
+      saving_id: string
+      type: $Enums.TransactionTypes
+      amount: Prisma.Decimal
+      created_at: Date
+    }, ExtArgs["result"]["transactions"]>
+    composites: {}
+  }
+
+  type TransactionsGetPayload<S extends boolean | null | undefined | TransactionsDefaultArgs> = $Result.GetResult<Prisma.$TransactionsPayload, S>
+
+  type TransactionsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<TransactionsFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: TransactionsCountAggregateInputType | true
+    }
+
+  export interface TransactionsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Transactions'], meta: { name: 'Transactions' } }
+    /**
+     * Find zero or one Transactions that matches the filter.
+     * @param {TransactionsFindUniqueArgs} args - Arguments to find a Transactions
+     * @example
+     * // Get one Transactions
+     * const transactions = await prisma.transactions.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TransactionsFindUniqueArgs>(args: SelectSubset<T, TransactionsFindUniqueArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Transactions that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {TransactionsFindUniqueOrThrowArgs} args - Arguments to find a Transactions
+     * @example
+     * // Get one Transactions
+     * const transactions = await prisma.transactions.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TransactionsFindUniqueOrThrowArgs>(args: SelectSubset<T, TransactionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Transactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsFindFirstArgs} args - Arguments to find a Transactions
+     * @example
+     * // Get one Transactions
+     * const transactions = await prisma.transactions.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TransactionsFindFirstArgs>(args?: SelectSubset<T, TransactionsFindFirstArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Transactions that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsFindFirstOrThrowArgs} args - Arguments to find a Transactions
+     * @example
+     * // Get one Transactions
+     * const transactions = await prisma.transactions.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TransactionsFindFirstOrThrowArgs>(args?: SelectSubset<T, TransactionsFindFirstOrThrowArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Transactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Transactions
+     * const transactions = await prisma.transactions.findMany()
+     * 
+     * // Get first 10 Transactions
+     * const transactions = await prisma.transactions.findMany({ take: 10 })
+     * 
+     * // Only select the `transaction_id`
+     * const transactionsWithTransaction_idOnly = await prisma.transactions.findMany({ select: { transaction_id: true } })
+     * 
+     */
+    findMany<T extends TransactionsFindManyArgs>(args?: SelectSubset<T, TransactionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Transactions.
+     * @param {TransactionsCreateArgs} args - Arguments to create a Transactions.
+     * @example
+     * // Create one Transactions
+     * const Transactions = await prisma.transactions.create({
+     *   data: {
+     *     // ... data to create a Transactions
+     *   }
+     * })
+     * 
+     */
+    create<T extends TransactionsCreateArgs>(args: SelectSubset<T, TransactionsCreateArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Transactions.
+     * @param {TransactionsCreateManyArgs} args - Arguments to create many Transactions.
+     * @example
+     * // Create many Transactions
+     * const transactions = await prisma.transactions.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TransactionsCreateManyArgs>(args?: SelectSubset<T, TransactionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Transactions and returns the data saved in the database.
+     * @param {TransactionsCreateManyAndReturnArgs} args - Arguments to create many Transactions.
+     * @example
+     * // Create many Transactions
+     * const transactions = await prisma.transactions.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Transactions and only return the `transaction_id`
+     * const transactionsWithTransaction_idOnly = await prisma.transactions.createManyAndReturn({ 
+     *   select: { transaction_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TransactionsCreateManyAndReturnArgs>(args?: SelectSubset<T, TransactionsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Transactions.
+     * @param {TransactionsDeleteArgs} args - Arguments to delete one Transactions.
+     * @example
+     * // Delete one Transactions
+     * const Transactions = await prisma.transactions.delete({
+     *   where: {
+     *     // ... filter to delete one Transactions
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TransactionsDeleteArgs>(args: SelectSubset<T, TransactionsDeleteArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Transactions.
+     * @param {TransactionsUpdateArgs} args - Arguments to update one Transactions.
+     * @example
+     * // Update one Transactions
+     * const transactions = await prisma.transactions.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TransactionsUpdateArgs>(args: SelectSubset<T, TransactionsUpdateArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Transactions.
+     * @param {TransactionsDeleteManyArgs} args - Arguments to filter Transactions to delete.
+     * @example
+     * // Delete a few Transactions
+     * const { count } = await prisma.transactions.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TransactionsDeleteManyArgs>(args?: SelectSubset<T, TransactionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Transactions
+     * const transactions = await prisma.transactions.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TransactionsUpdateManyArgs>(args: SelectSubset<T, TransactionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Transactions.
+     * @param {TransactionsUpsertArgs} args - Arguments to update or create a Transactions.
+     * @example
+     * // Update or create a Transactions
+     * const transactions = await prisma.transactions.upsert({
+     *   create: {
+     *     // ... data to create a Transactions
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Transactions we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TransactionsUpsertArgs>(args: SelectSubset<T, TransactionsUpsertArgs<ExtArgs>>): Prisma__TransactionsClient<$Result.GetResult<Prisma.$TransactionsPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsCountArgs} args - Arguments to filter Transactions to count.
+     * @example
+     * // Count the number of Transactions
+     * const count = await prisma.transactions.count({
+     *   where: {
+     *     // ... the filter for the Transactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends TransactionsCountArgs>(
+      args?: Subset<T, TransactionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TransactionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TransactionsAggregateArgs>(args: Subset<T, TransactionsAggregateArgs>): Prisma.PrismaPromise<GetTransactionsAggregateType<T>>
+
+    /**
+     * Group by Transactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransactionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TransactionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TransactionsGroupByArgs['orderBy'] }
+        : { orderBy?: TransactionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TransactionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTransactionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Transactions model
+   */
+  readonly fields: TransactionsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Transactions.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TransactionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UsersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsersDefaultArgs<ExtArgs>>): Prisma__UsersClient<$Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    group<T extends Transactions$groupArgs<ExtArgs> = {}>(args?: Subset<T, Transactions$groupArgs<ExtArgs>>): Prisma__GroupsClient<$Result.GetResult<Prisma.$GroupsPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    saving<T extends SavingsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SavingsDefaultArgs<ExtArgs>>): Prisma__SavingsClient<$Result.GetResult<Prisma.$SavingsPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Transactions model
+   */ 
+  interface TransactionsFieldRefs {
+    readonly transaction_id: FieldRef<"Transactions", 'String'>
+    readonly user_id: FieldRef<"Transactions", 'String'>
+    readonly group_id: FieldRef<"Transactions", 'String'>
+    readonly saving_id: FieldRef<"Transactions", 'String'>
+    readonly type: FieldRef<"Transactions", 'TransactionTypes'>
+    readonly amount: FieldRef<"Transactions", 'Decimal'>
+    readonly created_at: FieldRef<"Transactions", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Transactions findUnique
+   */
+  export type TransactionsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which Transactions to fetch.
+     */
+    where: TransactionsWhereUniqueInput
+  }
+
+  /**
+   * Transactions findUniqueOrThrow
+   */
+  export type TransactionsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which Transactions to fetch.
+     */
+    where: TransactionsWhereUniqueInput
+  }
+
+  /**
+   * Transactions findFirst
+   */
+  export type TransactionsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which Transactions to fetch.
+     */
+    where?: TransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Transactions.
+     */
+    cursor?: TransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Transactions.
+     */
+    distinct?: TransactionsScalarFieldEnum | TransactionsScalarFieldEnum[]
+  }
+
+  /**
+   * Transactions findFirstOrThrow
+   */
+  export type TransactionsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which Transactions to fetch.
+     */
+    where?: TransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Transactions.
+     */
+    cursor?: TransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Transactions.
+     */
+    distinct?: TransactionsScalarFieldEnum | TransactionsScalarFieldEnum[]
+  }
+
+  /**
+   * Transactions findMany
+   */
+  export type TransactionsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * Filter, which Transactions to fetch.
+     */
+    where?: TransactionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transactions to fetch.
+     */
+    orderBy?: TransactionsOrderByWithRelationInput | TransactionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Transactions.
+     */
+    cursor?: TransactionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transactions.
+     */
+    skip?: number
+    distinct?: TransactionsScalarFieldEnum | TransactionsScalarFieldEnum[]
+  }
+
+  /**
+   * Transactions create
+   */
+  export type TransactionsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Transactions.
+     */
+    data: XOR<TransactionsCreateInput, TransactionsUncheckedCreateInput>
+  }
+
+  /**
+   * Transactions createMany
+   */
+  export type TransactionsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Transactions.
+     */
+    data: TransactionsCreateManyInput | TransactionsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Transactions createManyAndReturn
+   */
+  export type TransactionsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Transactions.
+     */
+    data: TransactionsCreateManyInput | TransactionsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Transactions update
+   */
+  export type TransactionsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Transactions.
+     */
+    data: XOR<TransactionsUpdateInput, TransactionsUncheckedUpdateInput>
+    /**
+     * Choose, which Transactions to update.
+     */
+    where: TransactionsWhereUniqueInput
+  }
+
+  /**
+   * Transactions updateMany
+   */
+  export type TransactionsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Transactions.
+     */
+    data: XOR<TransactionsUpdateManyMutationInput, TransactionsUncheckedUpdateManyInput>
+    /**
+     * Filter which Transactions to update
+     */
+    where?: TransactionsWhereInput
+  }
+
+  /**
+   * Transactions upsert
+   */
+  export type TransactionsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Transactions to update in case it exists.
+     */
+    where: TransactionsWhereUniqueInput
+    /**
+     * In case the Transactions found by the `where` argument doesn't exist, create a new Transactions with this data.
+     */
+    create: XOR<TransactionsCreateInput, TransactionsUncheckedCreateInput>
+    /**
+     * In case the Transactions was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TransactionsUpdateInput, TransactionsUncheckedUpdateInput>
+  }
+
+  /**
+   * Transactions delete
+   */
+  export type TransactionsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
+    /**
+     * Filter which Transactions to delete.
+     */
+    where: TransactionsWhereUniqueInput
+  }
+
+  /**
+   * Transactions deleteMany
+   */
+  export type TransactionsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Transactions to delete
+     */
+    where?: TransactionsWhereInput
+  }
+
+  /**
+   * Transactions.group
+   */
+  export type Transactions$groupArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Groups
+     */
+    select?: GroupsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GroupsInclude<ExtArgs> | null
+    where?: GroupsWhereInput
+  }
+
+  /**
+   * Transactions without action
+   */
+  export type TransactionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transactions
+     */
+    select?: TransactionsSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransactionsInclude<ExtArgs> | null
   }
 
 
@@ -2938,6 +6398,40 @@ export namespace Prisma {
   };
 
   export type SavingsScalarFieldEnum = (typeof SavingsScalarFieldEnum)[keyof typeof SavingsScalarFieldEnum]
+
+
+  export const GroupsScalarFieldEnum: {
+    group_id: 'group_id',
+    group_name: 'group_name',
+    created_by: 'created_by',
+    created_at: 'created_at'
+  };
+
+  export type GroupsScalarFieldEnum = (typeof GroupsScalarFieldEnum)[keyof typeof GroupsScalarFieldEnum]
+
+
+  export const GroupMembersScalarFieldEnum: {
+    member_id: 'member_id',
+    group_id: 'group_id',
+    user_id: 'user_id',
+    role: 'role',
+    joined_at: 'joined_at'
+  };
+
+  export type GroupMembersScalarFieldEnum = (typeof GroupMembersScalarFieldEnum)[keyof typeof GroupMembersScalarFieldEnum]
+
+
+  export const TransactionsScalarFieldEnum: {
+    transaction_id: 'transaction_id',
+    user_id: 'user_id',
+    group_id: 'group_id',
+    saving_id: 'saving_id',
+    type: 'type',
+    amount: 'amount',
+    created_at: 'created_at'
+  };
+
+  export type TransactionsScalarFieldEnum = (typeof TransactionsScalarFieldEnum)[keyof typeof TransactionsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3026,6 +6520,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'GroupRoles'
+   */
+  export type EnumGroupRolesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GroupRoles'>
+    
+
+
+  /**
+   * Reference to a field of type 'GroupRoles[]'
+   */
+  export type ListEnumGroupRolesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GroupRoles[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionTypes'
+   */
+  export type EnumTransactionTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionTypes'>
+    
+
+
+  /**
+   * Reference to a field of type 'TransactionTypes[]'
+   */
+  export type ListEnumTransactionTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TransactionTypes[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -3052,6 +6574,9 @@ export namespace Prisma {
     password?: StringFilter<"Users"> | string
     created_at?: DateTimeFilter<"Users"> | Date | string
     savings?: SavingsListRelationFilter
+    groups?: GroupsListRelationFilter
+    groupMembers?: GroupMembersListRelationFilter
+    transaction?: TransactionsListRelationFilter
   }
 
   export type UsersOrderByWithRelationInput = {
@@ -3061,6 +6586,9 @@ export namespace Prisma {
     password?: SortOrder
     created_at?: SortOrder
     savings?: SavingsOrderByRelationAggregateInput
+    groups?: GroupsOrderByRelationAggregateInput
+    groupMembers?: GroupMembersOrderByRelationAggregateInput
+    transaction?: TransactionsOrderByRelationAggregateInput
   }
 
   export type UsersWhereUniqueInput = Prisma.AtLeast<{
@@ -3073,6 +6601,9 @@ export namespace Prisma {
     password?: StringFilter<"Users"> | string
     created_at?: DateTimeFilter<"Users"> | Date | string
     savings?: SavingsListRelationFilter
+    groups?: GroupsListRelationFilter
+    groupMembers?: GroupMembersListRelationFilter
+    transaction?: TransactionsListRelationFilter
   }, "user_id" | "email">
 
   export type UsersOrderByWithAggregationInput = {
@@ -3108,6 +6639,8 @@ export namespace Prisma {
     type?: EnumSavingTypesFilter<"Savings"> | $Enums.SavingTypes
     created_at?: DateTimeFilter<"Savings"> | Date | string
     user?: XOR<UsersRelationFilter, UsersWhereInput>
+    group?: XOR<GroupsNullableRelationFilter, GroupsWhereInput> | null
+    transactions?: TransactionsListRelationFilter
   }
 
   export type SavingsOrderByWithRelationInput = {
@@ -3118,6 +6651,8 @@ export namespace Prisma {
     type?: SortOrder
     created_at?: SortOrder
     user?: UsersOrderByWithRelationInput
+    group?: GroupsOrderByWithRelationInput
+    transactions?: TransactionsOrderByRelationAggregateInput
   }
 
   export type SavingsWhereUniqueInput = Prisma.AtLeast<{
@@ -3131,6 +6666,8 @@ export namespace Prisma {
     type?: EnumSavingTypesFilter<"Savings"> | $Enums.SavingTypes
     created_at?: DateTimeFilter<"Savings"> | Date | string
     user?: XOR<UsersRelationFilter, UsersWhereInput>
+    group?: XOR<GroupsNullableRelationFilter, GroupsWhereInput> | null
+    transactions?: TransactionsListRelationFilter
   }, "saving_id">
 
   export type SavingsOrderByWithAggregationInput = {
@@ -3159,6 +6696,196 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"Savings"> | Date | string
   }
 
+  export type GroupsWhereInput = {
+    AND?: GroupsWhereInput | GroupsWhereInput[]
+    OR?: GroupsWhereInput[]
+    NOT?: GroupsWhereInput | GroupsWhereInput[]
+    group_id?: UuidFilter<"Groups"> | string
+    group_name?: StringFilter<"Groups"> | string
+    created_by?: UuidFilter<"Groups"> | string
+    created_at?: DateTimeFilter<"Groups"> | Date | string
+    creator?: XOR<UsersRelationFilter, UsersWhereInput>
+    savings?: SavingsListRelationFilter
+    members?: GroupMembersListRelationFilter
+    transactions?: TransactionsListRelationFilter
+  }
+
+  export type GroupsOrderByWithRelationInput = {
+    group_id?: SortOrder
+    group_name?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    creator?: UsersOrderByWithRelationInput
+    savings?: SavingsOrderByRelationAggregateInput
+    members?: GroupMembersOrderByRelationAggregateInput
+    transactions?: TransactionsOrderByRelationAggregateInput
+  }
+
+  export type GroupsWhereUniqueInput = Prisma.AtLeast<{
+    group_id?: string
+    AND?: GroupsWhereInput | GroupsWhereInput[]
+    OR?: GroupsWhereInput[]
+    NOT?: GroupsWhereInput | GroupsWhereInput[]
+    group_name?: StringFilter<"Groups"> | string
+    created_by?: UuidFilter<"Groups"> | string
+    created_at?: DateTimeFilter<"Groups"> | Date | string
+    creator?: XOR<UsersRelationFilter, UsersWhereInput>
+    savings?: SavingsListRelationFilter
+    members?: GroupMembersListRelationFilter
+    transactions?: TransactionsListRelationFilter
+  }, "group_id">
+
+  export type GroupsOrderByWithAggregationInput = {
+    group_id?: SortOrder
+    group_name?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+    _count?: GroupsCountOrderByAggregateInput
+    _max?: GroupsMaxOrderByAggregateInput
+    _min?: GroupsMinOrderByAggregateInput
+  }
+
+  export type GroupsScalarWhereWithAggregatesInput = {
+    AND?: GroupsScalarWhereWithAggregatesInput | GroupsScalarWhereWithAggregatesInput[]
+    OR?: GroupsScalarWhereWithAggregatesInput[]
+    NOT?: GroupsScalarWhereWithAggregatesInput | GroupsScalarWhereWithAggregatesInput[]
+    group_id?: UuidWithAggregatesFilter<"Groups"> | string
+    group_name?: StringWithAggregatesFilter<"Groups"> | string
+    created_by?: UuidWithAggregatesFilter<"Groups"> | string
+    created_at?: DateTimeWithAggregatesFilter<"Groups"> | Date | string
+  }
+
+  export type GroupMembersWhereInput = {
+    AND?: GroupMembersWhereInput | GroupMembersWhereInput[]
+    OR?: GroupMembersWhereInput[]
+    NOT?: GroupMembersWhereInput | GroupMembersWhereInput[]
+    member_id?: UuidFilter<"GroupMembers"> | string
+    group_id?: UuidFilter<"GroupMembers"> | string
+    user_id?: UuidFilter<"GroupMembers"> | string
+    role?: EnumGroupRolesFilter<"GroupMembers"> | $Enums.GroupRoles
+    joined_at?: DateTimeFilter<"GroupMembers"> | Date | string
+    group?: XOR<GroupsRelationFilter, GroupsWhereInput>
+    user?: XOR<UsersRelationFilter, UsersWhereInput>
+  }
+
+  export type GroupMembersOrderByWithRelationInput = {
+    member_id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    role?: SortOrder
+    joined_at?: SortOrder
+    group?: GroupsOrderByWithRelationInput
+    user?: UsersOrderByWithRelationInput
+  }
+
+  export type GroupMembersWhereUniqueInput = Prisma.AtLeast<{
+    member_id?: string
+    AND?: GroupMembersWhereInput | GroupMembersWhereInput[]
+    OR?: GroupMembersWhereInput[]
+    NOT?: GroupMembersWhereInput | GroupMembersWhereInput[]
+    group_id?: UuidFilter<"GroupMembers"> | string
+    user_id?: UuidFilter<"GroupMembers"> | string
+    role?: EnumGroupRolesFilter<"GroupMembers"> | $Enums.GroupRoles
+    joined_at?: DateTimeFilter<"GroupMembers"> | Date | string
+    group?: XOR<GroupsRelationFilter, GroupsWhereInput>
+    user?: XOR<UsersRelationFilter, UsersWhereInput>
+  }, "member_id">
+
+  export type GroupMembersOrderByWithAggregationInput = {
+    member_id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    role?: SortOrder
+    joined_at?: SortOrder
+    _count?: GroupMembersCountOrderByAggregateInput
+    _max?: GroupMembersMaxOrderByAggregateInput
+    _min?: GroupMembersMinOrderByAggregateInput
+  }
+
+  export type GroupMembersScalarWhereWithAggregatesInput = {
+    AND?: GroupMembersScalarWhereWithAggregatesInput | GroupMembersScalarWhereWithAggregatesInput[]
+    OR?: GroupMembersScalarWhereWithAggregatesInput[]
+    NOT?: GroupMembersScalarWhereWithAggregatesInput | GroupMembersScalarWhereWithAggregatesInput[]
+    member_id?: UuidWithAggregatesFilter<"GroupMembers"> | string
+    group_id?: UuidWithAggregatesFilter<"GroupMembers"> | string
+    user_id?: UuidWithAggregatesFilter<"GroupMembers"> | string
+    role?: EnumGroupRolesWithAggregatesFilter<"GroupMembers"> | $Enums.GroupRoles
+    joined_at?: DateTimeWithAggregatesFilter<"GroupMembers"> | Date | string
+  }
+
+  export type TransactionsWhereInput = {
+    AND?: TransactionsWhereInput | TransactionsWhereInput[]
+    OR?: TransactionsWhereInput[]
+    NOT?: TransactionsWhereInput | TransactionsWhereInput[]
+    transaction_id?: UuidFilter<"Transactions"> | string
+    user_id?: UuidFilter<"Transactions"> | string
+    group_id?: UuidNullableFilter<"Transactions"> | string | null
+    saving_id?: UuidFilter<"Transactions"> | string
+    type?: EnumTransactionTypesFilter<"Transactions"> | $Enums.TransactionTypes
+    amount?: DecimalFilter<"Transactions"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"Transactions"> | Date | string
+    user?: XOR<UsersRelationFilter, UsersWhereInput>
+    group?: XOR<GroupsNullableRelationFilter, GroupsWhereInput> | null
+    saving?: XOR<SavingsRelationFilter, SavingsWhereInput>
+  }
+
+  export type TransactionsOrderByWithRelationInput = {
+    transaction_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrderInput | SortOrder
+    saving_id?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+    user?: UsersOrderByWithRelationInput
+    group?: GroupsOrderByWithRelationInput
+    saving?: SavingsOrderByWithRelationInput
+  }
+
+  export type TransactionsWhereUniqueInput = Prisma.AtLeast<{
+    transaction_id?: string
+    AND?: TransactionsWhereInput | TransactionsWhereInput[]
+    OR?: TransactionsWhereInput[]
+    NOT?: TransactionsWhereInput | TransactionsWhereInput[]
+    user_id?: UuidFilter<"Transactions"> | string
+    group_id?: UuidNullableFilter<"Transactions"> | string | null
+    saving_id?: UuidFilter<"Transactions"> | string
+    type?: EnumTransactionTypesFilter<"Transactions"> | $Enums.TransactionTypes
+    amount?: DecimalFilter<"Transactions"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"Transactions"> | Date | string
+    user?: XOR<UsersRelationFilter, UsersWhereInput>
+    group?: XOR<GroupsNullableRelationFilter, GroupsWhereInput> | null
+    saving?: XOR<SavingsRelationFilter, SavingsWhereInput>
+  }, "transaction_id">
+
+  export type TransactionsOrderByWithAggregationInput = {
+    transaction_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrderInput | SortOrder
+    saving_id?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+    _count?: TransactionsCountOrderByAggregateInput
+    _avg?: TransactionsAvgOrderByAggregateInput
+    _max?: TransactionsMaxOrderByAggregateInput
+    _min?: TransactionsMinOrderByAggregateInput
+    _sum?: TransactionsSumOrderByAggregateInput
+  }
+
+  export type TransactionsScalarWhereWithAggregatesInput = {
+    AND?: TransactionsScalarWhereWithAggregatesInput | TransactionsScalarWhereWithAggregatesInput[]
+    OR?: TransactionsScalarWhereWithAggregatesInput[]
+    NOT?: TransactionsScalarWhereWithAggregatesInput | TransactionsScalarWhereWithAggregatesInput[]
+    transaction_id?: UuidWithAggregatesFilter<"Transactions"> | string
+    user_id?: UuidWithAggregatesFilter<"Transactions"> | string
+    group_id?: UuidNullableWithAggregatesFilter<"Transactions"> | string | null
+    saving_id?: UuidWithAggregatesFilter<"Transactions"> | string
+    type?: EnumTransactionTypesWithAggregatesFilter<"Transactions"> | $Enums.TransactionTypes
+    amount?: DecimalWithAggregatesFilter<"Transactions"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeWithAggregatesFilter<"Transactions"> | Date | string
+  }
+
   export type UsersCreateInput = {
     user_id?: string
     name: string
@@ -3166,6 +6893,9 @@ export namespace Prisma {
     password: string
     created_at?: Date | string
     savings?: SavingsCreateNestedManyWithoutUserInput
+    groups?: GroupsCreateNestedManyWithoutCreatorInput
+    groupMembers?: GroupMembersCreateNestedManyWithoutUserInput
+    transaction?: TransactionsCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateInput = {
@@ -3175,6 +6905,9 @@ export namespace Prisma {
     password: string
     created_at?: Date | string
     savings?: SavingsUncheckedCreateNestedManyWithoutUserInput
+    groups?: GroupsUncheckedCreateNestedManyWithoutCreatorInput
+    groupMembers?: GroupMembersUncheckedCreateNestedManyWithoutUserInput
+    transaction?: TransactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersUpdateInput = {
@@ -3184,6 +6917,9 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     savings?: SavingsUpdateManyWithoutUserNestedInput
+    groups?: GroupsUpdateManyWithoutCreatorNestedInput
+    groupMembers?: GroupMembersUpdateManyWithoutUserNestedInput
+    transaction?: TransactionsUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateInput = {
@@ -3193,6 +6929,9 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     savings?: SavingsUncheckedUpdateManyWithoutUserNestedInput
+    groups?: GroupsUncheckedUpdateManyWithoutCreatorNestedInput
+    groupMembers?: GroupMembersUncheckedUpdateManyWithoutUserNestedInput
+    transaction?: TransactionsUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UsersCreateManyInput = {
@@ -3221,11 +6960,12 @@ export namespace Prisma {
 
   export type SavingsCreateInput = {
     saving_id?: string
-    group_id?: string | null
     amount: Decimal | DecimalJsLike | number | string
     type: $Enums.SavingTypes
     created_at?: Date | string
     user: UsersCreateNestedOneWithoutSavingsInput
+    group?: GroupsCreateNestedOneWithoutSavingsInput
+    transactions?: TransactionsCreateNestedManyWithoutSavingInput
   }
 
   export type SavingsUncheckedCreateInput = {
@@ -3235,15 +6975,17 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     type: $Enums.SavingTypes
     created_at?: Date | string
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutSavingInput
   }
 
   export type SavingsUpdateInput = {
     saving_id?: StringFieldUpdateOperationsInput | string
-    group_id?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UsersUpdateOneRequiredWithoutSavingsNestedInput
+    group?: GroupsUpdateOneWithoutSavingsNestedInput
+    transactions?: TransactionsUpdateManyWithoutSavingNestedInput
   }
 
   export type SavingsUncheckedUpdateInput = {
@@ -3253,6 +6995,7 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionsUncheckedUpdateManyWithoutSavingNestedInput
   }
 
   export type SavingsCreateManyInput = {
@@ -3266,7 +7009,6 @@ export namespace Prisma {
 
   export type SavingsUpdateManyMutationInput = {
     saving_id?: StringFieldUpdateOperationsInput | string
-    group_id?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3278,6 +7020,187 @@ export namespace Prisma {
     group_id?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupsCreateInput = {
+    group_id?: string
+    group_name: string
+    created_at?: Date | string
+    creator: UsersCreateNestedOneWithoutGroupsInput
+    savings?: SavingsCreateNestedManyWithoutGroupInput
+    members?: GroupMembersCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsUncheckedCreateInput = {
+    group_id?: string
+    group_name: string
+    created_by: string
+    created_at?: Date | string
+    savings?: SavingsUncheckedCreateNestedManyWithoutGroupInput
+    members?: GroupMembersUncheckedCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsUpdateInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: UsersUpdateOneRequiredWithoutGroupsNestedInput
+    savings?: SavingsUpdateManyWithoutGroupNestedInput
+    members?: GroupMembersUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupsUncheckedUpdateInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUncheckedUpdateManyWithoutGroupNestedInput
+    members?: GroupMembersUncheckedUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupsCreateManyInput = {
+    group_id?: string
+    group_name: string
+    created_by: string
+    created_at?: Date | string
+  }
+
+  export type GroupsUpdateManyMutationInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupsUncheckedUpdateManyInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupMembersCreateInput = {
+    member_id?: string
+    role: $Enums.GroupRoles
+    joined_at?: Date | string
+    group: GroupsCreateNestedOneWithoutMembersInput
+    user: UsersCreateNestedOneWithoutGroupMembersInput
+  }
+
+  export type GroupMembersUncheckedCreateInput = {
+    member_id?: string
+    group_id: string
+    user_id: string
+    role: $Enums.GroupRoles
+    joined_at?: Date | string
+  }
+
+  export type GroupMembersUpdateInput = {
+    member_id?: StringFieldUpdateOperationsInput | string
+    role?: EnumGroupRolesFieldUpdateOperationsInput | $Enums.GroupRoles
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: GroupsUpdateOneRequiredWithoutMembersNestedInput
+    user?: UsersUpdateOneRequiredWithoutGroupMembersNestedInput
+  }
+
+  export type GroupMembersUncheckedUpdateInput = {
+    member_id?: StringFieldUpdateOperationsInput | string
+    group_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    role?: EnumGroupRolesFieldUpdateOperationsInput | $Enums.GroupRoles
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupMembersCreateManyInput = {
+    member_id?: string
+    group_id: string
+    user_id: string
+    role: $Enums.GroupRoles
+    joined_at?: Date | string
+  }
+
+  export type GroupMembersUpdateManyMutationInput = {
+    member_id?: StringFieldUpdateOperationsInput | string
+    role?: EnumGroupRolesFieldUpdateOperationsInput | $Enums.GroupRoles
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupMembersUncheckedUpdateManyInput = {
+    member_id?: StringFieldUpdateOperationsInput | string
+    group_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    role?: EnumGroupRolesFieldUpdateOperationsInput | $Enums.GroupRoles
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsCreateInput = {
+    transaction_id?: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    user: UsersCreateNestedOneWithoutTransactionInput
+    group?: GroupsCreateNestedOneWithoutTransactionsInput
+    saving: SavingsCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionsUncheckedCreateInput = {
+    transaction_id?: string
+    user_id: string
+    group_id?: string | null
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type TransactionsUpdateInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UsersUpdateOneRequiredWithoutTransactionNestedInput
+    group?: GroupsUpdateOneWithoutTransactionsNestedInput
+    saving?: SavingsUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionsUncheckedUpdateInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    saving_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsCreateManyInput = {
+    transaction_id?: string
+    user_id: string
+    group_id?: string | null
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type TransactionsUpdateManyMutationInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsUncheckedUpdateManyInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    saving_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -3325,7 +7248,37 @@ export namespace Prisma {
     none?: SavingsWhereInput
   }
 
+  export type GroupsListRelationFilter = {
+    every?: GroupsWhereInput
+    some?: GroupsWhereInput
+    none?: GroupsWhereInput
+  }
+
+  export type GroupMembersListRelationFilter = {
+    every?: GroupMembersWhereInput
+    some?: GroupMembersWhereInput
+    none?: GroupMembersWhereInput
+  }
+
+  export type TransactionsListRelationFilter = {
+    every?: TransactionsWhereInput
+    some?: TransactionsWhereInput
+    none?: TransactionsWhereInput
+  }
+
   export type SavingsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GroupsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GroupMembersOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TransactionsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -3435,6 +7388,11 @@ export namespace Prisma {
     isNot?: UsersWhereInput
   }
 
+  export type GroupsNullableRelationFilter = {
+    is?: GroupsWhereInput | null
+    isNot?: GroupsWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -3516,6 +7474,133 @@ export namespace Prisma {
     _max?: NestedEnumSavingTypesFilter<$PrismaModel>
   }
 
+  export type GroupsCountOrderByAggregateInput = {
+    group_id?: SortOrder
+    group_name?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type GroupsMaxOrderByAggregateInput = {
+    group_id?: SortOrder
+    group_name?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type GroupsMinOrderByAggregateInput = {
+    group_id?: SortOrder
+    group_name?: SortOrder
+    created_by?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type EnumGroupRolesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GroupRoles | EnumGroupRolesFieldRefInput<$PrismaModel>
+    in?: $Enums.GroupRoles[] | ListEnumGroupRolesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GroupRoles[] | ListEnumGroupRolesFieldRefInput<$PrismaModel>
+    not?: NestedEnumGroupRolesFilter<$PrismaModel> | $Enums.GroupRoles
+  }
+
+  export type GroupsRelationFilter = {
+    is?: GroupsWhereInput
+    isNot?: GroupsWhereInput
+  }
+
+  export type GroupMembersCountOrderByAggregateInput = {
+    member_id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    role?: SortOrder
+    joined_at?: SortOrder
+  }
+
+  export type GroupMembersMaxOrderByAggregateInput = {
+    member_id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    role?: SortOrder
+    joined_at?: SortOrder
+  }
+
+  export type GroupMembersMinOrderByAggregateInput = {
+    member_id?: SortOrder
+    group_id?: SortOrder
+    user_id?: SortOrder
+    role?: SortOrder
+    joined_at?: SortOrder
+  }
+
+  export type EnumGroupRolesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GroupRoles | EnumGroupRolesFieldRefInput<$PrismaModel>
+    in?: $Enums.GroupRoles[] | ListEnumGroupRolesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GroupRoles[] | ListEnumGroupRolesFieldRefInput<$PrismaModel>
+    not?: NestedEnumGroupRolesWithAggregatesFilter<$PrismaModel> | $Enums.GroupRoles
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGroupRolesFilter<$PrismaModel>
+    _max?: NestedEnumGroupRolesFilter<$PrismaModel>
+  }
+
+  export type EnumTransactionTypesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionTypes | EnumTransactionTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypesFilter<$PrismaModel> | $Enums.TransactionTypes
+  }
+
+  export type SavingsRelationFilter = {
+    is?: SavingsWhereInput
+    isNot?: SavingsWhereInput
+  }
+
+  export type TransactionsCountOrderByAggregateInput = {
+    transaction_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrder
+    saving_id?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type TransactionsAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type TransactionsMaxOrderByAggregateInput = {
+    transaction_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrder
+    saving_id?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type TransactionsMinOrderByAggregateInput = {
+    transaction_id?: SortOrder
+    user_id?: SortOrder
+    group_id?: SortOrder
+    saving_id?: SortOrder
+    type?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type TransactionsSumOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type EnumTransactionTypesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionTypes | EnumTransactionTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypesWithAggregatesFilter<$PrismaModel> | $Enums.TransactionTypes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionTypesFilter<$PrismaModel>
+    _max?: NestedEnumTransactionTypesFilter<$PrismaModel>
+  }
+
   export type SavingsCreateNestedManyWithoutUserInput = {
     create?: XOR<SavingsCreateWithoutUserInput, SavingsUncheckedCreateWithoutUserInput> | SavingsCreateWithoutUserInput[] | SavingsUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SavingsCreateOrConnectWithoutUserInput | SavingsCreateOrConnectWithoutUserInput[]
@@ -3523,11 +7608,53 @@ export namespace Prisma {
     connect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
   }
 
+  export type GroupsCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<GroupsCreateWithoutCreatorInput, GroupsUncheckedCreateWithoutCreatorInput> | GroupsCreateWithoutCreatorInput[] | GroupsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: GroupsCreateOrConnectWithoutCreatorInput | GroupsCreateOrConnectWithoutCreatorInput[]
+    createMany?: GroupsCreateManyCreatorInputEnvelope
+    connect?: GroupsWhereUniqueInput | GroupsWhereUniqueInput[]
+  }
+
+  export type GroupMembersCreateNestedManyWithoutUserInput = {
+    create?: XOR<GroupMembersCreateWithoutUserInput, GroupMembersUncheckedCreateWithoutUserInput> | GroupMembersCreateWithoutUserInput[] | GroupMembersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GroupMembersCreateOrConnectWithoutUserInput | GroupMembersCreateOrConnectWithoutUserInput[]
+    createMany?: GroupMembersCreateManyUserInputEnvelope
+    connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+  }
+
+  export type TransactionsCreateNestedManyWithoutUserInput = {
+    create?: XOR<TransactionsCreateWithoutUserInput, TransactionsUncheckedCreateWithoutUserInput> | TransactionsCreateWithoutUserInput[] | TransactionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutUserInput | TransactionsCreateOrConnectWithoutUserInput[]
+    createMany?: TransactionsCreateManyUserInputEnvelope
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+  }
+
   export type SavingsUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SavingsCreateWithoutUserInput, SavingsUncheckedCreateWithoutUserInput> | SavingsCreateWithoutUserInput[] | SavingsUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SavingsCreateOrConnectWithoutUserInput | SavingsCreateOrConnectWithoutUserInput[]
     createMany?: SavingsCreateManyUserInputEnvelope
     connect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+  }
+
+  export type GroupsUncheckedCreateNestedManyWithoutCreatorInput = {
+    create?: XOR<GroupsCreateWithoutCreatorInput, GroupsUncheckedCreateWithoutCreatorInput> | GroupsCreateWithoutCreatorInput[] | GroupsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: GroupsCreateOrConnectWithoutCreatorInput | GroupsCreateOrConnectWithoutCreatorInput[]
+    createMany?: GroupsCreateManyCreatorInputEnvelope
+    connect?: GroupsWhereUniqueInput | GroupsWhereUniqueInput[]
+  }
+
+  export type GroupMembersUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<GroupMembersCreateWithoutUserInput, GroupMembersUncheckedCreateWithoutUserInput> | GroupMembersCreateWithoutUserInput[] | GroupMembersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GroupMembersCreateOrConnectWithoutUserInput | GroupMembersCreateOrConnectWithoutUserInput[]
+    createMany?: GroupMembersCreateManyUserInputEnvelope
+    connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+  }
+
+  export type TransactionsUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TransactionsCreateWithoutUserInput, TransactionsUncheckedCreateWithoutUserInput> | TransactionsCreateWithoutUserInput[] | TransactionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutUserInput | TransactionsCreateOrConnectWithoutUserInput[]
+    createMany?: TransactionsCreateManyUserInputEnvelope
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -3552,6 +7679,48 @@ export namespace Prisma {
     deleteMany?: SavingsScalarWhereInput | SavingsScalarWhereInput[]
   }
 
+  export type GroupsUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<GroupsCreateWithoutCreatorInput, GroupsUncheckedCreateWithoutCreatorInput> | GroupsCreateWithoutCreatorInput[] | GroupsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: GroupsCreateOrConnectWithoutCreatorInput | GroupsCreateOrConnectWithoutCreatorInput[]
+    upsert?: GroupsUpsertWithWhereUniqueWithoutCreatorInput | GroupsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: GroupsCreateManyCreatorInputEnvelope
+    set?: GroupsWhereUniqueInput | GroupsWhereUniqueInput[]
+    disconnect?: GroupsWhereUniqueInput | GroupsWhereUniqueInput[]
+    delete?: GroupsWhereUniqueInput | GroupsWhereUniqueInput[]
+    connect?: GroupsWhereUniqueInput | GroupsWhereUniqueInput[]
+    update?: GroupsUpdateWithWhereUniqueWithoutCreatorInput | GroupsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: GroupsUpdateManyWithWhereWithoutCreatorInput | GroupsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: GroupsScalarWhereInput | GroupsScalarWhereInput[]
+  }
+
+  export type GroupMembersUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GroupMembersCreateWithoutUserInput, GroupMembersUncheckedCreateWithoutUserInput> | GroupMembersCreateWithoutUserInput[] | GroupMembersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GroupMembersCreateOrConnectWithoutUserInput | GroupMembersCreateOrConnectWithoutUserInput[]
+    upsert?: GroupMembersUpsertWithWhereUniqueWithoutUserInput | GroupMembersUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GroupMembersCreateManyUserInputEnvelope
+    set?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    disconnect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    delete?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    update?: GroupMembersUpdateWithWhereUniqueWithoutUserInput | GroupMembersUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GroupMembersUpdateManyWithWhereWithoutUserInput | GroupMembersUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GroupMembersScalarWhereInput | GroupMembersScalarWhereInput[]
+  }
+
+  export type TransactionsUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TransactionsCreateWithoutUserInput, TransactionsUncheckedCreateWithoutUserInput> | TransactionsCreateWithoutUserInput[] | TransactionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutUserInput | TransactionsCreateOrConnectWithoutUserInput[]
+    upsert?: TransactionsUpsertWithWhereUniqueWithoutUserInput | TransactionsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TransactionsCreateManyUserInputEnvelope
+    set?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    disconnect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    delete?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    update?: TransactionsUpdateWithWhereUniqueWithoutUserInput | TransactionsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TransactionsUpdateManyWithWhereWithoutUserInput | TransactionsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+  }
+
   export type SavingsUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SavingsCreateWithoutUserInput, SavingsUncheckedCreateWithoutUserInput> | SavingsCreateWithoutUserInput[] | SavingsUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SavingsCreateOrConnectWithoutUserInput | SavingsCreateOrConnectWithoutUserInput[]
@@ -3566,14 +7735,72 @@ export namespace Prisma {
     deleteMany?: SavingsScalarWhereInput | SavingsScalarWhereInput[]
   }
 
+  export type GroupsUncheckedUpdateManyWithoutCreatorNestedInput = {
+    create?: XOR<GroupsCreateWithoutCreatorInput, GroupsUncheckedCreateWithoutCreatorInput> | GroupsCreateWithoutCreatorInput[] | GroupsUncheckedCreateWithoutCreatorInput[]
+    connectOrCreate?: GroupsCreateOrConnectWithoutCreatorInput | GroupsCreateOrConnectWithoutCreatorInput[]
+    upsert?: GroupsUpsertWithWhereUniqueWithoutCreatorInput | GroupsUpsertWithWhereUniqueWithoutCreatorInput[]
+    createMany?: GroupsCreateManyCreatorInputEnvelope
+    set?: GroupsWhereUniqueInput | GroupsWhereUniqueInput[]
+    disconnect?: GroupsWhereUniqueInput | GroupsWhereUniqueInput[]
+    delete?: GroupsWhereUniqueInput | GroupsWhereUniqueInput[]
+    connect?: GroupsWhereUniqueInput | GroupsWhereUniqueInput[]
+    update?: GroupsUpdateWithWhereUniqueWithoutCreatorInput | GroupsUpdateWithWhereUniqueWithoutCreatorInput[]
+    updateMany?: GroupsUpdateManyWithWhereWithoutCreatorInput | GroupsUpdateManyWithWhereWithoutCreatorInput[]
+    deleteMany?: GroupsScalarWhereInput | GroupsScalarWhereInput[]
+  }
+
+  export type GroupMembersUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GroupMembersCreateWithoutUserInput, GroupMembersUncheckedCreateWithoutUserInput> | GroupMembersCreateWithoutUserInput[] | GroupMembersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GroupMembersCreateOrConnectWithoutUserInput | GroupMembersCreateOrConnectWithoutUserInput[]
+    upsert?: GroupMembersUpsertWithWhereUniqueWithoutUserInput | GroupMembersUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GroupMembersCreateManyUserInputEnvelope
+    set?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    disconnect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    delete?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    update?: GroupMembersUpdateWithWhereUniqueWithoutUserInput | GroupMembersUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GroupMembersUpdateManyWithWhereWithoutUserInput | GroupMembersUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GroupMembersScalarWhereInput | GroupMembersScalarWhereInput[]
+  }
+
+  export type TransactionsUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TransactionsCreateWithoutUserInput, TransactionsUncheckedCreateWithoutUserInput> | TransactionsCreateWithoutUserInput[] | TransactionsUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutUserInput | TransactionsCreateOrConnectWithoutUserInput[]
+    upsert?: TransactionsUpsertWithWhereUniqueWithoutUserInput | TransactionsUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TransactionsCreateManyUserInputEnvelope
+    set?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    disconnect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    delete?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    update?: TransactionsUpdateWithWhereUniqueWithoutUserInput | TransactionsUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TransactionsUpdateManyWithWhereWithoutUserInput | TransactionsUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+  }
+
   export type UsersCreateNestedOneWithoutSavingsInput = {
     create?: XOR<UsersCreateWithoutSavingsInput, UsersUncheckedCreateWithoutSavingsInput>
     connectOrCreate?: UsersCreateOrConnectWithoutSavingsInput
     connect?: UsersWhereUniqueInput
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type GroupsCreateNestedOneWithoutSavingsInput = {
+    create?: XOR<GroupsCreateWithoutSavingsInput, GroupsUncheckedCreateWithoutSavingsInput>
+    connectOrCreate?: GroupsCreateOrConnectWithoutSavingsInput
+    connect?: GroupsWhereUniqueInput
+  }
+
+  export type TransactionsCreateNestedManyWithoutSavingInput = {
+    create?: XOR<TransactionsCreateWithoutSavingInput, TransactionsUncheckedCreateWithoutSavingInput> | TransactionsCreateWithoutSavingInput[] | TransactionsUncheckedCreateWithoutSavingInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutSavingInput | TransactionsCreateOrConnectWithoutSavingInput[]
+    createMany?: TransactionsCreateManySavingInputEnvelope
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+  }
+
+  export type TransactionsUncheckedCreateNestedManyWithoutSavingInput = {
+    create?: XOR<TransactionsCreateWithoutSavingInput, TransactionsUncheckedCreateWithoutSavingInput> | TransactionsCreateWithoutSavingInput[] | TransactionsUncheckedCreateWithoutSavingInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutSavingInput | TransactionsCreateOrConnectWithoutSavingInput[]
+    createMany?: TransactionsCreateManySavingInputEnvelope
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -3594,6 +7821,268 @@ export namespace Prisma {
     upsert?: UsersUpsertWithoutSavingsInput
     connect?: UsersWhereUniqueInput
     update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutSavingsInput, UsersUpdateWithoutSavingsInput>, UsersUncheckedUpdateWithoutSavingsInput>
+  }
+
+  export type GroupsUpdateOneWithoutSavingsNestedInput = {
+    create?: XOR<GroupsCreateWithoutSavingsInput, GroupsUncheckedCreateWithoutSavingsInput>
+    connectOrCreate?: GroupsCreateOrConnectWithoutSavingsInput
+    upsert?: GroupsUpsertWithoutSavingsInput
+    disconnect?: GroupsWhereInput | boolean
+    delete?: GroupsWhereInput | boolean
+    connect?: GroupsWhereUniqueInput
+    update?: XOR<XOR<GroupsUpdateToOneWithWhereWithoutSavingsInput, GroupsUpdateWithoutSavingsInput>, GroupsUncheckedUpdateWithoutSavingsInput>
+  }
+
+  export type TransactionsUpdateManyWithoutSavingNestedInput = {
+    create?: XOR<TransactionsCreateWithoutSavingInput, TransactionsUncheckedCreateWithoutSavingInput> | TransactionsCreateWithoutSavingInput[] | TransactionsUncheckedCreateWithoutSavingInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutSavingInput | TransactionsCreateOrConnectWithoutSavingInput[]
+    upsert?: TransactionsUpsertWithWhereUniqueWithoutSavingInput | TransactionsUpsertWithWhereUniqueWithoutSavingInput[]
+    createMany?: TransactionsCreateManySavingInputEnvelope
+    set?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    disconnect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    delete?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    update?: TransactionsUpdateWithWhereUniqueWithoutSavingInput | TransactionsUpdateWithWhereUniqueWithoutSavingInput[]
+    updateMany?: TransactionsUpdateManyWithWhereWithoutSavingInput | TransactionsUpdateManyWithWhereWithoutSavingInput[]
+    deleteMany?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type TransactionsUncheckedUpdateManyWithoutSavingNestedInput = {
+    create?: XOR<TransactionsCreateWithoutSavingInput, TransactionsUncheckedCreateWithoutSavingInput> | TransactionsCreateWithoutSavingInput[] | TransactionsUncheckedCreateWithoutSavingInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutSavingInput | TransactionsCreateOrConnectWithoutSavingInput[]
+    upsert?: TransactionsUpsertWithWhereUniqueWithoutSavingInput | TransactionsUpsertWithWhereUniqueWithoutSavingInput[]
+    createMany?: TransactionsCreateManySavingInputEnvelope
+    set?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    disconnect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    delete?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    update?: TransactionsUpdateWithWhereUniqueWithoutSavingInput | TransactionsUpdateWithWhereUniqueWithoutSavingInput[]
+    updateMany?: TransactionsUpdateManyWithWhereWithoutSavingInput | TransactionsUpdateManyWithWhereWithoutSavingInput[]
+    deleteMany?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+  }
+
+  export type UsersCreateNestedOneWithoutGroupsInput = {
+    create?: XOR<UsersCreateWithoutGroupsInput, UsersUncheckedCreateWithoutGroupsInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutGroupsInput
+    connect?: UsersWhereUniqueInput
+  }
+
+  export type SavingsCreateNestedManyWithoutGroupInput = {
+    create?: XOR<SavingsCreateWithoutGroupInput, SavingsUncheckedCreateWithoutGroupInput> | SavingsCreateWithoutGroupInput[] | SavingsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: SavingsCreateOrConnectWithoutGroupInput | SavingsCreateOrConnectWithoutGroupInput[]
+    createMany?: SavingsCreateManyGroupInputEnvelope
+    connect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+  }
+
+  export type GroupMembersCreateNestedManyWithoutGroupInput = {
+    create?: XOR<GroupMembersCreateWithoutGroupInput, GroupMembersUncheckedCreateWithoutGroupInput> | GroupMembersCreateWithoutGroupInput[] | GroupMembersUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: GroupMembersCreateOrConnectWithoutGroupInput | GroupMembersCreateOrConnectWithoutGroupInput[]
+    createMany?: GroupMembersCreateManyGroupInputEnvelope
+    connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+  }
+
+  export type TransactionsCreateNestedManyWithoutGroupInput = {
+    create?: XOR<TransactionsCreateWithoutGroupInput, TransactionsUncheckedCreateWithoutGroupInput> | TransactionsCreateWithoutGroupInput[] | TransactionsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutGroupInput | TransactionsCreateOrConnectWithoutGroupInput[]
+    createMany?: TransactionsCreateManyGroupInputEnvelope
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+  }
+
+  export type SavingsUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<SavingsCreateWithoutGroupInput, SavingsUncheckedCreateWithoutGroupInput> | SavingsCreateWithoutGroupInput[] | SavingsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: SavingsCreateOrConnectWithoutGroupInput | SavingsCreateOrConnectWithoutGroupInput[]
+    createMany?: SavingsCreateManyGroupInputEnvelope
+    connect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+  }
+
+  export type GroupMembersUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<GroupMembersCreateWithoutGroupInput, GroupMembersUncheckedCreateWithoutGroupInput> | GroupMembersCreateWithoutGroupInput[] | GroupMembersUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: GroupMembersCreateOrConnectWithoutGroupInput | GroupMembersCreateOrConnectWithoutGroupInput[]
+    createMany?: GroupMembersCreateManyGroupInputEnvelope
+    connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+  }
+
+  export type TransactionsUncheckedCreateNestedManyWithoutGroupInput = {
+    create?: XOR<TransactionsCreateWithoutGroupInput, TransactionsUncheckedCreateWithoutGroupInput> | TransactionsCreateWithoutGroupInput[] | TransactionsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutGroupInput | TransactionsCreateOrConnectWithoutGroupInput[]
+    createMany?: TransactionsCreateManyGroupInputEnvelope
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+  }
+
+  export type UsersUpdateOneRequiredWithoutGroupsNestedInput = {
+    create?: XOR<UsersCreateWithoutGroupsInput, UsersUncheckedCreateWithoutGroupsInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutGroupsInput
+    upsert?: UsersUpsertWithoutGroupsInput
+    connect?: UsersWhereUniqueInput
+    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutGroupsInput, UsersUpdateWithoutGroupsInput>, UsersUncheckedUpdateWithoutGroupsInput>
+  }
+
+  export type SavingsUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<SavingsCreateWithoutGroupInput, SavingsUncheckedCreateWithoutGroupInput> | SavingsCreateWithoutGroupInput[] | SavingsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: SavingsCreateOrConnectWithoutGroupInput | SavingsCreateOrConnectWithoutGroupInput[]
+    upsert?: SavingsUpsertWithWhereUniqueWithoutGroupInput | SavingsUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: SavingsCreateManyGroupInputEnvelope
+    set?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    disconnect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    delete?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    connect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    update?: SavingsUpdateWithWhereUniqueWithoutGroupInput | SavingsUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: SavingsUpdateManyWithWhereWithoutGroupInput | SavingsUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: SavingsScalarWhereInput | SavingsScalarWhereInput[]
+  }
+
+  export type GroupMembersUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<GroupMembersCreateWithoutGroupInput, GroupMembersUncheckedCreateWithoutGroupInput> | GroupMembersCreateWithoutGroupInput[] | GroupMembersUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: GroupMembersCreateOrConnectWithoutGroupInput | GroupMembersCreateOrConnectWithoutGroupInput[]
+    upsert?: GroupMembersUpsertWithWhereUniqueWithoutGroupInput | GroupMembersUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: GroupMembersCreateManyGroupInputEnvelope
+    set?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    disconnect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    delete?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    update?: GroupMembersUpdateWithWhereUniqueWithoutGroupInput | GroupMembersUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: GroupMembersUpdateManyWithWhereWithoutGroupInput | GroupMembersUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: GroupMembersScalarWhereInput | GroupMembersScalarWhereInput[]
+  }
+
+  export type TransactionsUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<TransactionsCreateWithoutGroupInput, TransactionsUncheckedCreateWithoutGroupInput> | TransactionsCreateWithoutGroupInput[] | TransactionsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutGroupInput | TransactionsCreateOrConnectWithoutGroupInput[]
+    upsert?: TransactionsUpsertWithWhereUniqueWithoutGroupInput | TransactionsUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: TransactionsCreateManyGroupInputEnvelope
+    set?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    disconnect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    delete?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    update?: TransactionsUpdateWithWhereUniqueWithoutGroupInput | TransactionsUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: TransactionsUpdateManyWithWhereWithoutGroupInput | TransactionsUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+  }
+
+  export type SavingsUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<SavingsCreateWithoutGroupInput, SavingsUncheckedCreateWithoutGroupInput> | SavingsCreateWithoutGroupInput[] | SavingsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: SavingsCreateOrConnectWithoutGroupInput | SavingsCreateOrConnectWithoutGroupInput[]
+    upsert?: SavingsUpsertWithWhereUniqueWithoutGroupInput | SavingsUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: SavingsCreateManyGroupInputEnvelope
+    set?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    disconnect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    delete?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    connect?: SavingsWhereUniqueInput | SavingsWhereUniqueInput[]
+    update?: SavingsUpdateWithWhereUniqueWithoutGroupInput | SavingsUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: SavingsUpdateManyWithWhereWithoutGroupInput | SavingsUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: SavingsScalarWhereInput | SavingsScalarWhereInput[]
+  }
+
+  export type GroupMembersUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<GroupMembersCreateWithoutGroupInput, GroupMembersUncheckedCreateWithoutGroupInput> | GroupMembersCreateWithoutGroupInput[] | GroupMembersUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: GroupMembersCreateOrConnectWithoutGroupInput | GroupMembersCreateOrConnectWithoutGroupInput[]
+    upsert?: GroupMembersUpsertWithWhereUniqueWithoutGroupInput | GroupMembersUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: GroupMembersCreateManyGroupInputEnvelope
+    set?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    disconnect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    delete?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    connect?: GroupMembersWhereUniqueInput | GroupMembersWhereUniqueInput[]
+    update?: GroupMembersUpdateWithWhereUniqueWithoutGroupInput | GroupMembersUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: GroupMembersUpdateManyWithWhereWithoutGroupInput | GroupMembersUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: GroupMembersScalarWhereInput | GroupMembersScalarWhereInput[]
+  }
+
+  export type TransactionsUncheckedUpdateManyWithoutGroupNestedInput = {
+    create?: XOR<TransactionsCreateWithoutGroupInput, TransactionsUncheckedCreateWithoutGroupInput> | TransactionsCreateWithoutGroupInput[] | TransactionsUncheckedCreateWithoutGroupInput[]
+    connectOrCreate?: TransactionsCreateOrConnectWithoutGroupInput | TransactionsCreateOrConnectWithoutGroupInput[]
+    upsert?: TransactionsUpsertWithWhereUniqueWithoutGroupInput | TransactionsUpsertWithWhereUniqueWithoutGroupInput[]
+    createMany?: TransactionsCreateManyGroupInputEnvelope
+    set?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    disconnect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    delete?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    connect?: TransactionsWhereUniqueInput | TransactionsWhereUniqueInput[]
+    update?: TransactionsUpdateWithWhereUniqueWithoutGroupInput | TransactionsUpdateWithWhereUniqueWithoutGroupInput[]
+    updateMany?: TransactionsUpdateManyWithWhereWithoutGroupInput | TransactionsUpdateManyWithWhereWithoutGroupInput[]
+    deleteMany?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+  }
+
+  export type GroupsCreateNestedOneWithoutMembersInput = {
+    create?: XOR<GroupsCreateWithoutMembersInput, GroupsUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: GroupsCreateOrConnectWithoutMembersInput
+    connect?: GroupsWhereUniqueInput
+  }
+
+  export type UsersCreateNestedOneWithoutGroupMembersInput = {
+    create?: XOR<UsersCreateWithoutGroupMembersInput, UsersUncheckedCreateWithoutGroupMembersInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutGroupMembersInput
+    connect?: UsersWhereUniqueInput
+  }
+
+  export type EnumGroupRolesFieldUpdateOperationsInput = {
+    set?: $Enums.GroupRoles
+  }
+
+  export type GroupsUpdateOneRequiredWithoutMembersNestedInput = {
+    create?: XOR<GroupsCreateWithoutMembersInput, GroupsUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: GroupsCreateOrConnectWithoutMembersInput
+    upsert?: GroupsUpsertWithoutMembersInput
+    connect?: GroupsWhereUniqueInput
+    update?: XOR<XOR<GroupsUpdateToOneWithWhereWithoutMembersInput, GroupsUpdateWithoutMembersInput>, GroupsUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type UsersUpdateOneRequiredWithoutGroupMembersNestedInput = {
+    create?: XOR<UsersCreateWithoutGroupMembersInput, UsersUncheckedCreateWithoutGroupMembersInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutGroupMembersInput
+    upsert?: UsersUpsertWithoutGroupMembersInput
+    connect?: UsersWhereUniqueInput
+    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutGroupMembersInput, UsersUpdateWithoutGroupMembersInput>, UsersUncheckedUpdateWithoutGroupMembersInput>
+  }
+
+  export type UsersCreateNestedOneWithoutTransactionInput = {
+    create?: XOR<UsersCreateWithoutTransactionInput, UsersUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutTransactionInput
+    connect?: UsersWhereUniqueInput
+  }
+
+  export type GroupsCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<GroupsCreateWithoutTransactionsInput, GroupsUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: GroupsCreateOrConnectWithoutTransactionsInput
+    connect?: GroupsWhereUniqueInput
+  }
+
+  export type SavingsCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<SavingsCreateWithoutTransactionsInput, SavingsUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: SavingsCreateOrConnectWithoutTransactionsInput
+    connect?: SavingsWhereUniqueInput
+  }
+
+  export type EnumTransactionTypesFieldUpdateOperationsInput = {
+    set?: $Enums.TransactionTypes
+  }
+
+  export type UsersUpdateOneRequiredWithoutTransactionNestedInput = {
+    create?: XOR<UsersCreateWithoutTransactionInput, UsersUncheckedCreateWithoutTransactionInput>
+    connectOrCreate?: UsersCreateOrConnectWithoutTransactionInput
+    upsert?: UsersUpsertWithoutTransactionInput
+    connect?: UsersWhereUniqueInput
+    update?: XOR<XOR<UsersUpdateToOneWithWhereWithoutTransactionInput, UsersUpdateWithoutTransactionInput>, UsersUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type GroupsUpdateOneWithoutTransactionsNestedInput = {
+    create?: XOR<GroupsCreateWithoutTransactionsInput, GroupsUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: GroupsCreateOrConnectWithoutTransactionsInput
+    upsert?: GroupsUpsertWithoutTransactionsInput
+    disconnect?: GroupsWhereInput | boolean
+    delete?: GroupsWhereInput | boolean
+    connect?: GroupsWhereUniqueInput
+    update?: XOR<XOR<GroupsUpdateToOneWithWhereWithoutTransactionsInput, GroupsUpdateWithoutTransactionsInput>, GroupsUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type SavingsUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<SavingsCreateWithoutTransactionsInput, SavingsUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: SavingsCreateOrConnectWithoutTransactionsInput
+    upsert?: SavingsUpsertWithoutTransactionsInput
+    connect?: SavingsWhereUniqueInput
+    update?: XOR<XOR<SavingsUpdateToOneWithWhereWithoutTransactionsInput, SavingsUpdateWithoutTransactionsInput>, SavingsUncheckedUpdateWithoutTransactionsInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -3782,12 +8271,47 @@ export namespace Prisma {
     _max?: NestedEnumSavingTypesFilter<$PrismaModel>
   }
 
+  export type NestedEnumGroupRolesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GroupRoles | EnumGroupRolesFieldRefInput<$PrismaModel>
+    in?: $Enums.GroupRoles[] | ListEnumGroupRolesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GroupRoles[] | ListEnumGroupRolesFieldRefInput<$PrismaModel>
+    not?: NestedEnumGroupRolesFilter<$PrismaModel> | $Enums.GroupRoles
+  }
+
+  export type NestedEnumGroupRolesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GroupRoles | EnumGroupRolesFieldRefInput<$PrismaModel>
+    in?: $Enums.GroupRoles[] | ListEnumGroupRolesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GroupRoles[] | ListEnumGroupRolesFieldRefInput<$PrismaModel>
+    not?: NestedEnumGroupRolesWithAggregatesFilter<$PrismaModel> | $Enums.GroupRoles
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGroupRolesFilter<$PrismaModel>
+    _max?: NestedEnumGroupRolesFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTransactionTypesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionTypes | EnumTransactionTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypesFilter<$PrismaModel> | $Enums.TransactionTypes
+  }
+
+  export type NestedEnumTransactionTypesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TransactionTypes | EnumTransactionTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TransactionTypes[] | ListEnumTransactionTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumTransactionTypesWithAggregatesFilter<$PrismaModel> | $Enums.TransactionTypes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTransactionTypesFilter<$PrismaModel>
+    _max?: NestedEnumTransactionTypesFilter<$PrismaModel>
+  }
+
   export type SavingsCreateWithoutUserInput = {
     saving_id?: string
-    group_id?: string | null
     amount: Decimal | DecimalJsLike | number | string
     type: $Enums.SavingTypes
     created_at?: Date | string
+    group?: GroupsCreateNestedOneWithoutSavingsInput
+    transactions?: TransactionsCreateNestedManyWithoutSavingInput
   }
 
   export type SavingsUncheckedCreateWithoutUserInput = {
@@ -3796,6 +8320,7 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     type: $Enums.SavingTypes
     created_at?: Date | string
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutSavingInput
   }
 
   export type SavingsCreateOrConnectWithoutUserInput = {
@@ -3805,6 +8330,86 @@ export namespace Prisma {
 
   export type SavingsCreateManyUserInputEnvelope = {
     data: SavingsCreateManyUserInput | SavingsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GroupsCreateWithoutCreatorInput = {
+    group_id?: string
+    group_name: string
+    created_at?: Date | string
+    savings?: SavingsCreateNestedManyWithoutGroupInput
+    members?: GroupMembersCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsUncheckedCreateWithoutCreatorInput = {
+    group_id?: string
+    group_name: string
+    created_at?: Date | string
+    savings?: SavingsUncheckedCreateNestedManyWithoutGroupInput
+    members?: GroupMembersUncheckedCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsCreateOrConnectWithoutCreatorInput = {
+    where: GroupsWhereUniqueInput
+    create: XOR<GroupsCreateWithoutCreatorInput, GroupsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type GroupsCreateManyCreatorInputEnvelope = {
+    data: GroupsCreateManyCreatorInput | GroupsCreateManyCreatorInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GroupMembersCreateWithoutUserInput = {
+    member_id?: string
+    role: $Enums.GroupRoles
+    joined_at?: Date | string
+    group: GroupsCreateNestedOneWithoutMembersInput
+  }
+
+  export type GroupMembersUncheckedCreateWithoutUserInput = {
+    member_id?: string
+    group_id: string
+    role: $Enums.GroupRoles
+    joined_at?: Date | string
+  }
+
+  export type GroupMembersCreateOrConnectWithoutUserInput = {
+    where: GroupMembersWhereUniqueInput
+    create: XOR<GroupMembersCreateWithoutUserInput, GroupMembersUncheckedCreateWithoutUserInput>
+  }
+
+  export type GroupMembersCreateManyUserInputEnvelope = {
+    data: GroupMembersCreateManyUserInput | GroupMembersCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransactionsCreateWithoutUserInput = {
+    transaction_id?: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    group?: GroupsCreateNestedOneWithoutTransactionsInput
+    saving: SavingsCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionsUncheckedCreateWithoutUserInput = {
+    transaction_id?: string
+    group_id?: string | null
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type TransactionsCreateOrConnectWithoutUserInput = {
+    where: TransactionsWhereUniqueInput
+    create: XOR<TransactionsCreateWithoutUserInput, TransactionsUncheckedCreateWithoutUserInput>
+  }
+
+  export type TransactionsCreateManyUserInputEnvelope = {
+    data: TransactionsCreateManyUserInput | TransactionsCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -3836,12 +8441,97 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Savings"> | Date | string
   }
 
+  export type GroupsUpsertWithWhereUniqueWithoutCreatorInput = {
+    where: GroupsWhereUniqueInput
+    update: XOR<GroupsUpdateWithoutCreatorInput, GroupsUncheckedUpdateWithoutCreatorInput>
+    create: XOR<GroupsCreateWithoutCreatorInput, GroupsUncheckedCreateWithoutCreatorInput>
+  }
+
+  export type GroupsUpdateWithWhereUniqueWithoutCreatorInput = {
+    where: GroupsWhereUniqueInput
+    data: XOR<GroupsUpdateWithoutCreatorInput, GroupsUncheckedUpdateWithoutCreatorInput>
+  }
+
+  export type GroupsUpdateManyWithWhereWithoutCreatorInput = {
+    where: GroupsScalarWhereInput
+    data: XOR<GroupsUpdateManyMutationInput, GroupsUncheckedUpdateManyWithoutCreatorInput>
+  }
+
+  export type GroupsScalarWhereInput = {
+    AND?: GroupsScalarWhereInput | GroupsScalarWhereInput[]
+    OR?: GroupsScalarWhereInput[]
+    NOT?: GroupsScalarWhereInput | GroupsScalarWhereInput[]
+    group_id?: UuidFilter<"Groups"> | string
+    group_name?: StringFilter<"Groups"> | string
+    created_by?: UuidFilter<"Groups"> | string
+    created_at?: DateTimeFilter<"Groups"> | Date | string
+  }
+
+  export type GroupMembersUpsertWithWhereUniqueWithoutUserInput = {
+    where: GroupMembersWhereUniqueInput
+    update: XOR<GroupMembersUpdateWithoutUserInput, GroupMembersUncheckedUpdateWithoutUserInput>
+    create: XOR<GroupMembersCreateWithoutUserInput, GroupMembersUncheckedCreateWithoutUserInput>
+  }
+
+  export type GroupMembersUpdateWithWhereUniqueWithoutUserInput = {
+    where: GroupMembersWhereUniqueInput
+    data: XOR<GroupMembersUpdateWithoutUserInput, GroupMembersUncheckedUpdateWithoutUserInput>
+  }
+
+  export type GroupMembersUpdateManyWithWhereWithoutUserInput = {
+    where: GroupMembersScalarWhereInput
+    data: XOR<GroupMembersUpdateManyMutationInput, GroupMembersUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type GroupMembersScalarWhereInput = {
+    AND?: GroupMembersScalarWhereInput | GroupMembersScalarWhereInput[]
+    OR?: GroupMembersScalarWhereInput[]
+    NOT?: GroupMembersScalarWhereInput | GroupMembersScalarWhereInput[]
+    member_id?: UuidFilter<"GroupMembers"> | string
+    group_id?: UuidFilter<"GroupMembers"> | string
+    user_id?: UuidFilter<"GroupMembers"> | string
+    role?: EnumGroupRolesFilter<"GroupMembers"> | $Enums.GroupRoles
+    joined_at?: DateTimeFilter<"GroupMembers"> | Date | string
+  }
+
+  export type TransactionsUpsertWithWhereUniqueWithoutUserInput = {
+    where: TransactionsWhereUniqueInput
+    update: XOR<TransactionsUpdateWithoutUserInput, TransactionsUncheckedUpdateWithoutUserInput>
+    create: XOR<TransactionsCreateWithoutUserInput, TransactionsUncheckedCreateWithoutUserInput>
+  }
+
+  export type TransactionsUpdateWithWhereUniqueWithoutUserInput = {
+    where: TransactionsWhereUniqueInput
+    data: XOR<TransactionsUpdateWithoutUserInput, TransactionsUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TransactionsUpdateManyWithWhereWithoutUserInput = {
+    where: TransactionsScalarWhereInput
+    data: XOR<TransactionsUpdateManyMutationInput, TransactionsUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TransactionsScalarWhereInput = {
+    AND?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+    OR?: TransactionsScalarWhereInput[]
+    NOT?: TransactionsScalarWhereInput | TransactionsScalarWhereInput[]
+    transaction_id?: UuidFilter<"Transactions"> | string
+    user_id?: UuidFilter<"Transactions"> | string
+    group_id?: UuidNullableFilter<"Transactions"> | string | null
+    saving_id?: UuidFilter<"Transactions"> | string
+    type?: EnumTransactionTypesFilter<"Transactions"> | $Enums.TransactionTypes
+    amount?: DecimalFilter<"Transactions"> | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFilter<"Transactions"> | Date | string
+  }
+
   export type UsersCreateWithoutSavingsInput = {
     user_id?: string
     name: string
     email: string
     password: string
     created_at?: Date | string
+    groups?: GroupsCreateNestedManyWithoutCreatorInput
+    groupMembers?: GroupMembersCreateNestedManyWithoutUserInput
+    transaction?: TransactionsCreateNestedManyWithoutUserInput
   }
 
   export type UsersUncheckedCreateWithoutSavingsInput = {
@@ -3850,11 +8540,65 @@ export namespace Prisma {
     email: string
     password: string
     created_at?: Date | string
+    groups?: GroupsUncheckedCreateNestedManyWithoutCreatorInput
+    groupMembers?: GroupMembersUncheckedCreateNestedManyWithoutUserInput
+    transaction?: TransactionsUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UsersCreateOrConnectWithoutSavingsInput = {
     where: UsersWhereUniqueInput
     create: XOR<UsersCreateWithoutSavingsInput, UsersUncheckedCreateWithoutSavingsInput>
+  }
+
+  export type GroupsCreateWithoutSavingsInput = {
+    group_id?: string
+    group_name: string
+    created_at?: Date | string
+    creator: UsersCreateNestedOneWithoutGroupsInput
+    members?: GroupMembersCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsUncheckedCreateWithoutSavingsInput = {
+    group_id?: string
+    group_name: string
+    created_by: string
+    created_at?: Date | string
+    members?: GroupMembersUncheckedCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsCreateOrConnectWithoutSavingsInput = {
+    where: GroupsWhereUniqueInput
+    create: XOR<GroupsCreateWithoutSavingsInput, GroupsUncheckedCreateWithoutSavingsInput>
+  }
+
+  export type TransactionsCreateWithoutSavingInput = {
+    transaction_id?: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    user: UsersCreateNestedOneWithoutTransactionInput
+    group?: GroupsCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionsUncheckedCreateWithoutSavingInput = {
+    transaction_id?: string
+    user_id: string
+    group_id?: string | null
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type TransactionsCreateOrConnectWithoutSavingInput = {
+    where: TransactionsWhereUniqueInput
+    create: XOR<TransactionsCreateWithoutSavingInput, TransactionsUncheckedCreateWithoutSavingInput>
+  }
+
+  export type TransactionsCreateManySavingInputEnvelope = {
+    data: TransactionsCreateManySavingInput | TransactionsCreateManySavingInput[]
+    skipDuplicates?: boolean
   }
 
   export type UsersUpsertWithoutSavingsInput = {
@@ -3874,6 +8618,9 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    groups?: GroupsUpdateManyWithoutCreatorNestedInput
+    groupMembers?: GroupMembersUpdateManyWithoutUserNestedInput
+    transaction?: TransactionsUpdateManyWithoutUserNestedInput
   }
 
   export type UsersUncheckedUpdateWithoutSavingsInput = {
@@ -3881,6 +8628,518 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    groups?: GroupsUncheckedUpdateManyWithoutCreatorNestedInput
+    groupMembers?: GroupMembersUncheckedUpdateManyWithoutUserNestedInput
+    transaction?: TransactionsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type GroupsUpsertWithoutSavingsInput = {
+    update: XOR<GroupsUpdateWithoutSavingsInput, GroupsUncheckedUpdateWithoutSavingsInput>
+    create: XOR<GroupsCreateWithoutSavingsInput, GroupsUncheckedCreateWithoutSavingsInput>
+    where?: GroupsWhereInput
+  }
+
+  export type GroupsUpdateToOneWithWhereWithoutSavingsInput = {
+    where?: GroupsWhereInput
+    data: XOR<GroupsUpdateWithoutSavingsInput, GroupsUncheckedUpdateWithoutSavingsInput>
+  }
+
+  export type GroupsUpdateWithoutSavingsInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: UsersUpdateOneRequiredWithoutGroupsNestedInput
+    members?: GroupMembersUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupsUncheckedUpdateWithoutSavingsInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: GroupMembersUncheckedUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type TransactionsUpsertWithWhereUniqueWithoutSavingInput = {
+    where: TransactionsWhereUniqueInput
+    update: XOR<TransactionsUpdateWithoutSavingInput, TransactionsUncheckedUpdateWithoutSavingInput>
+    create: XOR<TransactionsCreateWithoutSavingInput, TransactionsUncheckedCreateWithoutSavingInput>
+  }
+
+  export type TransactionsUpdateWithWhereUniqueWithoutSavingInput = {
+    where: TransactionsWhereUniqueInput
+    data: XOR<TransactionsUpdateWithoutSavingInput, TransactionsUncheckedUpdateWithoutSavingInput>
+  }
+
+  export type TransactionsUpdateManyWithWhereWithoutSavingInput = {
+    where: TransactionsScalarWhereInput
+    data: XOR<TransactionsUpdateManyMutationInput, TransactionsUncheckedUpdateManyWithoutSavingInput>
+  }
+
+  export type UsersCreateWithoutGroupsInput = {
+    user_id?: string
+    name: string
+    email: string
+    password: string
+    created_at?: Date | string
+    savings?: SavingsCreateNestedManyWithoutUserInput
+    groupMembers?: GroupMembersCreateNestedManyWithoutUserInput
+    transaction?: TransactionsCreateNestedManyWithoutUserInput
+  }
+
+  export type UsersUncheckedCreateWithoutGroupsInput = {
+    user_id?: string
+    name: string
+    email: string
+    password: string
+    created_at?: Date | string
+    savings?: SavingsUncheckedCreateNestedManyWithoutUserInput
+    groupMembers?: GroupMembersUncheckedCreateNestedManyWithoutUserInput
+    transaction?: TransactionsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UsersCreateOrConnectWithoutGroupsInput = {
+    where: UsersWhereUniqueInput
+    create: XOR<UsersCreateWithoutGroupsInput, UsersUncheckedCreateWithoutGroupsInput>
+  }
+
+  export type SavingsCreateWithoutGroupInput = {
+    saving_id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+    user: UsersCreateNestedOneWithoutSavingsInput
+    transactions?: TransactionsCreateNestedManyWithoutSavingInput
+  }
+
+  export type SavingsUncheckedCreateWithoutGroupInput = {
+    saving_id?: string
+    user_id: string
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutSavingInput
+  }
+
+  export type SavingsCreateOrConnectWithoutGroupInput = {
+    where: SavingsWhereUniqueInput
+    create: XOR<SavingsCreateWithoutGroupInput, SavingsUncheckedCreateWithoutGroupInput>
+  }
+
+  export type SavingsCreateManyGroupInputEnvelope = {
+    data: SavingsCreateManyGroupInput | SavingsCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GroupMembersCreateWithoutGroupInput = {
+    member_id?: string
+    role: $Enums.GroupRoles
+    joined_at?: Date | string
+    user: UsersCreateNestedOneWithoutGroupMembersInput
+  }
+
+  export type GroupMembersUncheckedCreateWithoutGroupInput = {
+    member_id?: string
+    user_id: string
+    role: $Enums.GroupRoles
+    joined_at?: Date | string
+  }
+
+  export type GroupMembersCreateOrConnectWithoutGroupInput = {
+    where: GroupMembersWhereUniqueInput
+    create: XOR<GroupMembersCreateWithoutGroupInput, GroupMembersUncheckedCreateWithoutGroupInput>
+  }
+
+  export type GroupMembersCreateManyGroupInputEnvelope = {
+    data: GroupMembersCreateManyGroupInput | GroupMembersCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransactionsCreateWithoutGroupInput = {
+    transaction_id?: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    user: UsersCreateNestedOneWithoutTransactionInput
+    saving: SavingsCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type TransactionsUncheckedCreateWithoutGroupInput = {
+    transaction_id?: string
+    user_id: string
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type TransactionsCreateOrConnectWithoutGroupInput = {
+    where: TransactionsWhereUniqueInput
+    create: XOR<TransactionsCreateWithoutGroupInput, TransactionsUncheckedCreateWithoutGroupInput>
+  }
+
+  export type TransactionsCreateManyGroupInputEnvelope = {
+    data: TransactionsCreateManyGroupInput | TransactionsCreateManyGroupInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UsersUpsertWithoutGroupsInput = {
+    update: XOR<UsersUpdateWithoutGroupsInput, UsersUncheckedUpdateWithoutGroupsInput>
+    create: XOR<UsersCreateWithoutGroupsInput, UsersUncheckedCreateWithoutGroupsInput>
+    where?: UsersWhereInput
+  }
+
+  export type UsersUpdateToOneWithWhereWithoutGroupsInput = {
+    where?: UsersWhereInput
+    data: XOR<UsersUpdateWithoutGroupsInput, UsersUncheckedUpdateWithoutGroupsInput>
+  }
+
+  export type UsersUpdateWithoutGroupsInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUpdateManyWithoutUserNestedInput
+    groupMembers?: GroupMembersUpdateManyWithoutUserNestedInput
+    transaction?: TransactionsUpdateManyWithoutUserNestedInput
+  }
+
+  export type UsersUncheckedUpdateWithoutGroupsInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUncheckedUpdateManyWithoutUserNestedInput
+    groupMembers?: GroupMembersUncheckedUpdateManyWithoutUserNestedInput
+    transaction?: TransactionsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type SavingsUpsertWithWhereUniqueWithoutGroupInput = {
+    where: SavingsWhereUniqueInput
+    update: XOR<SavingsUpdateWithoutGroupInput, SavingsUncheckedUpdateWithoutGroupInput>
+    create: XOR<SavingsCreateWithoutGroupInput, SavingsUncheckedCreateWithoutGroupInput>
+  }
+
+  export type SavingsUpdateWithWhereUniqueWithoutGroupInput = {
+    where: SavingsWhereUniqueInput
+    data: XOR<SavingsUpdateWithoutGroupInput, SavingsUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type SavingsUpdateManyWithWhereWithoutGroupInput = {
+    where: SavingsScalarWhereInput
+    data: XOR<SavingsUpdateManyMutationInput, SavingsUncheckedUpdateManyWithoutGroupInput>
+  }
+
+  export type GroupMembersUpsertWithWhereUniqueWithoutGroupInput = {
+    where: GroupMembersWhereUniqueInput
+    update: XOR<GroupMembersUpdateWithoutGroupInput, GroupMembersUncheckedUpdateWithoutGroupInput>
+    create: XOR<GroupMembersCreateWithoutGroupInput, GroupMembersUncheckedCreateWithoutGroupInput>
+  }
+
+  export type GroupMembersUpdateWithWhereUniqueWithoutGroupInput = {
+    where: GroupMembersWhereUniqueInput
+    data: XOR<GroupMembersUpdateWithoutGroupInput, GroupMembersUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type GroupMembersUpdateManyWithWhereWithoutGroupInput = {
+    where: GroupMembersScalarWhereInput
+    data: XOR<GroupMembersUpdateManyMutationInput, GroupMembersUncheckedUpdateManyWithoutGroupInput>
+  }
+
+  export type TransactionsUpsertWithWhereUniqueWithoutGroupInput = {
+    where: TransactionsWhereUniqueInput
+    update: XOR<TransactionsUpdateWithoutGroupInput, TransactionsUncheckedUpdateWithoutGroupInput>
+    create: XOR<TransactionsCreateWithoutGroupInput, TransactionsUncheckedCreateWithoutGroupInput>
+  }
+
+  export type TransactionsUpdateWithWhereUniqueWithoutGroupInput = {
+    where: TransactionsWhereUniqueInput
+    data: XOR<TransactionsUpdateWithoutGroupInput, TransactionsUncheckedUpdateWithoutGroupInput>
+  }
+
+  export type TransactionsUpdateManyWithWhereWithoutGroupInput = {
+    where: TransactionsScalarWhereInput
+    data: XOR<TransactionsUpdateManyMutationInput, TransactionsUncheckedUpdateManyWithoutGroupInput>
+  }
+
+  export type GroupsCreateWithoutMembersInput = {
+    group_id?: string
+    group_name: string
+    created_at?: Date | string
+    creator: UsersCreateNestedOneWithoutGroupsInput
+    savings?: SavingsCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsUncheckedCreateWithoutMembersInput = {
+    group_id?: string
+    group_name: string
+    created_by: string
+    created_at?: Date | string
+    savings?: SavingsUncheckedCreateNestedManyWithoutGroupInput
+    transactions?: TransactionsUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsCreateOrConnectWithoutMembersInput = {
+    where: GroupsWhereUniqueInput
+    create: XOR<GroupsCreateWithoutMembersInput, GroupsUncheckedCreateWithoutMembersInput>
+  }
+
+  export type UsersCreateWithoutGroupMembersInput = {
+    user_id?: string
+    name: string
+    email: string
+    password: string
+    created_at?: Date | string
+    savings?: SavingsCreateNestedManyWithoutUserInput
+    groups?: GroupsCreateNestedManyWithoutCreatorInput
+    transaction?: TransactionsCreateNestedManyWithoutUserInput
+  }
+
+  export type UsersUncheckedCreateWithoutGroupMembersInput = {
+    user_id?: string
+    name: string
+    email: string
+    password: string
+    created_at?: Date | string
+    savings?: SavingsUncheckedCreateNestedManyWithoutUserInput
+    groups?: GroupsUncheckedCreateNestedManyWithoutCreatorInput
+    transaction?: TransactionsUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UsersCreateOrConnectWithoutGroupMembersInput = {
+    where: UsersWhereUniqueInput
+    create: XOR<UsersCreateWithoutGroupMembersInput, UsersUncheckedCreateWithoutGroupMembersInput>
+  }
+
+  export type GroupsUpsertWithoutMembersInput = {
+    update: XOR<GroupsUpdateWithoutMembersInput, GroupsUncheckedUpdateWithoutMembersInput>
+    create: XOR<GroupsCreateWithoutMembersInput, GroupsUncheckedCreateWithoutMembersInput>
+    where?: GroupsWhereInput
+  }
+
+  export type GroupsUpdateToOneWithWhereWithoutMembersInput = {
+    where?: GroupsWhereInput
+    data: XOR<GroupsUpdateWithoutMembersInput, GroupsUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type GroupsUpdateWithoutMembersInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: UsersUpdateOneRequiredWithoutGroupsNestedInput
+    savings?: SavingsUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupsUncheckedUpdateWithoutMembersInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUncheckedUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type UsersUpsertWithoutGroupMembersInput = {
+    update: XOR<UsersUpdateWithoutGroupMembersInput, UsersUncheckedUpdateWithoutGroupMembersInput>
+    create: XOR<UsersCreateWithoutGroupMembersInput, UsersUncheckedCreateWithoutGroupMembersInput>
+    where?: UsersWhereInput
+  }
+
+  export type UsersUpdateToOneWithWhereWithoutGroupMembersInput = {
+    where?: UsersWhereInput
+    data: XOR<UsersUpdateWithoutGroupMembersInput, UsersUncheckedUpdateWithoutGroupMembersInput>
+  }
+
+  export type UsersUpdateWithoutGroupMembersInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUpdateManyWithoutUserNestedInput
+    groups?: GroupsUpdateManyWithoutCreatorNestedInput
+    transaction?: TransactionsUpdateManyWithoutUserNestedInput
+  }
+
+  export type UsersUncheckedUpdateWithoutGroupMembersInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUncheckedUpdateManyWithoutUserNestedInput
+    groups?: GroupsUncheckedUpdateManyWithoutCreatorNestedInput
+    transaction?: TransactionsUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UsersCreateWithoutTransactionInput = {
+    user_id?: string
+    name: string
+    email: string
+    password: string
+    created_at?: Date | string
+    savings?: SavingsCreateNestedManyWithoutUserInput
+    groups?: GroupsCreateNestedManyWithoutCreatorInput
+    groupMembers?: GroupMembersCreateNestedManyWithoutUserInput
+  }
+
+  export type UsersUncheckedCreateWithoutTransactionInput = {
+    user_id?: string
+    name: string
+    email: string
+    password: string
+    created_at?: Date | string
+    savings?: SavingsUncheckedCreateNestedManyWithoutUserInput
+    groups?: GroupsUncheckedCreateNestedManyWithoutCreatorInput
+    groupMembers?: GroupMembersUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UsersCreateOrConnectWithoutTransactionInput = {
+    where: UsersWhereUniqueInput
+    create: XOR<UsersCreateWithoutTransactionInput, UsersUncheckedCreateWithoutTransactionInput>
+  }
+
+  export type GroupsCreateWithoutTransactionsInput = {
+    group_id?: string
+    group_name: string
+    created_at?: Date | string
+    creator: UsersCreateNestedOneWithoutGroupsInput
+    savings?: SavingsCreateNestedManyWithoutGroupInput
+    members?: GroupMembersCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsUncheckedCreateWithoutTransactionsInput = {
+    group_id?: string
+    group_name: string
+    created_by: string
+    created_at?: Date | string
+    savings?: SavingsUncheckedCreateNestedManyWithoutGroupInput
+    members?: GroupMembersUncheckedCreateNestedManyWithoutGroupInput
+  }
+
+  export type GroupsCreateOrConnectWithoutTransactionsInput = {
+    where: GroupsWhereUniqueInput
+    create: XOR<GroupsCreateWithoutTransactionsInput, GroupsUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type SavingsCreateWithoutTransactionsInput = {
+    saving_id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+    user: UsersCreateNestedOneWithoutSavingsInput
+    group?: GroupsCreateNestedOneWithoutSavingsInput
+  }
+
+  export type SavingsUncheckedCreateWithoutTransactionsInput = {
+    saving_id?: string
+    user_id: string
+    group_id?: string | null
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+  }
+
+  export type SavingsCreateOrConnectWithoutTransactionsInput = {
+    where: SavingsWhereUniqueInput
+    create: XOR<SavingsCreateWithoutTransactionsInput, SavingsUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type UsersUpsertWithoutTransactionInput = {
+    update: XOR<UsersUpdateWithoutTransactionInput, UsersUncheckedUpdateWithoutTransactionInput>
+    create: XOR<UsersCreateWithoutTransactionInput, UsersUncheckedCreateWithoutTransactionInput>
+    where?: UsersWhereInput
+  }
+
+  export type UsersUpdateToOneWithWhereWithoutTransactionInput = {
+    where?: UsersWhereInput
+    data: XOR<UsersUpdateWithoutTransactionInput, UsersUncheckedUpdateWithoutTransactionInput>
+  }
+
+  export type UsersUpdateWithoutTransactionInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUpdateManyWithoutUserNestedInput
+    groups?: GroupsUpdateManyWithoutCreatorNestedInput
+    groupMembers?: GroupMembersUpdateManyWithoutUserNestedInput
+  }
+
+  export type UsersUncheckedUpdateWithoutTransactionInput = {
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUncheckedUpdateManyWithoutUserNestedInput
+    groups?: GroupsUncheckedUpdateManyWithoutCreatorNestedInput
+    groupMembers?: GroupMembersUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type GroupsUpsertWithoutTransactionsInput = {
+    update: XOR<GroupsUpdateWithoutTransactionsInput, GroupsUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<GroupsCreateWithoutTransactionsInput, GroupsUncheckedCreateWithoutTransactionsInput>
+    where?: GroupsWhereInput
+  }
+
+  export type GroupsUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: GroupsWhereInput
+    data: XOR<GroupsUpdateWithoutTransactionsInput, GroupsUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type GroupsUpdateWithoutTransactionsInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    creator?: UsersUpdateOneRequiredWithoutGroupsNestedInput
+    savings?: SavingsUpdateManyWithoutGroupNestedInput
+    members?: GroupMembersUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupsUncheckedUpdateWithoutTransactionsInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUncheckedUpdateManyWithoutGroupNestedInput
+    members?: GroupMembersUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type SavingsUpsertWithoutTransactionsInput = {
+    update: XOR<SavingsUpdateWithoutTransactionsInput, SavingsUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<SavingsCreateWithoutTransactionsInput, SavingsUncheckedCreateWithoutTransactionsInput>
+    where?: SavingsWhereInput
+  }
+
+  export type SavingsUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: SavingsWhereInput
+    data: XOR<SavingsUpdateWithoutTransactionsInput, SavingsUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type SavingsUpdateWithoutTransactionsInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UsersUpdateOneRequiredWithoutSavingsNestedInput
+    group?: GroupsUpdateOneWithoutSavingsNestedInput
+  }
+
+  export type SavingsUncheckedUpdateWithoutTransactionsInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -3892,12 +9151,35 @@ export namespace Prisma {
     created_at?: Date | string
   }
 
+  export type GroupsCreateManyCreatorInput = {
+    group_id?: string
+    group_name: string
+    created_at?: Date | string
+  }
+
+  export type GroupMembersCreateManyUserInput = {
+    member_id?: string
+    group_id: string
+    role: $Enums.GroupRoles
+    joined_at?: Date | string
+  }
+
+  export type TransactionsCreateManyUserInput = {
+    transaction_id?: string
+    group_id?: string | null
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
   export type SavingsUpdateWithoutUserInput = {
     saving_id?: StringFieldUpdateOperationsInput | string
-    group_id?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: GroupsUpdateOneWithoutSavingsNestedInput
+    transactions?: TransactionsUpdateManyWithoutSavingNestedInput
   }
 
   export type SavingsUncheckedUpdateWithoutUserInput = {
@@ -3906,6 +9188,7 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionsUncheckedUpdateManyWithoutSavingNestedInput
   }
 
   export type SavingsUncheckedUpdateManyWithoutUserInput = {
@@ -3913,6 +9196,212 @@ export namespace Prisma {
     group_id?: NullableStringFieldUpdateOperationsInput | string | null
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupsUpdateWithoutCreatorInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUpdateManyWithoutGroupNestedInput
+    members?: GroupMembersUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupsUncheckedUpdateWithoutCreatorInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    savings?: SavingsUncheckedUpdateManyWithoutGroupNestedInput
+    members?: GroupMembersUncheckedUpdateManyWithoutGroupNestedInput
+    transactions?: TransactionsUncheckedUpdateManyWithoutGroupNestedInput
+  }
+
+  export type GroupsUncheckedUpdateManyWithoutCreatorInput = {
+    group_id?: StringFieldUpdateOperationsInput | string
+    group_name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupMembersUpdateWithoutUserInput = {
+    member_id?: StringFieldUpdateOperationsInput | string
+    role?: EnumGroupRolesFieldUpdateOperationsInput | $Enums.GroupRoles
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: GroupsUpdateOneRequiredWithoutMembersNestedInput
+  }
+
+  export type GroupMembersUncheckedUpdateWithoutUserInput = {
+    member_id?: StringFieldUpdateOperationsInput | string
+    group_id?: StringFieldUpdateOperationsInput | string
+    role?: EnumGroupRolesFieldUpdateOperationsInput | $Enums.GroupRoles
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupMembersUncheckedUpdateManyWithoutUserInput = {
+    member_id?: StringFieldUpdateOperationsInput | string
+    group_id?: StringFieldUpdateOperationsInput | string
+    role?: EnumGroupRolesFieldUpdateOperationsInput | $Enums.GroupRoles
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsUpdateWithoutUserInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    group?: GroupsUpdateOneWithoutTransactionsNestedInput
+    saving?: SavingsUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionsUncheckedUpdateWithoutUserInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    saving_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsUncheckedUpdateManyWithoutUserInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    saving_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsCreateManySavingInput = {
+    transaction_id?: string
+    user_id: string
+    group_id?: string | null
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type TransactionsUpdateWithoutSavingInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UsersUpdateOneRequiredWithoutTransactionNestedInput
+    group?: GroupsUpdateOneWithoutTransactionsNestedInput
+  }
+
+  export type TransactionsUncheckedUpdateWithoutSavingInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsUncheckedUpdateManyWithoutSavingInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    group_id?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SavingsCreateManyGroupInput = {
+    saving_id?: string
+    user_id: string
+    amount: Decimal | DecimalJsLike | number | string
+    type: $Enums.SavingTypes
+    created_at?: Date | string
+  }
+
+  export type GroupMembersCreateManyGroupInput = {
+    member_id?: string
+    user_id: string
+    role: $Enums.GroupRoles
+    joined_at?: Date | string
+  }
+
+  export type TransactionsCreateManyGroupInput = {
+    transaction_id?: string
+    user_id: string
+    saving_id: string
+    type: $Enums.TransactionTypes
+    amount: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+  }
+
+  export type SavingsUpdateWithoutGroupInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UsersUpdateOneRequiredWithoutSavingsNestedInput
+    transactions?: TransactionsUpdateManyWithoutSavingNestedInput
+  }
+
+  export type SavingsUncheckedUpdateWithoutGroupInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: TransactionsUncheckedUpdateManyWithoutSavingNestedInput
+  }
+
+  export type SavingsUncheckedUpdateManyWithoutGroupInput = {
+    saving_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    type?: EnumSavingTypesFieldUpdateOperationsInput | $Enums.SavingTypes
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupMembersUpdateWithoutGroupInput = {
+    member_id?: StringFieldUpdateOperationsInput | string
+    role?: EnumGroupRolesFieldUpdateOperationsInput | $Enums.GroupRoles
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UsersUpdateOneRequiredWithoutGroupMembersNestedInput
+  }
+
+  export type GroupMembersUncheckedUpdateWithoutGroupInput = {
+    member_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    role?: EnumGroupRolesFieldUpdateOperationsInput | $Enums.GroupRoles
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GroupMembersUncheckedUpdateManyWithoutGroupInput = {
+    member_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    role?: EnumGroupRolesFieldUpdateOperationsInput | $Enums.GroupRoles
+    joined_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsUpdateWithoutGroupInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UsersUpdateOneRequiredWithoutTransactionNestedInput
+    saving?: SavingsUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type TransactionsUncheckedUpdateWithoutGroupInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    saving_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransactionsUncheckedUpdateManyWithoutGroupInput = {
+    transaction_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    saving_id?: StringFieldUpdateOperationsInput | string
+    type?: EnumTransactionTypesFieldUpdateOperationsInput | $Enums.TransactionTypes
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -3926,6 +9415,14 @@ export namespace Prisma {
      */
     export type UsersCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UsersCountOutputTypeDefaultArgs<ExtArgs>
     /**
+     * @deprecated Use SavingsCountOutputTypeDefaultArgs instead
+     */
+    export type SavingsCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SavingsCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use GroupsCountOutputTypeDefaultArgs instead
+     */
+    export type GroupsCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GroupsCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use UsersDefaultArgs instead
      */
     export type UsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UsersDefaultArgs<ExtArgs>
@@ -3933,6 +9430,18 @@ export namespace Prisma {
      * @deprecated Use SavingsDefaultArgs instead
      */
     export type SavingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = SavingsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use GroupsDefaultArgs instead
+     */
+    export type GroupsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GroupsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use GroupMembersDefaultArgs instead
+     */
+    export type GroupMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = GroupMembersDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use TransactionsDefaultArgs instead
+     */
+    export type TransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TransactionsDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
