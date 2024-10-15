@@ -180,7 +180,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\xampp\\htdocs\\e-pon\\prisma\\generated\\client",
+      "value": "C:\\xampp\\htdocs\\hackathon\\e-pon\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -194,7 +194,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\xampp\\htdocs\\e-pon\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\xampp\\htdocs\\hackathon\\e-pon\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -208,6 +208,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
