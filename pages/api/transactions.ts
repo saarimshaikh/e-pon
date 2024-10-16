@@ -59,7 +59,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method not allowed' });
   }
 }
-
 async function personalSavingsHandler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const result = personalSavingsSchema.safeParse(req.query);
