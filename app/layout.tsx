@@ -1,24 +1,36 @@
-import { Provider } from "../app/component/providers";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import { Session } from "@/lib/utils/types";
-import { Users } from "@/prisma/generated/client";
+import type { Metadata } from "next";
+import localFont from "next/font/local";
+import "./globals.css";
+import { Navbar } from "@/components";
 
-export default async function RootLayout({
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
+  weight: "100 900",
+});
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+  weight: "100 900",
+});
+
+export const metadata: Metadata = {
+  title: "e-pon",
+  description: "A savings system",
+};
+
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  const session: Session<Users> | null = await getServerSession(authOptions)
-console.log(session)
-
   return (
     <html lang="en">
-      <body className="flex flex-col relative overflow-hidden">
-        <Provider>
-          {children}
-        </Provider>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <Navbar />
+        {children}
       </body>
     </html>
   );
