@@ -5,23 +5,23 @@ const prisma = new PrismaClient();
 async function main() {
   const users = [
     {
-      name: "Gian Maaghop",
-      email: "gian.maaghop@fujitsu.com",
+      name: "Gian test",
+      email: "giantest@gmail.com",
       password: "testpassword123456789",
     },
     {
-      name: "Mico Montanez",
-      email: "mico.montanez@fujitsu.com",
+      name: "Mico test",
+      email: "micotest@gmail.com",
       password: "testpassword123456789",
     },
     {
-      name: "Jonathan de Torres",
-      email: "jdtrres@gmail.com",
+      name: "Jonathanteste",
+      email: "test@gmail.com",
       password: "testpassword123456789",
     },
     {
-      name: "Rico Guinanao",
-      email: "rico.guinana@fujitsu.com",
+      name: "Rico test",
+      email: "ricotest@gmailk.com",
       password: "testpassword123456789",
     },
   ];
