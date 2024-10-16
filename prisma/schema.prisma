@@ -26,6 +26,7 @@ model Users {
   groups Groups[] @relation("GroupCreator")
   groupMembers GroupMembers[]
   transaction Transactions[]
+  withdrawalApprovals WithdrawalApprovals[]
 }
 
 model Savings { 
@@ -80,6 +81,22 @@ model Transactions {
   user Users @relation(fields: [user_id], references: [user_id])
   group Groups? @relation(fields: [group_id], references: [group_id])
   saving Savings @relation(fields: [saving_id], references: [saving_id])
+  withdrawalApprovals WithdrawalApprovals[]
+}
+
+model WithdrawalApprovals {  
+
+approval_id String @id @default(uuid()) @db.Uuid  
+transaction_id String @db.Uuid  
+approved_by String? @db.Uuid  
+status ApprovalStatuses @default(pending)  
+created_at DateTime @default(now())  
+updated_at DateTime @updatedAt
+
+// Relations  
+transaction Transactions @relation(fields: [transaction_id], references: [transaction_id])  
+approver Users? @relation(fields: [approved_by], references: [user_id])  
+
 }
 
 enum SavingTypes { 
@@ -96,3 +113,9 @@ enum TransactionTypes {
   deposit
   withdrawal
 }
+
+enum ApprovalStatuses {   
+  pending  
+  approved  
+  rejected  
+} 
